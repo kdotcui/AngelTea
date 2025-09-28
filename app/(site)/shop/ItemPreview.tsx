@@ -9,7 +9,7 @@ export default function ItemPreview({ product }: ItemPreviewProps) {
   
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="aspect-square overflow-hidden">
+      <div className="h-48 overflow-hidden">
         <img 
           src={product.images?.[0] || '/placeholder.jpg'} 
           alt={product.name}
