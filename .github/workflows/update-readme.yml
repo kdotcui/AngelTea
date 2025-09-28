@@ -1,0 +1,38 @@
+name: Update README Timestamp
+
+on:
+  push:
+    branches:
+      - main # Or whatever your default branch is
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out your repository
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Step 2: Generate timestamp and replace the first line of README.md
+      - name: Update README.md first line
+        run: |
+          # This command creates the timestamp string, e.g., "Last updated 22:32 09/28/2025 UTC"
+          TIMESTAMP_LINE="Last updated $(date -u +'%H:%M %m/%d/%Y %Z')"
+          
+          # This command uses 'sed' to replace the first line (1s) of README.md with the new timestamp
+          sed -i "1s/.*/$TIMESTAMP_LINE/" README.md
+
+      # Step 3: Commit the updated README.md and push it back
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          # Commit only if there are changes, and use [skip ci] to prevent a loop
+          if ! git diff --staged --quiet; then
+            git commit -m "docs: Update README timestamp [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
