@@ -16,9 +16,12 @@ import type { PopularDrink, DrinkSizePrice } from '@/types/drink';
 import {
   updatePopularDrink,
   uploadPopularImage,
+  type PopularDrinkUpdate,
 } from '@/services/popularDrinks';
-import { deleteField } from 'firebase/firestore';
+import { deleteField, type FieldValue } from 'firebase/firestore';
+import type { DrinkSizePrice as DrinkSizePriceType } from '@/types/drink';
 
+type DrinkUpdatePayload = PopularDrinkUpdate;
 export default function EditDrinkButton({
   drink,
   onSaved,
@@ -64,24 +67,35 @@ export default function EditDrinkButton({
         }
       }
 
-      const patch: any = { title, description };
+      const patch: DrinkUpdatePayload = { title, description };
       if (newImageFile) {
         const imageUrl = await uploadPopularImage(newImageFile);
         patch.imageUrl = imageUrl;
       }
       if (pricingMode === 'single') {
-        patch.price = Number(price);
-        patch.sizes = deleteField();
+        patch.price = Number(price) as number & FieldValue;
+        // use a separate payload to include FieldValue with correct typing
+        const payload: DrinkUpdatePayload = {
+          ...patch,
+          sizes: deleteField(),
+        };
+        await updatePopularDrink(drink.id, payload);
+        setOpen(false);
+        await onSaved();
+        return;
       } else {
-        patch.price = deleteField();
-        patch.sizes = (sizes ?? [])
-          .filter((s) => s.label.trim() && !Number.isNaN(Number(s.price)))
-          .map((s) => ({ label: s.label.trim(), price: Number(s.price) }));
+        const payload: DrinkUpdatePayload = {
+          ...patch,
+          price: deleteField(),
+          sizes: (sizes ?? [])
+            .filter((s) => s.label.trim() && !Number.isNaN(Number(s.price)))
+            .map((s) => ({ label: s.label.trim(), price: Number(s.price) })),
+        };
+        await updatePopularDrink(drink.id, payload);
+        setOpen(false);
+        await onSaved();
+        return;
       }
-
-      await updatePopularDrink(drink.id, patch);
-      setOpen(false);
-      await onSaved();
     } finally {
       setSaving(false);
     }

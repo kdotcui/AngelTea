@@ -6,7 +6,6 @@ import { type PopularDrink } from '@/types/drink';
 import { listPopularDrinks } from '@/services/popularDrinks';
 import {
   Card,
-  CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
