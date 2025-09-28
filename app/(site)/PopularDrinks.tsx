@@ -76,7 +76,6 @@ export default function PopularDrinks() {
                       ) : typeof d.price === 'number' ? (
                         <Badge>${d.price.toFixed(2)}</Badge>
                       ) : null}
-                      <Badge>Story</Badge>
                     </div>
                   </CardHeader>
                 </Card>

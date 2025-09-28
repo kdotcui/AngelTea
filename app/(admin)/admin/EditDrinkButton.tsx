@@ -42,6 +42,11 @@ export default function EditDrinkButton({
   );
   const [status, setStatus] = useState<string | null>(null);
   const [newImageFile, setNewImageFile] = useState<File | null>(null);
+  const [newVideoFile, setNewVideoFile] = useState<File | null>(null);
+  const [videoUrlInput, setVideoUrlInput] = useState<string>(
+    typeof drink.videoUrl === 'string' ? drink.videoUrl : ''
+  );
+  const [storyInput, setStoryInput] = useState<string>(drink.story ?? '');
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -72,6 +77,17 @@ export default function EditDrinkButton({
         const imageUrl = await uploadPopularImage(newImageFile);
         patch.imageUrl = imageUrl;
       }
+      if (newVideoFile) {
+        const { uploadPopularVideo } = await import('@/services/popularDrinks');
+        const videoUrl = await uploadPopularVideo(newVideoFile);
+        patch.videoUrl = videoUrl;
+      }
+      if (videoUrlInput.trim()) {
+        patch.videoUrl = videoUrlInput.trim();
+      } else {
+        patch.videoUrl = deleteField();
+      }
+      patch.story = storyInput.trim() ? storyInput.trim() : deleteField();
       if (pricingMode === 'single') {
         patch.price = Number(price) as number & FieldValue;
         // use a separate payload to include FieldValue with correct typing
@@ -134,6 +150,30 @@ export default function EditDrinkButton({
               type="file"
               accept="image/*"
               onChange={(e) => setNewImageFile(e.target.files?.[0] ?? null)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="estory">Story (optional)</Label>
+            <textarea
+              id="estory"
+              className="w-full rounded-md border p-2 text-sm"
+              rows={4}
+              value={storyInput}
+              onChange={(e) => setStoryInput(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="evideo">Replace Video (optional)</Label>
+            <Input
+              id="evideo"
+              type="file"
+              accept="video/*"
+              onChange={(e) => setNewVideoFile(e.target.files?.[0] ?? null)}
+            />
+            <Input
+              placeholder="Or paste video URL"
+              value={videoUrlInput}
+              onChange={(e) => setVideoUrlInput(e.target.value)}
             />
           </div>
           <div className="space-y-2">
