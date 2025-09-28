@@ -68,6 +68,18 @@ export async function uploadPopularImage(file: File, pathPrefix = 'popular') {
   return url;
 }
 
+export async function uploadPopularVideo(
+  file: File,
+  pathPrefix = 'popular-videos'
+) {
+  const app = getFirebaseApp();
+  const storage = getStorage(app);
+  const fileRef = ref(storage, `${pathPrefix}/${Date.now()}-${file.name}`);
+  const res = await uploadBytes(fileRef, file);
+  const url = await getDownloadURL(res.ref);
+  return url;
+}
+
 export async function updatePopularDrink(
   id: string,
   patch: PopularDrinkUpdate

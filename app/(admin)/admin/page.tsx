@@ -10,6 +10,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardAction,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { listPopularDrinks } from '@/services/popularDrinks';
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
         </Button>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Hero Slideshow</CardTitle>
@@ -101,20 +102,6 @@ export default function AdminDashboard() {
             )}
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Popular Drinks</CardTitle>
-            <CardDescription>
-              Add or update drinks featured on the homepage.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-wrap gap-3">
-            <Button variant="outline" asChild>
-              <Link href="/admin/upload/popular-drink">Add Drink</Link>
-            </Button>
-          </CardContent>
-        </Card>
       </div>
 
       <Card>
@@ -123,6 +110,11 @@ export default function AdminDashboard() {
           <CardDescription>
             Content shown on the homepage Popular Drinks section.
           </CardDescription>
+          <CardAction>
+            <Button variant="outline" asChild>
+              <Link href="/admin/upload/popular-drink">Add Drink</Link>
+            </Button>
+          </CardAction>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -131,7 +123,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">No items yet.</p>
               <Button size="sm" asChild>
-                <Link href="/admin/upload">Add first item</Link>
+                <Link href="/admin/upload/popular-drink">Add first item</Link>
               </Button>
             </div>
           ) : (
