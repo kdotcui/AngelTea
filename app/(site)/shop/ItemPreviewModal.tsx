@@ -1,73 +1,87 @@
 "use client";
 import { ShopItem } from './types';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Star } from 'lucide-react';
 
 interface ItemPreviewModalProps {
   item: ShopItem;
   onClose: () => void;
+  open: boolean;
 }
 
-export default function ItemPreviewModal({ item, onClose }: ItemPreviewModalProps) {
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      aria-modal="true"
-      role="dialog"
-    >
-      <button
-        type="button"
-        aria-label="Close"
-        className="absolute inset-0 bg-black/60"
-        onClick={onClose}
-      />
+export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewModalProps) {
+  const rating = item.total_reviews > 0 ? (item.review_score / item.total_reviews).toFixed(1) : '0.0';
 
-      <div className="relative z-10 w-full max-w-3xl bg-white rounded-xl overflow-hidden shadow-xl">
+  return (
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+      <DialogContent className="max-w-4xl p-0 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="h-64 md:h-full bg-gray-100">
+          {/* Image Section */}
+          <div className="relative h-64 md:h-96 bg-muted">
             <img
               src={item.images?.[0] || '/placeholder.jpg'}
               alt={item.name}
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="p-6 space-y-4">
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-900">{item.name}</h2>
-                {item.description && (
-                  <p className="mt-2 text-sm text-gray-600">{item.description}</p>
-                )}
-              </div>
-              <button
-                type="button"
-                className="ml-4 text-gray-500 hover:text-gray-700"
-                onClick={onClose}
-                aria-label="Close"
-              >
-                ×
-              </button>
-            </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-xl font-bold text-green-600">${item.price.toFixed(2)}</span>
-              <div className="text-sm text-gray-600">
-                <span className="text-yellow-500 mr-1">★</span>
-                {(item.review_score / item.total_reviews).toFixed(1)}/5
-              </div>
-            </div>
+          {/* Content Section */}
+          <div className="p-6">
+            <DialogHeader className="space-y-3 text-left">
+              <DialogTitle className="text-2xl font-bold text-foreground">
+                {item.name}
+              </DialogTitle>
+              {item.description && (
+                <DialogDescription className="text-base text-muted-foreground">
+                  {item.description}
+                </DialogDescription>
+              )}
+            </DialogHeader>
 
-            <div className="text-xs text-gray-500">
-              {item.purchases} purchases · {item.total_reviews} reviews
-            </div>
+            <Card className="mt-6 border-0 shadow-none p-0">
+              <CardContent className="space-y-4 p-0">
+                {/* Price and Rating */}
+                <div className="flex items-center justify-between">
+                  <div className="text-3xl font-bold text-primary">
+                    ${item.price.toFixed(2)}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">
+                      {rating}/5
+                    </span>
+                  </div>
+                </div>
 
-            <div className="pt-2 text-right">
-              <span className="inline-block text-sm text-gray-700">
-                In stock: {item.quantity}
-              </span>
-            </div>
+                {/* Badges */}
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="text-xs">
+                    {item.purchases} purchases
+                  </Badge>
+                  <Badge variant="outline" className="text-xs">
+                    {item.total_reviews} reviews
+                  </Badge>
+                  <Badge 
+                    variant={item.quantity > 10 ? "default" : item.quantity > 0 ? "secondary" : "destructive"}
+                    className="text-xs"
+                  >
+                    {item.quantity > 0 ? `${item.quantity} in stock` : 'Out of stock'}
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

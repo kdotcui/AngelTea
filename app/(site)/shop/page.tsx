@@ -21,10 +21,11 @@ export default function ShopPage() {
           />
         ))}
       </div>
-
-      {selectedItem && (
-        <ItemPreviewModal item={selectedItem} onClose={() => setSelectedItem(null)} />
-      )}
+      <ItemPreviewModal 
+        item={selectedItem || products[0]} 
+        open={selectedItem !== null} 
+        onClose={() => setSelectedItem(null)} 
+      />
     </div>
   );
 }
