@@ -17,11 +17,11 @@ jobs:
       # Step 2: Generate timestamp and replace the first line of README.md
       - name: Update README.md first line
         run: |
-          # This command creates the timestamp string, e.g., "Last updated 22:32 09/28/2025 UTC"
+          # Create the timestamp string
           TIMESTAMP_LINE="Last updated $(date -u +'%H:%M %m/%d/%Y %Z')"
           
-          # This command uses 'sed' to replace the first line (1s) of README.md with the new timestamp
-          sed -i "1s/.*/$TIMESTAMP_LINE/" README.md
+          # Use sed with '#' as a delimiter to avoid conflict with the date's slashes
+          sed -i "1s#.*#$TIMESTAMP_LINE#" README.md
 
       # Step 3: Commit the updated README.md and push it back
       - name: Commit and push changes
