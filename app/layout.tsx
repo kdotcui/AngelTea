@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Poppins, Roboto, Pacifico } from 'next/font/google';
+import { AnalyticsInit } from './AnalyticsInit';
 import './globals.css';
 
 const poppins = Poppins({
@@ -136,6 +137,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
+        <AnalyticsInit />
         <footer className="border-t">
           <div className="mx-auto max-w-6xl p-6 text-sm">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
