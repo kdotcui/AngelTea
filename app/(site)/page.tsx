@@ -11,7 +11,7 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card';
-import { Star, Quote, Newspaper } from 'lucide-react';
+import { Star, Quote, Newspaper, InstagramIcon } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -52,13 +52,19 @@ export default function Home() {
             <Button className="w-full sm:w-auto" variant="outline" asChild>
               <Link href="#visit">Find Us</Link>
             </Button>
-            <Button className="hidden sm:inline-flex" variant="ghost" asChild>
+            <Button
+              className="hidden sm:inline-flex"
+              variant="ghost"
+              size="icon"
+              asChild
+              aria-label="Instagram"
+            >
               <Link
                 href="https://instagram.com/angelteaofficial"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
+                <InstagramIcon />
               </Link>
             </Button>
           </div>
