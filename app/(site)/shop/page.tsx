@@ -3,6 +3,7 @@ import ItemPreview from './ItemPreview';
 
 const products: ShopItem[] = [
   {
+    id: 'premium-matcha-tea',
     name: 'Premium Matcha Tea',
     price: 24.99,
     images: ['/menu/drinksleft.webp', '/menu/drinksright.webp'],
@@ -13,6 +14,7 @@ const products: ShopItem[] = [
     purchases: 342
   },
   {
+    id: 'chocolate-croissant',
     name: 'Chocolate Croissant',
     price: 4.50,
     images: ['/menu/dessertleft.webp', '/menu/dessertright.webp'],
@@ -23,6 +25,7 @@ const products: ShopItem[] = [
     purchases: 156
   },
   {
+    id: 'avocado-toast',
     name: 'Avocado Toast',
     price: 12.99,
     images: ['/menu/foodleft.webp', '/menu/foodright.webp'],
@@ -33,6 +36,7 @@ const products: ShopItem[] = [
     purchases: 487
   },
   {
+    id: 'iced-coffee',
     name: 'Iced Coffee',
     price: 3.75,
     images: ['/menu/drinksleft.webp'],
@@ -43,6 +47,7 @@ const products: ShopItem[] = [
     purchases: 234
   },
   {
+    id: 'blueberry-muffin',
     name: 'Blueberry Muffin',
     price: 3.25,
     images: ['/menu/dessertleft.webp'],
@@ -59,8 +64,8 @@ export default function ShopPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">All Items</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product, index) => (
-          <ItemPreview key={index} product={product} />
+        {products.map((product) => (
+          <ItemPreview key={product.id} product={product} />
         ))}
       </div>
     </div>
