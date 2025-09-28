@@ -5,6 +5,10 @@ on:
     branches:
       - main # Or whatever your default branch is
 
+# Grant the workflow write permissions to the repository's contents
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
