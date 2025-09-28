@@ -1,0 +1,11 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // DEV RULES - open bucket for development. Tighten before prod.
+    match /{path=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+
