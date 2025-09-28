@@ -13,16 +13,22 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { listPopularDrinks } from '@/services/popularDrinks';
+import { listHeroSlides } from '@/services/heroSlides';
+import HeroSlideActions from './HeroSlideActions';
+import type { HeroSlide } from '@/types/hero';
 import EditDrinkButton from './EditDrinkButton';
 import DeleteDrinkButton from './DeleteDrinkButton';
 import type { PopularDrink } from '@/types/drink';
 
 export default function AdminDashboard() {
   const [drinks, setDrinks] = useState<PopularDrink[]>([]);
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
   const [loading, setLoading] = useState(true);
   async function refresh() {
     const data = await listPopularDrinks();
     setDrinks(data);
+    const heroes = await listHeroSlides();
+    setHeroSlides(heroes);
   }
   useEffect(() => {
     refresh().finally(() => setLoading(false));
@@ -40,7 +46,62 @@ export default function AdminDashboard() {
         </Button>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Hero Slideshow</CardTitle>
+            <CardDescription>Manage rotating hero images.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-3 flex items-center justify-between">
+              <div className="text-sm text-muted-foreground">
+                {heroSlides.length} slides
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" asChild>
+                  <Link href="/admin/upload/hero">Add Slide</Link>
+                </Button>
+              </div>
+            </div>
+            {heroSlides.length ? (
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {heroSlides.map((s, i) => (
+                  <div
+                    key={s.id ?? i}
+                    className="overflow-hidden rounded-xl border"
+                  >
+                    <div className="relative h-32 w-full bg-muted">
+                      {s.imageUrl ? (
+                        <img
+                          src={s.imageUrl}
+                          alt={s.title ?? 'Hero'}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : null}
+                    </div>
+                    <div className="p-3 text-sm">
+                      <div className="font-medium">
+                        {typeof s.order === 'number' ? `#${s.order} ` : ''}
+                        {s.title || 'Untitled'}
+                      </div>
+                      {s.href ? (
+                        <div className="text-muted-foreground truncate">
+                          {s.href}
+                        </div>
+                      ) : null}
+                      <div className="mt-2">
+                        <HeroSlideActions slide={s} onChanged={refresh} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No slides yet.</p>
+            )}
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle>Popular Drinks</CardTitle>
@@ -50,7 +111,7 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent className="flex flex-wrap gap-3">
             <Button variant="outline" asChild>
-              <Link href="/admin/upload">Add Drink</Link>
+              <Link href="/admin/upload/popular-drink">Add Drink</Link>
             </Button>
           </CardContent>
         </Card>

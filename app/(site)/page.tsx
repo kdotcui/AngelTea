@@ -19,6 +19,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import PopularDrinks from './PopularDrinks';
+import HeroSlideshow from './HeroSlideshow';
 
 export default function Home() {
   return (
@@ -63,16 +64,7 @@ export default function Home() {
           </div>
         </div>
         <div className="relative">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border shadow-sm">
-            <Image
-              src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&auto=format&fit=crop&w=1600"
-              alt="Iced milk tea with tapioca pearls"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-          </div>
+          <HeroSlideshow />
         </div>
       </section>
 

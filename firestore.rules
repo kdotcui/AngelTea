@@ -6,6 +6,11 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // Hero slideshow content (homepage)
+    match /heroSlides/{docId} {
+      allow read, write: if true;
+    }
+
     // deny everything else by default
     match /{document=**} {
       allow read, write: if false;
