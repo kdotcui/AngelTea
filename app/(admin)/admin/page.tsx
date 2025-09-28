@@ -159,15 +159,6 @@ export default function AdminDashboard() {
       </Card>
 
       <Separator />
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
-          Placeholder dashboard. Hook up actions to Firebase or your API when
-          ready.
-        </p>
-        <Button variant="ghost" asChild>
-          <Link href="/api/hello">Test API</Link>
-        </Button>
-      </div>
     </main>
   );
 }
