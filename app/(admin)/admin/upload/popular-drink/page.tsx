@@ -73,7 +73,7 @@ export default function UploadPopularDrinkPage() {
 
       await createPopularDrink(payload);
       router.push('/admin');
-    } catch (err) {
+    } catch {
       setStatus('Failed to save');
     } finally {
       setSaving(false);

@@ -1,5 +1,6 @@
 "use client";
-import { ShopItem } from './types';
+import { ShopItem } from '@/types/ShopItem';
+import Image from 'next/image';
 import {
   Dialog,
   DialogContent,
@@ -26,10 +27,11 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Image Section */}
           <div className="relative h-64 md:h-96 bg-muted">
-            <img
+            <Image
               src={item.images?.[0] || '/placeholder.jpg'}
               alt={item.name}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </div>
 
