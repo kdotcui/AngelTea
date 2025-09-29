@@ -11,6 +11,14 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // Admin allowlist: document per admin, id = auth UID
+    match /admins/{uid} {
+      // Allow signed-in users to read their own admin marker
+      allow read: if request.auth != null && request.auth.uid == uid;
+      // Writes managed out-of-band via console/CLI
+      allow write: if false;
+    }
+
     // deny everything else by default
     match /{document=**} {
       allow read, write: if false;
