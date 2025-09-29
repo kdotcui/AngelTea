@@ -42,7 +42,6 @@ export default function UploadHeroSlidePage() {
       router.push('/admin');
     } catch (e: unknown) {
       // Log detailed error for debugging
-      // eslint-disable-next-line no-console
       console.error('Upload hero failed', e);
       const message = (e as { message?: string })?.message ?? 'Failed to save';
       setStatus(message);
