@@ -40,11 +40,11 @@ export default function UploadHeroSlidePage() {
         imageUrl,
       });
       router.push('/admin');
-    } catch (e: any) {
+    } catch (e: unknown) {
       // Log detailed error for debugging
       // eslint-disable-next-line no-console
       console.error('Upload hero failed', e);
-      const message = e?.message || 'Failed to save';
+      const message = (e as { message?: string })?.message ?? 'Failed to save';
       setStatus(message);
     } finally {
       setSaving(false);
