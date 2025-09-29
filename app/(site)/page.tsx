@@ -99,16 +99,20 @@ export default function Home() {
             <h3 className="mb-3 text-lg font-medium">Drinks</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
-                <img
+                <Image
                   src="/menu/drinksleft.webp"
                   alt="Drinks menu (left)"
+                  width={640}
+                  height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
                 />
               </Card>
               <Card className="overflow-hidden p-0">
-                <img
+                <Image
                   src="/menu/drinksright.webp"
                   alt="Drinks menu (right)"
+                  width={640}
+                  height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
                 />
               </Card>
@@ -119,16 +123,20 @@ export default function Home() {
             <h3 className="mb-3 text-lg font-medium">Food</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
-                <img
+                <Image
                   src="/menu/foodleft.webp"
                   alt="Food menu (left)"
+                  width={640}
+                  height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
                 />
               </Card>
               <Card className="overflow-hidden p-0">
-                <img
+                <Image
                   src="/menu/foodright.webp"
                   alt="Food menu (right)"
+                  width={640}
+                  height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
                 />
               </Card>
@@ -139,16 +147,20 @@ export default function Home() {
             <h3 className="mb-3 text-lg font-medium">Desserts</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
-                <img
+                <Image
                   src="/menu/dessertleft.webp"
                   alt="Dessert menu (left)"
+                  width={640}
+                  height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
                 />
               </Card>
               <Card className="overflow-hidden p-0">
-                <img
+                <Image
                   src="/menu/dessertright.webp"
                   alt="Dessert menu (right)"
+                  width={640}
+                  height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
                 />
               </Card>

@@ -25,7 +25,6 @@ export default function HeroSlideshow() {
 
   if (slides.length === 0) return null;
 
-  const current = slides[idx];
 
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border shadow-sm">
