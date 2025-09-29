@@ -28,7 +28,6 @@ export async function listHeroSlides(): Promise<HeroSlide[]> {
       ...(d.data() as DocumentData),
     })) as HeroSlide[];
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.warn('[heroSlides] ordered query failed, falling back', err);
     const snap = await getDocs(collection(db, COLLECTION));
     return snap.docs.map((d) => ({
