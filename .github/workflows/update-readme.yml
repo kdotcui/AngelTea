@@ -1,0 +1,42 @@
+name: Update README Timestamp
+
+on:
+  push:
+    branches:
+      - main # Or whatever your default branch is
+
+# Grant the workflow write permissions to the repository's contents
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out your repository
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Step 2: Generate timestamp and replace the first line of README.md
+      - name: Update README.md first line
+        run: |
+          # Create the timestamp string
+          TIMESTAMP_LINE="Last updated $(date -u +'%H:%M %m/%d/%Y %Z')"
+          
+          # Use sed with '#' as a delimiter to avoid conflict with the date's slashes
+          sed -i "1s#.*#$TIMESTAMP_LINE#" README.md
+
+      # Step 3: Commit the updated README.md and push it back
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          # Commit only if there are changes, and use [skip ci] to prevent a loop
+          if ! git diff --staged --quiet; then
+            git commit -m "docs: Update README timestamp [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
