@@ -11,6 +11,7 @@ function SiteLayoutContent({
   children: React.ReactNode;
 }) {
   const { t } = useLanguage();
+  const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
 
   return (
     <div>
@@ -27,9 +28,11 @@ function SiteLayoutContent({
             <span className="text-sm font-semibold">{t('hero.title')}</span>
           </Link>
           <nav className="hidden items-center gap-5 text-sm md:flex">
-            <Link href="/shop" className="hover:text-secondary">
-              {t('navigation.shop')}
-            </Link>
+            {isShopEnabled && (
+              <Link href="/shop" className="hover:text-secondary">
+                {t('navigation.shop')}
+              </Link>
+            )}
             <Link href="#menu" className="hover:text-secondary">
               {t('navigation.popular')}
             </Link>
@@ -64,9 +67,11 @@ function SiteLayoutContent({
             <div className="absolute left-0 right-0 mt-2 border-b bg-white/95 px-4 py-3 text-sm shadow-sm backdrop-blur dark:bg-background/95">
               <div className="mx-auto max-w-6xl">
                 <div className="grid gap-3">
-                  <Link href="/shop" className="hover:underline">
-                    {t('navigation.shop')}
-                  </Link>
+                  {isShopEnabled && (
+                    <Link href="/shop" className="hover:underline">
+                      {t('navigation.shop')}
+                    </Link>
+                  )}
                   <Link href="#menu" className="hover:underline">
                     {t('navigation.popular')}
                   </Link>
