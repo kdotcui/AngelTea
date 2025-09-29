@@ -1,5 +1,5 @@
 "use client";
-import { ShopItem } from './types';
+import { ShopItem } from '@/types/ShopItem';
 import {
   Dialog,
   DialogContent,
