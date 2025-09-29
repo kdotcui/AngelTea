@@ -1,6 +1,6 @@
 "use client";
 import { useState} from 'react';
-import { ShopItem } from '@/types/ShopItem';
+import { ShopItem } from '@/types/shop';
 import ItemPreviewCard from './ItemPreviewCard';
 import ItemPreviewModal from './ItemPreviewModal';
 // TODO: Remove this and replace with items stored in firebase.
