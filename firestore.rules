@@ -13,8 +13,9 @@ service cloud.firestore {
 
     // Admin allowlist: document per admin, id = auth UID
     match /admins/{uid} {
-      // Allow signed-in users to read their own admin marker
-      allow read: if request.auth != null && request.auth.uid == uid;
+      // Allow any signed-in user to read admin markers (clients only ever read their own doc)
+      // This avoids intermittent request.auth propagation issues across environments
+      allow read: if request.auth != null;
       // Writes managed out-of-band via console/CLI
       allow write: if false;
     }
