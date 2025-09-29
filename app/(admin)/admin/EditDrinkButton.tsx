@@ -19,7 +19,6 @@ import {
   type PopularDrinkUpdate,
 } from '@/services/popularDrinks';
 import { deleteField, type FieldValue } from 'firebase/firestore';
-import type { DrinkSizePrice as DrinkSizePriceType } from '@/types/drink';
 
 type DrinkUpdatePayload = PopularDrinkUpdate;
 export default function EditDrinkButton({
