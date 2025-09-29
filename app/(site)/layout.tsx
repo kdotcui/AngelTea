@@ -24,19 +24,19 @@ export default function SiteLayout({
             <Link href="/shop" className="hover:text-secondary">
               Shop
             </Link>
-            <Link href="#menu" className="hover:text-secondary">
+            <Link href="/#menu" className="hover:text-secondary">
               Popular
             </Link>
-            <Link href="#menu-boards" className="hover:text-secondary">
+            <Link href="/#menu-boards" className="hover:text-secondary">
               Menu
             </Link>
-            <Link href="#about" className="hover:text-secondary">
+            <Link href="/#about" className="hover:text-secondary">
               About
             </Link>
-            <Link href="#visit" className="hover:text-secondary">
+            <Link href="/#visit" className="hover:text-secondary">
               Visit
             </Link>
-            <Link href="#press" className="hover:text-secondary">
+            <Link href="/#press" className="hover:text-secondary">
               Press
             </Link>
           </nav>
@@ -58,19 +58,19 @@ export default function SiteLayout({
                   <Link href="/shop" className="hover:underline">
                     Shop
                   </Link>
-                  <Link href="#menu" className="hover:underline">
+                  <Link href="/#menu" className="hover:underline">
                     Popular
                   </Link>
-                  <Link href="#menu-boards" className="hover:underline">
+                  <Link href="/#menu-boards" className="hover:underline">
                     Menu
                   </Link>
-                  <Link href="#about" className="hover:underline">
+                  <Link href="/#about" className="hover:underline">
                     About
                   </Link>
-                  <Link href="#visit" className="hover:underline">
+                  <Link href="/#visit" className="hover:underline">
                     Visit
                   </Link>
-                  <Link href="#press" className="hover:underline">
+                  <Link href="/#press" className="hover:underline">
                     Press
                   </Link>
                 </div>

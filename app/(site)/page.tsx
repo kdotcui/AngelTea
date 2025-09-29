@@ -47,10 +47,10 @@ export default function Home() {
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button className="w-full sm:w-auto" asChild>
-              <Link href="#menu">View Menu</Link>
+              <Link href="/#menu">View Menu</Link>
             </Button>
             <Button className="w-full sm:w-auto" variant="outline" asChild>
-              <Link href="#visit">Find Us</Link>
+              <Link href="/#visit">Find Us</Link>
             </Button>
             <Button
               className="hidden sm:inline-flex"
