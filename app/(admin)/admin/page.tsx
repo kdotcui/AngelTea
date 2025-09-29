@@ -15,21 +15,27 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { listPopularDrinks } from '@/services/popularDrinks';
 import { listHeroSlides } from '@/services/heroSlides';
+import { getShopItems } from '@/services/shopItemUtils';
 import HeroSlideActions from './HeroSlideActions';
 import type { HeroSlide } from '@/types/hero';
 import EditDrinkButton from './EditDrinkButton';
 import DeleteDrinkButton from './DeleteDrinkButton';
+import EditShopItemButton from './shopItems/EditShopItemButton';
 import type { PopularDrink } from '@/types/drink';
+import type { ShopItem } from '@/types/shop';
 
 export default function AdminDashboard() {
   const [drinks, setDrinks] = useState<PopularDrink[]>([]);
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
+  const [shopItems, setShopItems] = useState<ShopItem[]>([]);
   const [loading, setLoading] = useState(true);
   async function refresh() {
     const data = await listPopularDrinks();
     setDrinks(data);
     const heroes = await listHeroSlides();
     setHeroSlides(heroes);
+    const items = await getShopItems();
+    setShopItems(items);
   }
   useEffect(() => {
     refresh().finally(() => setLoading(false));
@@ -158,6 +164,67 @@ export default function AdminDashboard() {
           )}
         </CardContent>
       </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Shop Merchandise ({shopItems.length})</CardTitle>
+          <CardDescription>
+            Products available in the shop.
+          </CardDescription>
+          <CardAction>
+            <Button variant="outline" asChild>
+              <Link href="/admin/upload/shop-item">Add Item</Link>
+            </Button>
+          </CardAction>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <p className="text-sm text-muted-foreground">Loading…</p>
+          ) : shopItems.length === 0 ? (
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-muted-foreground">No items yet.</p>
+              <Button size="sm" asChild>
+                <Link href="/admin/upload/shop-item">Add first item</Link>
+              </Button>
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {shopItems.map((item) => (
+                <div key={item.id} className="rounded-xl border">
+                  <div className="relative h-36 w-full overflow-hidden rounded-t-xl bg-muted">
+                    {item.images && item.images.length > 0 ? (
+                      <Image
+                        src={item.images[0]}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                      />
+                    ) : null}
+                  </div>
+                  <div className="p-3">
+                    <div className="font-medium">{item.name}</div>
+                    <div className="text-sm text-muted-foreground">
+                      ${item.price.toFixed(2)} • {item.quantity} in stock
+                    </div>
+                    {item.description && (
+                      <div className="text-muted-foreground text-sm line-clamp-2 mt-1">
+                        {item.description}
+                      </div>
+                    )}
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {item.total_reviews} reviews ({item.review_score.toFixed(1)}/5) • {item.purchases} sold
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <EditShopItemButton item={item} onSaved={refresh} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
 
       <Separator />
     </main>
