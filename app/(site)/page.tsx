@@ -165,11 +165,12 @@ export default function Home() {
         <div className="relative">
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border shadow-sm">
             <Image
-              src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&auto=format&fit=crop&w=1600"
-              alt="Pouring milk into coffee"
+              src="/storieangeltea.png"
+              alt="Angel Tea story"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
+              priority
             />
           </div>
         </div>
