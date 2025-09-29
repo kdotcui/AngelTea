@@ -6,6 +6,7 @@ export default function SiteLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
   return (
     <div>
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
@@ -21,9 +22,11 @@ export default function SiteLayout({
             <span className="text-sm font-semibold">Angel Tea</span>
           </Link>
           <nav className="hidden items-center gap-5 text-sm md:flex">
-            <Link href="/shop" className="hover:text-secondary">
-              Shop
-            </Link>
+            {isShopEnabled && (
+              <Link href="/shop" className="hover:text-secondary">
+                Shop
+              </Link>
+            )}
             <Link href="/#menu" className="hover:text-secondary">
               Popular
             </Link>
@@ -55,9 +58,11 @@ export default function SiteLayout({
             <div className="absolute left-0 right-0 mt-2 border-b bg-white/95 px-4 py-3 text-sm shadow-sm backdrop-blur dark:bg-background/95">
               <div className="mx-auto max-w-6xl">
                 <div className="grid gap-3">
-                  <Link href="/shop" className="hover:underline">
-                    Shop
-                  </Link>
+                  {isShopEnabled && (
+                    <Link href="/shop" className="hover:underline">
+                      Shop
+                    </Link>
+                  )}
                   <Link href="/#menu" className="hover:underline">
                     Popular
                   </Link>
