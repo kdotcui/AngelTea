@@ -1,4 +1,4 @@
-import { ShopItem } from './types';
+import { ShopItem } from '@/types/ShopItem';
 
 interface ItemPreviewProps {
   product: ShopItem;
