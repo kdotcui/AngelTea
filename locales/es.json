@@ -1,0 +1,139 @@
+{
+  "common": {
+    "loading": "Cargando…",
+    "back_to_site": "Volver al sitio",
+    "see_reviews": "Ver reseñas",
+    "get_directions": "Obtener direcciones",
+    "view_menu": "Ver menú",
+    "find_us": "Encuéntranos",
+    "open_link": "Abrir enlace",
+    "go_to_slide": "Ir a la diapositiva",
+    "verified_guest": "Huésped verificado",
+    "guest_review": "Reseña de huésped",
+    "purchases": "compras",
+    "reviews": "reseñas",
+    "in_stock": "en stock",
+    "out_of_stock": "Agotado",
+    "call_us": "Llámanos",
+    "menu": "Menú"
+  },
+  "navigation": {
+    "shop": "Tienda",
+    "popular": "Popular",
+    "menu": "Menú",
+    "about": "Acerca de",
+    "visit": "Visitar",
+    "press": "Prensa"
+  },
+  "footer": {
+    "hours": "Abierto todos los días 12:00-22:00 • 331 Moody St., Waltham, MA, 02453"
+  },
+  "hero": {
+    "badge": "Boba • Café • Té",
+    "title": "Angel Tea",
+    "description": "Traer felicidad, amor y crecimiento todos los días a través de comidas deliciosas y bebidas creativas.",
+    "alt_logo": "Logo de Angel Tea"
+  },
+  "menu": {
+    "popular_drinks": "Bebidas Populares",
+    "popular_drinks_description": "Clásicos y especialidades.",
+    "menu_boards": "Tableros de Menú",
+    "drinks": "Bebidas",
+    "food": "Comida",
+    "desserts": "Postres",
+    "drinks_left_alt": "Menú de bebidas (izquierda)",
+    "drinks_right_alt": "Menú de bebidas (derecha)",
+    "food_left_alt": "Menú de comida (izquierda)",
+    "food_right_alt": "Menú de comida (derecha)",
+    "dessert_left_alt": "Menú de postres (izquierda)",
+    "dessert_right_alt": "Menú de postres (derecha)"
+  },
+  "about": {
+    "title": "Nuestra Historia",
+    "description_1": "Angel Tea es un café altamente calificado en Moody Street en Waltham, sirviendo té de burbujas de alta calidad, postres deliciosos y comida china casera auténtica. Nos enorgullecemos de ingredientes frescos y crear bebidas y platos que unen a las personas.",
+    "description_2": "Fundado en 2022 por la propietaria Angel Zhao (Brandeis '25), el café ha ganado rápidamente una base de seguidores locales leales con una calificación de 4.7★ en Google. Nuestros valores de felicidad y amor guían todo lo que hacemos.",
+    "alt_image": "Vertiendo leche en café",
+    "badges": {
+      "less_sugar": "Menos Azúcar",
+      "non_dairy": "Opciones Sin Lácteos",
+      "locally_roasted": "Tostado Localmente"
+    }
+  },
+  "testimonials": {
+    "title": "Lo que dicen los huéspedes",
+    "description": "Amor real de nuestra comunidad.",
+    "quote_1": "Pedí una de sus 10 mejores bebidas, Mango Pomelo Sago Slush. Fue increíble, realmente me gustó desde el primer sorbo.",
+    "quote_2": "Angel Tea ofrece una mezcla única de selecciones de té exquisitas y platos chinos auténticos. El ambiente acogedor y el personal amigable hacen que cada visita se sienta especial.",
+    "quote_3": "Angel Tea mantiene una calificación de 4.7 de 5 estrellas en Google, reflejando la satisfacción generalizada de los clientes con sus sabores y servicio."
+  },
+  "visit": {
+    "title": "Visita Angel Tea",
+    "hours": "Abierto todos los días • 12:00 PM – 10:00 PM",
+    "address_line_1": "331 Moody St",
+    "address_line_2": "Waltham, MA 02453",
+    "parking_info": "Estacionamiento en la calle disponible; lugar accesible cerca.",
+    "accessibility_info": "Entrada y baño accesibles para sillas de ruedas; baño neutral en cuanto al género.",
+    "google_rating": "Calificación de Google"
+  },
+  "faqs": {
+    "title": "Preguntas Frecuentes",
+    "description": "Respuestas a preguntas comunes.",
+    "questions": {
+      "hours": {
+        "q": "¿Cuáles son sus horarios de operación?",
+        "a": "Estamos abiertos todos los días de 12:00 PM a 10:00 PM."
+      },
+      "delivery": {
+        "q": "¿Ofrecen entrega a domicilio o pedidos en línea?",
+        "a": "Sí, ofrecemos para llevar y comer en el lugar, y entrega a domicilio a través de DoorDash, Grubhub y Uber Eats."
+      },
+      "parking": {
+        "q": "¿Hay estacionamiento disponible?",
+        "a": "Hay estacionamiento en la calle en Moody Street, con lotes públicos cerca y un lugar accesible cerca de la tienda."
+      },
+      "accessibility": {
+        "q": "¿Son accesibles para sillas de ruedas?",
+        "a": "Sí. Nuestra entrada y baño son accesibles para sillas de ruedas, y el asiento acomoda dispositivos de movilidad."
+      },
+      "dietary": {
+        "q": "¿Tienen opciones sin lácteos o veganas?",
+        "a": "Muchos tés de frutas no contienen lácteos, y tenemos alternativas sin lácteos para tés con leche. Algunos artículos de comida son amigables para veganos."
+      }
+    }
+  },
+  "press": {
+    "title": "En la Prensa",
+    "description": "Historias sobre Angel Tea.",
+    "justice": {
+      "title": "La mejor tienda de té de burbujas de Moody Street es dirigida por una estudiante de tercer año de Brandeis",
+      "date": "3 de octubre, 2023"
+    },
+    "spoon": {
+      "title": "Esta Estudiante de Brandeis College Está Dirigiendo Su Propia Tienda de Boba",
+      "date": "15 de agosto, 2024"
+    }
+  },
+  "shop": {
+    "title": "Mercancía de Angel Tea",
+    "click_for_story": "Haz clic en la imagen o título para la historia completa…"
+  },
+  "admin": {
+    "title": "Administración",
+    "description": "Gestionar contenido y configuraciones.",
+    "hero_slideshow": {
+      "title": "Presentación de Diapositivas Principal",
+      "description": "Gestionar imágenes principales rotativas.",
+      "slides_count": "diapositivas",
+      "add_slide": "Agregar Diapositiva",
+      "no_slides": "Aún no hay diapositivas.",
+      "untitled": "Sin título"
+    },
+    "popular_drinks": {
+      "title": "Bebidas Populares",
+      "description": "Contenido mostrado en la sección de Bebidas Populares de la página principal.",
+      "add_drink": "Agregar Bebida",
+      "no_items": "Aún no hay elementos.",
+      "add_first_item": "Agregar primer elemento"
+    }
+  }
+}

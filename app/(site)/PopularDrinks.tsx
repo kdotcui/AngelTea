@@ -23,8 +23,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function PopularDrinks() {
+  const { t } = useLanguage();
   const [items, setItems] = useState<PopularDrink[]>([]);
   useEffect(() => {
     listPopularDrinks()
@@ -109,7 +111,7 @@ export default function PopularDrinks() {
               <p className="mt-2 line-clamp-5 whitespace-pre-wrap">{d.story}</p>
             ) : (
               <p className="mt-2 text-muted-foreground">
-                Click image or title for full story…
+                {t('shop.click_for_story')}
               </p>
             )}
           </HoverCardContent>

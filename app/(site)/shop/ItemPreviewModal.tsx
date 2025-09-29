@@ -10,6 +10,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star } from 'lucide-react';
+import { useLanguage } from '@/lib/LanguageContext';
 
 interface ItemPreviewModalProps {
   item: ShopItem;
@@ -18,6 +19,7 @@ interface ItemPreviewModalProps {
 }
 
 export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewModalProps) {
+  const { t } = useLanguage();
   const rating = item.total_reviews > 0 ? (item.review_score / item.total_reviews).toFixed(1) : '0.0';
 
   return (
@@ -64,16 +66,16 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
                 {/* Badges */}
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="secondary" className="text-xs">
-                    {item.purchases} purchases
+                    {item.purchases} {t('common.purchases')}
                   </Badge>
                   <Badge variant="outline" className="text-xs">
-                    {item.total_reviews} reviews
+                    {item.total_reviews} {t('common.reviews')}
                   </Badge>
                   <Badge 
                     variant={item.quantity > 10 ? "default" : item.quantity > 0 ? "secondary" : "destructive"}
                     className="text-xs"
                   >
-                    {item.quantity > 0 ? `${item.quantity} in stock` : 'Out of stock'}
+                    {item.quantity > 0 ? `${item.quantity} ${t('common.in_stock')}` : t('common.out_of_stock')}
                   </Badge>
                 </div>
               </CardContent>

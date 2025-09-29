@@ -20,8 +20,10 @@ import type { HeroSlide } from '@/types/hero';
 import EditDrinkButton from './EditDrinkButton';
 import DeleteDrinkButton from './DeleteDrinkButton';
 import type { PopularDrink } from '@/types/drink';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function AdminDashboard() {
+  const { t } = useLanguage();
   const [drinks, setDrinks] = useState<PopularDrink[]>([]);
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,28 +41,28 @@ export default function AdminDashboard() {
     <main className="mx-auto min-h-[80vh] max-w-6xl space-y-8 p-6">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Admin</h1>
-          <p className="text-muted-foreground">Manage content and settings.</p>
+          <h1 className="text-3xl font-bold">{t('admin.title')}</h1>
+          <p className="text-muted-foreground">{t('admin.description')}</p>
         </div>
         <Button asChild>
-          <Link href="/">Back to site</Link>
+          <Link href="/">{t('common.back_to_site')}</Link>
         </Button>
       </div>
 
       <div className="grid gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Hero Slideshow</CardTitle>
-            <CardDescription>Manage rotating hero images.</CardDescription>
+            <CardTitle>{t('admin.hero_slideshow.title')}</CardTitle>
+            <CardDescription>{t('admin.hero_slideshow.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="mb-3 flex items-center justify-between">
               <div className="text-sm text-muted-foreground">
-                {heroSlides.length} slides
+                {heroSlides.length} {t('admin.hero_slideshow.slides_count')}
               </div>
               <div className="flex gap-2">
                 <Button variant="outline" asChild>
-                  <Link href="/admin/upload/hero">Add Slide</Link>
+                  <Link href="/admin/upload/hero">{t('admin.hero_slideshow.add_slide')}</Link>
                 </Button>
               </div>
             </div>
@@ -83,7 +85,7 @@ export default function AdminDashboard() {
                     <div className="p-3 text-sm">
                       <div className="font-medium">
                         {typeof s.order === 'number' ? `#${s.order} ` : ''}
-                        {s.title || 'Untitled'}
+                        {s.title || t('admin.hero_slideshow.untitled')}
                       </div>
                       {s.href ? (
                         <div className="text-muted-foreground truncate">
@@ -98,7 +100,7 @@ export default function AdminDashboard() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">No slides yet.</p>
+              <p className="text-sm text-muted-foreground">{t('admin.hero_slideshow.no_slides')}</p>
             )}
           </CardContent>
         </Card>
@@ -106,24 +108,24 @@ export default function AdminDashboard() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Popular Drinks ({drinks.length})</CardTitle>
+          <CardTitle>{t('admin.popular_drinks.title')} ({drinks.length})</CardTitle>
           <CardDescription>
-            Content shown on the homepage Popular Drinks section.
+            {t('admin.popular_drinks.description')}
           </CardDescription>
           <CardAction>
             <Button variant="outline" asChild>
-              <Link href="/admin/upload/popular-drink">Add Drink</Link>
+              <Link href="/admin/upload/popular-drink">{t('admin.popular_drinks.add_drink')}</Link>
             </Button>
           </CardAction>
         </CardHeader>
         <CardContent>
           {loading ? (
-            <p className="text-sm text-muted-foreground">Loading…</p>
+            <p className="text-sm text-muted-foreground">{t('common.loading')}</p>
           ) : drinks.length === 0 ? (
             <div className="flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">No items yet.</p>
+              <p className="text-sm text-muted-foreground">{t('admin.popular_drinks.no_items')}</p>
               <Button size="sm" asChild>
-                <Link href="/admin/upload/popular-drink">Add first item</Link>
+                <Link href="/admin/upload/popular-drink">{t('admin.popular_drinks.add_first_item')}</Link>
               </Button>
             </div>
           ) : (

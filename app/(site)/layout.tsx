@@ -1,11 +1,17 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { LanguageProvider, useLanguage } from '@/lib/LanguageContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
-export default function SiteLayout({
+function SiteLayoutContent({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { t } = useLanguage();
+
   return (
     <div>
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
@@ -13,65 +19,68 @@ export default function SiteLayout({
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/angeltealogo.png"
-              alt="Angel Tea logo"
+              alt={t('hero.alt_logo')}
               width={28}
               height={28}
               className="rounded-sm"
             />
-            <span className="text-sm font-semibold">Angel Tea</span>
+            <span className="text-sm font-semibold">{t('hero.title')}</span>
           </Link>
           <nav className="hidden items-center gap-5 text-sm md:flex">
             <Link href="/shop" className="hover:text-secondary">
-              Shop
+              {t('navigation.shop')}
             </Link>
             <Link href="#menu" className="hover:text-secondary">
-              Popular
+              {t('navigation.popular')}
             </Link>
             <Link href="#menu-boards" className="hover:text-secondary">
-              Menu
+              {t('navigation.menu')}
             </Link>
             <Link href="#about" className="hover:text-secondary">
-              About
+              {t('navigation.about')}
             </Link>
             <Link href="#visit" className="hover:text-secondary">
-              Visit
+              {t('navigation.visit')}
             </Link>
             <Link href="#press" className="hover:text-secondary">
-              Press
+              {t('navigation.press')}
             </Link>
           </nav>
-          <div className="hidden sm:block">
-            <a
-              href="tel:+17817905313"
-              className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
-            >
-              Call us
-            </a>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <a
+                href="tel:+17817905313"
+                className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
+              >
+                {t('common.call_us')}
+              </a>
+            </div>
           </div>
           <details className="md:hidden">
             <summary className="select-none rounded-md border px-3 py-1.5 text-sm">
-              Menu
+              {t('common.menu')}
             </summary>
             <div className="absolute left-0 right-0 mt-2 border-b bg-white/95 px-4 py-3 text-sm shadow-sm backdrop-blur dark:bg-background/95">
               <div className="mx-auto max-w-6xl">
                 <div className="grid gap-3">
                   <Link href="/shop" className="hover:underline">
-                    Shop
+                    {t('navigation.shop')}
                   </Link>
                   <Link href="#menu" className="hover:underline">
-                    Popular
+                    {t('navigation.popular')}
                   </Link>
                   <Link href="#menu-boards" className="hover:underline">
-                    Menu
+                    {t('navigation.menu')}
                   </Link>
                   <Link href="#about" className="hover:underline">
-                    About
+                    {t('navigation.about')}
                   </Link>
                   <Link href="#visit" className="hover:underline">
-                    Visit
+                    {t('navigation.visit')}
                   </Link>
                   <Link href="#press" className="hover:underline">
-                    Press
+                    {t('navigation.press')}
                   </Link>
                 </div>
               </div>
@@ -94,10 +103,22 @@ export default function SiteLayout({
             </a>
           </div>
           <p className="text-muted-foreground mt-2">
-            Open everyday 12:00-10:00PM • 331 Moody St., Waltham, MA, 02453
+            {t('footer.hours')}
           </p>
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <LanguageProvider>
+      <SiteLayoutContent>{children}</SiteLayoutContent>
+    </LanguageProvider>
   );
 }

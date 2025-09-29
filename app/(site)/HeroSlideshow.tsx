@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { listHeroSlides } from '@/services/heroSlides';
 import type { HeroSlide } from '@/types/hero';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function HeroSlideshow() {
+  const { t } = useLanguage();
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [idx, setIdx] = useState(0);
 
@@ -48,7 +50,7 @@ export default function HeroSlideshow() {
             <a
               href={s.href}
               className="absolute inset-0"
-              aria-label="Open link"
+              aria-label={t('common.open_link')}
             />
           ) : null}
         </div>
@@ -57,7 +59,7 @@ export default function HeroSlideshow() {
         {slides.map((_, i) => (
           <button
             key={i}
-            aria-label={`Go to slide ${i + 1}`}
+            aria-label={`${t('common.go_to_slide')} ${i + 1}`}
             onClick={() => setIdx(i)}
             className={`h-2.5 w-2.5 rounded-full transition-colors ${
               i === idx ? 'bg-primary' : 'bg-white/70 border'
