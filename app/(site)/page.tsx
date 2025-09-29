@@ -11,13 +11,15 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card';
-import { Star, Quote, Newspaper } from 'lucide-react';
+import { Star, Quote, Newspaper, InstagramIcon } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import PopularDrinks from './PopularDrinks';
+import HeroSlideshow from './HeroSlideshow';
 
 export default function Home() {
   return (
@@ -50,28 +52,25 @@ export default function Home() {
             <Button className="w-full sm:w-auto" variant="outline" asChild>
               <Link href="#visit">Find Us</Link>
             </Button>
-            <Button className="hidden sm:inline-flex" variant="ghost" asChild>
+            <Button
+              className="hidden sm:inline-flex"
+              variant="ghost"
+              size="icon"
+              asChild
+              aria-label="Instagram"
+            >
               <Link
                 href="https://instagram.com/angelteaofficial"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
+                <InstagramIcon />
               </Link>
             </Button>
           </div>
         </div>
         <div className="relative">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border shadow-sm">
-            <Image
-              src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&auto=format&fit=crop&w=1600"
-              alt="Iced milk tea with tapioca pearls"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-          </div>
+          <HeroSlideshow />
         </div>
       </section>
 
@@ -83,70 +82,7 @@ export default function Home() {
           <h2 className="text-2xl font-semibold">Popular Drinks</h2>
           <p className="text-muted-foreground">Classics and specialties.</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <Card className="overflow-hidden">
-            <div className="relative h-48">
-              <Image
-                src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&auto=format&fit=crop&w=1600"
-                alt="Brown Sugar Milk Tea"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 33vw"
-              />
-            </div>
-            <CardHeader className="flex-row items-center justify-between">
-              <div>
-                <CardTitle>Brown Sugar Bubble Tea</CardTitle>
-                <CardDescription>
-                  Caramelized syrup, extra creamy.
-                </CardDescription>
-              </div>
-              <Badge>$5.50</Badge>
-            </CardHeader>
-          </Card>
-
-          <Card className="overflow-hidden">
-            <div className="relative h-48">
-              <Image
-                src="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&auto=format&fit=crop&w=1600"
-                alt="Hong Kong Milk Tea"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 33vw"
-              />
-            </div>
-            <CardHeader className="flex-row items-center justify-between">
-              <div>
-                <CardTitle>Hong Kong Milk Tea</CardTitle>
-                <CardDescription>
-                  Strong black tea with condensed milk.
-                </CardDescription>
-              </div>
-              <Badge>$5.95</Badge>
-            </CardHeader>
-          </Card>
-
-          <Card className="overflow-hidden">
-            <div className="relative h-48">
-              <Image
-                src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&auto=format&fit=crop&w=1600"
-                alt="Mango Pomelo Sago Nectar"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 33vw"
-              />
-            </div>
-            <CardHeader className="flex-row items-center justify-between">
-              <div>
-                <CardTitle>Mango Pomelo Sago Nectar</CardTitle>
-                <CardDescription>
-                  Real mango, pomelo bits, sago pearls.
-                </CardDescription>
-              </div>
-              <Badge>$6.25</Badge>
-            </CardHeader>
-          </Card>
-        </div>
+        <PopularDrinks />
       </section>
 
       {/* Menu Boards (paired left/right) */}
