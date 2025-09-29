@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   createPopularDrink,
   uploadPopularImage,
+  type CreatePopularDrinkInput,
 } from '@/services/popularDrinks';
 import type { DrinkSizePrice } from '@/types/drink';
 
@@ -53,19 +54,21 @@ export default function UploadPopularDrinkPage() {
 
       const imageUrl = await uploadPopularImage(imageFile);
 
-      const payload: any = {
+      const payload: CreatePopularDrinkInput = {
         title,
         description,
         imageUrl,
-        story,
-        videoUrl,
-      };
+        ...(story ? { story } : {}),
+        ...(videoUrl ? { videoUrl } : {}),
+      } as const;
       if (pricingMode === 'single') {
-        payload.price = Number(price);
+        Object.assign(payload, { price: Number(price) });
       } else {
-        payload.sizes = sizes
-          .filter((s) => s.label.trim() && !Number.isNaN(Number(s.price)))
-          .map((s) => ({ label: s.label.trim(), price: Number(s.price) }));
+        Object.assign(payload, {
+          sizes: sizes
+            .filter((s) => s.label.trim() && !Number.isNaN(Number(s.price)))
+            .map((s) => ({ label: s.label.trim(), price: Number(s.price) })),
+        });
       }
 
       await createPopularDrink(payload);
