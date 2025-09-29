@@ -21,6 +21,7 @@ import type { HeroSlide } from '@/types/hero';
 import EditDrinkButton from './EditDrinkButton';
 import DeleteDrinkButton from './DeleteDrinkButton';
 import EditShopItemButton from './shopItems/EditShopItemButton';
+import AddShopItemButton from './shopItems/AddShopItemButton';
 import type { PopularDrink } from '@/types/drink';
 import type { ShopItem } from '@/types/shop';
 
@@ -171,9 +172,7 @@ export default function AdminDashboard() {
             Products available in the shop.
           </CardDescription>
           <CardAction>
-            <Button variant="outline" asChild>
-              <Link href="/admin/upload/shop-item">Add Item</Link>
-            </Button>
+            <AddShopItemButton onAdded={refresh} />
           </CardAction>
         </CardHeader>
         <CardContent>
@@ -182,9 +181,7 @@ export default function AdminDashboard() {
           ) : shopItems.length === 0 ? (
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">No items yet.</p>
-              <Button size="sm" asChild>
-                <Link href="/admin/upload/shop-item">Add first item</Link>
-              </Button>
+              <AddShopItemButton onAdded={refresh} />
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
