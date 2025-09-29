@@ -8,14 +8,7 @@ import {
   signInWithGooglePopup,
   signOutUser,
 } from '@/lib/firebase';
-// import { isAdmin } from '@/services/admins';
-const emailList = ['jiahaoli@brandeis.edu'];
-const isAdmin = (email: string | null) => {
-  if (!email) {
-    return false;
-  }
-  return emailList.includes(email);
-};
+import { isAdmin } from '@/services/admins';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
@@ -24,7 +17,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsub = onAuthChange(async (u) => {
       if (u) {
-        const allowed = isAdmin(u.email);
+        const allowed = await isAdmin(u.uid);
         if (!allowed) {
           setUser(null);
           setReady(true);
