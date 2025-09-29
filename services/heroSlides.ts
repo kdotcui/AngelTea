@@ -11,7 +11,6 @@ import {
   deleteDoc,
   doc,
   serverTimestamp,
-  type DocumentData,
 } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -25,14 +24,14 @@ export async function listHeroSlides(): Promise<HeroSlide[]> {
     const snap = await getDocs(q);
     return snap.docs.map((d) => ({
       id: d.id,
-      ...(d.data() as DocumentData),
+      ...(d.data()),
     })) as HeroSlide[];
   } catch (err) {
     console.warn('[heroSlides] ordered query failed, falling back', err);
     const snap = await getDocs(collection(db, COLLECTION));
     return snap.docs.map((d) => ({
       id: d.id,
-      ...(d.data() as DocumentData),
+      ...(d.data()),
     })) as HeroSlide[];
   }
 }
@@ -48,7 +47,7 @@ export async function createHeroSlide(
     Object.entries(input).filter(([, v]) => v !== undefined)
   );
   const docRef = await addDoc(col, {
-    ...(payload as DocumentData),
+    ...(payload),
     createdAt: serverTimestamp(),
   });
   return docRef.id;
@@ -63,7 +62,7 @@ export async function updateHeroSlide(
   const sanitized = Object.fromEntries(
     Object.entries(patch).filter(([, v]) => v !== undefined)
   );
-  await updateDoc(doc(db, COLLECTION, id), sanitized as DocumentData);
+  await updateDoc(doc(db, COLLECTION, id), sanitized);
 }
 
 export async function deleteHeroSlide(id: string) {
