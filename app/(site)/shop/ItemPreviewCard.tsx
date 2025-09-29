@@ -1,4 +1,5 @@
 import { ShopItem } from '@/types/ShopItem';
+import Image from 'next/image';
 
 interface ItemPreviewProps {
   product: ShopItem;
@@ -15,9 +16,11 @@ export default function ItemPreviewCard({ product, onClick }: ItemPreviewProps) 
       className="text-left bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-green-600"
     >
       <div className="h-48 overflow-hidden">
-        <img 
+        <Image 
           src={product.images?.[0] || '/placeholder.jpg'} 
           alt={product.name}
+          width={400}
+          height={300}
           className="w-full h-full object-cover"
         />
       </div>

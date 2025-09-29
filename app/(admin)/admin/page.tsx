@@ -73,10 +73,11 @@ export default function AdminDashboard() {
                   >
                     <div className="relative h-32 w-full bg-muted">
                       {s.imageUrl ? (
-                        <img
+                        <Image
                           src={s.imageUrl}
                           alt={s.title ?? 'Hero'}
-                          className="h-full w-full object-cover"
+                          fill
+                          className="object-cover"
                         />
                       ) : null}
                     </div>
