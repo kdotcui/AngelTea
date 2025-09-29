@@ -25,6 +25,8 @@ export type PopularDrinkUpdate = UpdateData<PopularDrink> & {
   sizes?: DrinkSizePrice[] | FieldValue;
 };
 
+export type CreatePopularDrinkInput = WithFieldValue<Omit<PopularDrink, 'id'>>;
+
 const popularDrinkConverter: FirestoreDataConverter<PopularDrink> = {
   toFirestore(model: PopularDrink): DocumentData {
     const { id, ...rest } = model as PopularDrink;
@@ -44,9 +46,7 @@ export async function listPopularDrinks(): Promise<PopularDrink[]> {
   return snap.docs.map((d) => d.data());
 }
 
-export async function createPopularDrink(
-  input: WithFieldValue<Omit<PopularDrink, 'id'>>
-) {
+export async function createPopularDrink(input: CreatePopularDrinkInput) {
   const app = getFirebaseApp();
   const db = getFirestore(app);
   const colRef = collection(db, COLLECTION).withConverter(
