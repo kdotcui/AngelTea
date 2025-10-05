@@ -11,14 +11,13 @@ import {
   deleteDoc,
   serverTimestamp,
   type UpdateData,
-  type WithFieldValue,
 } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { CreateShopItemType } from '@/types/shop';
 
 const COLLECTION = 'shopMerchandise';
 
 export type ShopItemUpdate = UpdateData<ShopItem>;
-export type CreateShopItemInput = WithFieldValue<Omit<ShopItem, 'id'>>;
 
 export async function getShopItems(): Promise<ShopItem[]> {
   const app = getFirebaseApp();
@@ -28,7 +27,7 @@ export async function getShopItems(): Promise<ShopItem[]> {
   return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() } as ShopItem));
 }
 
-export async function createShopItem(item: CreateShopItemInput) {
+export async function createShopItem(item: CreateShopItemType) {
   const app = getFirebaseApp();
   const db = getFirestore(app);
   const shopItems = collection(db, COLLECTION);

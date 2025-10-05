@@ -15,8 +15,8 @@ import { Label } from '@/components/ui/label';
 import {
   createShopItem,
   uploadShopItemImage,
-  type CreateShopItemInput,
 } from '@/services/shopItemUtils';
+import { CreateShopItemType } from '@/types/shop';
 
 export default function AddShopItemButton({
   onAdded,
@@ -62,7 +62,7 @@ export default function AddShopItemButton({
       }
 
       // Create the new shop item with defaults for review/purchase fields
-      const newItem: CreateShopItemInput = {
+      const newItem: CreateShopItemType = {
         name: name.trim(),
         description: description.trim(),
         price: Number(price),
@@ -70,7 +70,7 @@ export default function AddShopItemButton({
         images: uploadedImageUrls,
         total_reviews: 0,
         review_score: 0,
-        purchases: 0, // TODO: change to admin uid
+        purchases: 0, 
       };
 
       await createShopItem(newItem);
