@@ -1,5 +1,5 @@
 "use client";
-import { ShopItem } from '@/types/ShopItem';
+import { ShopItem } from '@/types/shop';
 import Image from 'next/image';
 import {
   Dialog,
