@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { type PopularDrink } from '@/types/drink';
 import { listPopularDrinks } from '@/services/popularDrinks';
 import {
@@ -26,6 +27,8 @@ import {
 
 export default function PopularDrinks() {
   const [items, setItems] = useState<PopularDrink[]>([]);
+  const t = useTranslations('popularDrinks');
+
   useEffect(() => {
     listPopularDrinks()
       .then(setItems)
@@ -108,9 +111,7 @@ export default function PopularDrinks() {
             {d.story ? (
               <p className="mt-2 line-clamp-5 whitespace-pre-wrap">{d.story}</p>
             ) : (
-              <p className="mt-2 text-muted-foreground">
-                Click image or title for full story…
-              </p>
+              <p className="mt-2 text-muted-foreground">{t('clickForStory')}</p>
             )}
           </HoverCardContent>
         </HoverCard>

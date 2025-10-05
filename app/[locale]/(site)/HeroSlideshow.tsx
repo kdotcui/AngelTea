@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { listHeroSlides } from '@/services/heroSlides';
 import type { HeroSlide } from '@/types/hero';
 
 export default function HeroSlideshow() {
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [idx, setIdx] = useState(0);
+  const t = useTranslations('common');
 
   useEffect(() => {
     listHeroSlides()
@@ -25,7 +27,6 @@ export default function HeroSlideshow() {
 
   if (slides.length === 0) return null;
 
-
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border shadow-sm">
       {slides.map((s, i) => (
@@ -37,7 +38,7 @@ export default function HeroSlideshow() {
         >
           <Image
             src={s.imageUrl}
-            alt={s.title ?? 'Hero'}
+            alt={s.title ?? t('hero')}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -47,7 +48,7 @@ export default function HeroSlideshow() {
             <a
               href={s.href}
               className="absolute inset-0"
-              aria-label="Open link"
+              aria-label={t('openLink')}
             />
           ) : null}
         </div>
@@ -56,7 +57,7 @@ export default function HeroSlideshow() {
         {slides.map((_, i) => (
           <button
             key={i}
-            aria-label={`Go to slide ${i + 1}`}
+            aria-label={t('goToSlide', { number: i + 1 })}
             onClick={() => setIdx(i)}
             className={`h-2.5 w-2.5 rounded-full transition-colors ${
               i === idx ? 'bg-primary' : 'bg-white/70 border'

@@ -1,0 +1,117 @@
+{
+  "navigation": {
+    "shop": "Shop",
+    "popular": "Popular",
+    "menu": "Menu",
+    "about": "About",
+    "visit": "Visit",
+    "press": "Press",
+    "callUs": "Call us",
+    "menuMobile": "Menu"
+  },
+  "hero": {
+    "badge": "Boba • Coffee • Tea",
+    "title": "Angel Tea",
+    "description": "To bring happiness, love, and growth every day through delicious meals and creative beverages.",
+    "viewMenu": "View Menu",
+    "findUs": "Find Us",
+    "instagram": "Instagram"
+  },
+  "popularDrinks": {
+    "title": "Popular Drinks",
+    "subtitle": "Classics and specialties.",
+    "clickForStory": "Click image or title for full story…"
+  },
+  "menuBoards": {
+    "title": "Menu Boards",
+    "drinks": "Drinks",
+    "food": "Food",
+    "desserts": "Desserts",
+    "drinksLeftAlt": "Drinks menu (left)",
+    "drinksRightAlt": "Drinks menu (right)",
+    "foodLeftAlt": "Food menu (left)",
+    "foodRightAlt": "Food menu (right)",
+    "dessertLeftAlt": "Dessert menu (left)",
+    "dessertRightAlt": "Dessert menu (right)"
+  },
+  "about": {
+    "title": "Our Story",
+    "description1": "Angel Tea is a highly rated cafe on Moody Street in Waltham, serving high-quality bubble tea, delicious desserts, and authentic homestyle Chinese food. We pride ourselves on fresh ingredients and creating drinks and dishes that bring people together.",
+    "description2": "Founded in 2022 by owner Angel Zhao (Brandeis '25), the cafe has quickly earned a loyal local following with a 4.7★ rating on Google. Our values of happiness and love guide everything we do.",
+    "badges": {
+      "lessSugar": "Less Sugar",
+      "nonDairy": "Non-Dairy Options",
+      "locallyRoasted": "Locally Roasted"
+    },
+    "storyImageAlt": "Angel Tea story"
+  },
+  "testimonials": {
+    "title": "What guests say",
+    "subtitle": "Real love from our community.",
+    "guestReview": "Guest review",
+    "verifiedGuest": "Verified guest",
+    "quotes": [
+      "I got one of their top 10 drinks, Mango Pomelo Sago Slush. It was amazing, really hit the spot from the first sip.",
+      "Angel Tea offers a unique blend of exquisite tea selections and authentic Chinese dishes. The welcoming atmosphere and friendly staff make every visit feel special.",
+      "Angel Tea maintains a 4.7 out of 5 star rating on Google, reflecting widespread customer satisfaction with its flavors and service."
+    ]
+  },
+  "visit": {
+    "title": "Visit Angel Tea",
+    "hours": "Open every day • 12:00 PM – 10:00 PM",
+    "address": "331 Moody St",
+    "city": "Waltham, MA 02453",
+    "parking": "Street parking available; accessible spot nearby.",
+    "accessibility": "Wheelchair-accessible entrance and restroom; gender-neutral restroom.",
+    "googleRating": "Google rating",
+    "seeReviews": "See reviews",
+    "getDirections": "Get Directions"
+  },
+  "faqs": {
+    "title": "FAQs",
+    "subtitle": "Answers to common questions.",
+    "questions": [
+      {
+        "q": "What are your hours of operation?",
+        "a": "We are open every day from 12:00 PM to 10:00 PM."
+      },
+      {
+        "q": "Do you offer delivery or online ordering?",
+        "a": "Yes, we offer takeout and dine-in, and delivery via DoorDash, Grubhub, and Uber Eats."
+      },
+      {
+        "q": "Is there parking available?",
+        "a": "Street parking is available on Moody Street, with public lots nearby and an accessible spot close to the shop."
+      },
+      {
+        "q": "Are you wheelchair accessible?",
+        "a": "Yes. Our entrance and restroom are wheelchair-accessible, and seating accommodates mobility devices."
+      },
+      {
+        "q": "Do you have non-dairy or vegan options?",
+        "a": "Many fruit teas contain no dairy, and we have non-dairy alternatives for milk teas. Some food items are vegan-friendly."
+      }
+    ]
+  },
+  "press": {
+    "title": "In the Press",
+    "subtitle": "Stories about Angel Tea.",
+    "theJustice": "The Justice",
+    "spoonUniversity": "Spoon University",
+    "justiceArticle": "Moody Street's best bubble tea shop is run by a Brandeis junior",
+    "justiceDate": "Oct 3, 2023",
+    "spoonArticle": "This Brandeis College Student Is Running Her Own Boba Shop",
+    "spoonDate": "Aug 15, 2024"
+  },
+  "shop": {
+    "title": "Angel Tea Merchandise"
+  },
+  "footer": {
+    "hours": "Open everyday 12:00-10:00PM • 331 Moody St., Waltham, MA, 02453"
+  },
+  "common": {
+    "openLink": "Open link",
+    "goToSlide": "Go to slide {number}",
+    "hero": "Hero"
+  }
+}

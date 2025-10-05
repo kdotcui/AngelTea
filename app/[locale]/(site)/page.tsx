@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -9,7 +8,6 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from '@/components/ui/card';
 import { Star, Quote, Newspaper, InstagramIcon } from 'lucide-react';
 import {
@@ -18,10 +16,32 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Link } from '@/navigation';
+import { getMessages, getTranslations } from 'next-intl/server';
 import PopularDrinks from './PopularDrinks';
 import HeroSlideshow from './HeroSlideshow';
 
-export default function Home() {
+interface HomeContentMessages {
+  testimonials?: {
+    quotes?: string[];
+  };
+  faqs?: {
+    questions?: { q: string; a: string }[];
+  };
+}
+
+type HomePageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function Home({ params }: HomePageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+  const messages = await getMessages<HomeContentMessages>({ locale });
+
+  const testimonialsQuotes = messages.testimonials?.quotes ?? [];
+  const faqItems = messages.faqs?.questions ?? [];
+
   return (
     <main className="min-h-[100vh] space-y-16 p-4 sm:space-y-24 sm:p-6 [--anchor-offset:5rem] [scroll-margin-top:var(--anchor-offset)]">
       {/* Hero */}
@@ -37,27 +57,24 @@ export default function Home() {
               className="rounded-md"
             />
           </div>
-          <Badge variant="secondary">Boba • Coffee • Tea</Badge>
+          <Badge variant="secondary">{t('hero.badge')}</Badge>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
-            Angel Tea
+            {t('hero.title')}
           </h1>
-          <p className="text-muted-foreground text-lg">
-            To bring happiness, love, and growth every day through delicious
-            meals and creative beverages.
-          </p>
+          <p className="text-muted-foreground text-lg">{t('hero.description')}</p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button className="w-full sm:w-auto" asChild>
-              <Link href="/#menu">View Menu</Link>
+              <Link href="/#menu">{t('hero.viewMenu')}</Link>
             </Button>
             <Button className="w-full sm:w-auto" variant="outline" asChild>
-              <Link href="/#visit">Find Us</Link>
+              <Link href="/#visit">{t('hero.findUs')}</Link>
             </Button>
             <Button
               className="hidden sm:inline-flex"
               variant="ghost"
               size="icon"
               asChild
-              aria-label="Instagram"
+              aria-label={t('hero.instagram')}
             >
               <Link
                 href="https://instagram.com/angelteaofficial"
@@ -74,13 +91,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Instagram removed per request */}
-
       {/* Featured Menu */}
       <section id="menu" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">Popular Drinks</h2>
-          <p className="text-muted-foreground">Classics and specialties.</p>
+          <h2 className="text-2xl font-semibold">{t('popularDrinks.title')}</h2>
+          <p className="text-muted-foreground">{t('popularDrinks.subtitle')}</p>
         </div>
         <PopularDrinks />
       </section>
@@ -91,17 +106,17 @@ export default function Home() {
         className="mx-auto max-w-6xl space-y-8 scroll-mt-24"
       >
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">Menu Boards</h2>
+          <h2 className="text-2xl font-semibold">{t('menuBoards.title')}</h2>
         </div>
 
         <div className="space-y-8">
           <div>
-            <h3 className="mb-3 text-lg font-medium">Drinks</h3>
+            <h3 className="mb-3 text-lg font-medium">{t('menuBoards.drinks')}</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/drinksleft.webp"
-                  alt="Drinks menu (left)"
+                  alt={t('menuBoards.drinksLeftAlt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -110,7 +125,7 @@ export default function Home() {
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/drinksright.webp"
-                  alt="Drinks menu (right)"
+                  alt={t('menuBoards.drinksRightAlt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -120,12 +135,12 @@ export default function Home() {
           </div>
 
           <div>
-            <h3 className="mb-3 text-lg font-medium">Food</h3>
+            <h3 className="mb-3 text-lg font-medium">{t('menuBoards.food')}</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/foodleft.webp"
-                  alt="Food menu (left)"
+                  alt={t('menuBoards.foodLeftAlt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -134,7 +149,7 @@ export default function Home() {
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/foodright.webp"
-                  alt="Food menu (right)"
+                  alt={t('menuBoards.foodRightAlt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -144,12 +159,12 @@ export default function Home() {
           </div>
 
           <div>
-            <h3 className="mb-3 text-lg font-medium">Desserts</h3>
+            <h3 className="mb-3 text-lg font-medium">{t('menuBoards.desserts')}</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/dessertleft.webp"
-                  alt="Dessert menu (left)"
+                  alt={t('menuBoards.dessertLeftAlt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -158,7 +173,7 @@ export default function Home() {
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/dessertright.webp"
-                  alt="Dessert menu (right)"
+                  alt={t('menuBoards.dessertRightAlt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -178,7 +193,7 @@ export default function Home() {
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border shadow-sm">
             <Image
               src="/storieangeltea.png"
-              alt="Angel Tea story"
+              alt={t('about.storyImageAlt')}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -187,22 +202,13 @@ export default function Home() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Our Story</h2>
-          <p className="text-muted-foreground">
-            Angel Tea is a highly rated cafe on Moody Street in Waltham, serving
-            high-quality bubble tea, delicious desserts, and authentic homestyle
-            Chinese food. We pride ourselves on fresh ingredients and creating
-            drinks and dishes that bring people together.
-          </p>
-          <p className="text-muted-foreground">
-            Founded in 2022 by owner Angel Zhao (Brandeis ’25), the cafe has
-            quickly earned a loyal local following with a 4.7★ rating on Google.
-            Our values of happiness and love guide everything we do.
-          </p>
+          <h2 className="text-2xl font-semibold">{t('about.title')}</h2>
+          <p className="text-muted-foreground">{t('about.description1')}</p>
+          <p className="text-muted-foreground">{t('about.description2')}</p>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="outline">Less Sugar</Badge>
-            <Badge variant="outline">Non-Dairy Options</Badge>
-            <Badge variant="outline">Locally Roasted</Badge>
+            <Badge variant="outline">{t('about.badges.lessSugar')}</Badge>
+            <Badge variant="outline">{t('about.badges.nonDairy')}</Badge>
+            <Badge variant="outline">{t('about.badges.locallyRoasted')}</Badge>
           </div>
         </div>
       </section>
@@ -214,23 +220,19 @@ export default function Home() {
             className="text-2xl font-semibold"
             style={{ fontFamily: 'var(--font-decorative)' }}
           >
-            What guests say
+            {t('testimonials.title')}
           </h2>
-          <p className="text-muted-foreground">Real love from our community.</p>
+          <p className="text-muted-foreground">{t('testimonials.subtitle')}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {[
-            'I got one of their top 10 drinks, Mango Pomelo Sago Slush. It was amazing, really hit the spot from the first sip.',
-            'Angel Tea offers a unique blend of exquisite tea selections and authentic Chinese dishes. The welcoming atmosphere and friendly staff make every visit feel special.',
-            'Angel Tea maintains a 4.7 out of 5 star rating on Google, reflecting widespread customer satisfaction with its flavors and service.',
-          ].map((quote, idx) => (
+          {testimonialsQuotes.map((quote, idx) => (
             <Card
               key={idx}
               className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/10 via-[--ring]/5 to-background"
             >
               <CardContent className="pt-6">
                 <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-secondary/30 px-3 py-1 text-xs font-medium text-secondary-foreground">
-                  <Quote className="size-3" /> Guest review
+                  <Quote className="size-3" /> {t('testimonials.guestReview')}
                 </div>
                 <p className="text-balance italic">“{quote}”</p>
                 <Separator className="my-4" />
@@ -244,7 +246,7 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                  <span>Verified guest</span>
+                  <span>{t('testimonials.verifiedGuest')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -256,21 +258,16 @@ export default function Home() {
       <section id="visit" className="mx-auto max-w-6xl scroll-mt-24">
         <Card>
           <CardHeader>
-            <CardTitle>Visit Angel Tea</CardTitle>
-            <CardDescription>
-              Open every day • 12:00 PM – 10:00 PM
-            </CardDescription>
+            <CardTitle>{t('visit.title')}</CardTitle>
+            <CardDescription>{t('visit.hours')}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
             <div>
-              <p>331 Moody St</p>
-              <p>Waltham, MA 02453</p>
+              <p>{t('visit.address')}</p>
+              <p>{t('visit.city')}</p>
               <div className="mt-3 space-y-1 text-sm text-muted-foreground">
-                <p>Street parking available; accessible spot nearby.</p>
-                <p>
-                  Wheelchair-accessible entrance and restroom; gender-neutral
-                  restroom.
-                </p>
+                <p>{t('visit.parking')}</p>
+                <p>{t('visit.accessibility')}</p>
               </div>
             </div>
             <div className="flex flex-col gap-4 md:items-end">
@@ -299,7 +296,7 @@ export default function Home() {
                   </div>
                   <span className="text-sm font-medium">4.7</span>
                   <span className="text-muted-foreground text-sm">
-                    Google rating
+                    {t('visit.googleRating')}
                   </span>
                 </div>
                 <Button variant="outline" asChild>
@@ -308,7 +305,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    See reviews
+                    {t('visit.seeReviews')}
                   </Link>
                 </Button>
               </div>
@@ -319,7 +316,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Get Directions
+                    {t('visit.getDirections')}
                   </Link>
                 </Button>
               </div>
@@ -331,32 +328,11 @@ export default function Home() {
       {/* FAQs */}
       <section id="faqs" className="mx-auto max-w-6xl space-y-6 scroll-mt-24">
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">FAQs</h2>
-          <p className="text-muted-foreground">Answers to common questions.</p>
+          <h2 className="text-2xl font-semibold">{t('faqs.title')}</h2>
+          <p className="text-muted-foreground">{t('faqs.subtitle')}</p>
         </div>
         <Accordion type="single" collapsible className="w-full">
-          {[
-            {
-              q: 'What are your hours of operation?',
-              a: 'We are open every day from 12:00 PM to 10:00 PM.',
-            },
-            {
-              q: 'Do you offer delivery or online ordering?',
-              a: 'Yes, we offer takeout and dine-in, and delivery via DoorDash, Grubhub, and Uber Eats.',
-            },
-            {
-              q: 'Is there parking available?',
-              a: 'Street parking is available on Moody Street, with public lots nearby and an accessible spot close to the shop.',
-            },
-            {
-              q: 'Are you wheelchair accessible?',
-              a: 'Yes. Our entrance and restroom are wheelchair-accessible, and seating accommodates mobility devices.',
-            },
-            {
-              q: 'Do you have non-dairy or vegan options?',
-              a: 'Many fruit teas contain no dairy, and we have non-dairy alternatives for milk teas. Some food items are vegan-friendly.',
-            },
-          ].map((f, i) => (
+          {faqItems.map((f, i) => (
             <AccordionItem key={i} value={`item-${i}`}>
               <AccordionTrigger>{f.q}</AccordionTrigger>
               <AccordionContent>{f.a}</AccordionContent>
@@ -372,15 +348,15 @@ export default function Home() {
             className="text-2xl font-semibold"
             style={{ fontFamily: 'var(--font-decorative)' }}
           >
-            In the Press
+            {t('press.title')}
           </h2>
-          <p className="text-muted-foreground">Stories about Angel Tea.</p>
+          <p className="text-muted-foreground">{t('press.subtitle')}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="border-accent/30 bg-gradient-to-br from-accent/10 to-background">
             <CardHeader>
               <div className="mb-1 inline-flex items-center gap-2 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-                <Newspaper className="size-3" /> The Justice
+                <Newspaper className="size-3" /> {t('press.theJustice')}
               </div>
               <CardTitle>
                 <Link
@@ -389,17 +365,16 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="hover:text-secondary"
                 >
-                  Moody Street’s best bubble tea shop is run by a Brandeis
-                  junior
+                  {t('press.justiceArticle')}
                 </Link>
               </CardTitle>
-              <CardDescription>Oct 3, 2023</CardDescription>
+              <CardDescription>{t('press.justiceDate')}</CardDescription>
             </CardHeader>
           </Card>
           <Card className="border-accent/30 bg-gradient-to-br from-accent/10 to-background">
             <CardHeader>
               <div className="mb-1 inline-flex items-center gap-2 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-                <Newspaper className="size-3" /> Spoon University
+                <Newspaper className="size-3" /> {t('press.spoonUniversity')}
               </div>
               <CardTitle>
                 <Link
@@ -408,10 +383,10 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="hover:text-secondary"
                 >
-                  This Brandeis College Student Is Running Her Own Boba Shop
+                  {t('press.spoonArticle')}
                 </Link>
               </CardTitle>
-              <CardDescription>Aug 15, 2024</CardDescription>
+              <CardDescription>{t('press.spoonDate')}</CardDescription>
             </CardHeader>
           </Card>
         </div>

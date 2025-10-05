@@ -1,0 +1,117 @@
+{
+  "navigation": {
+    "shop": "商店",
+    "popular": "热门",
+    "menu": "菜单",
+    "about": "关于我们",
+    "visit": "访问",
+    "press": "媒体报道",
+    "callUs": "联系我们",
+    "menuMobile": "菜单"
+  },
+  "hero": {
+    "badge": "珍珠奶茶 • 咖啡 • 茶",
+    "title": "天使茶",
+    "description": "通过美味的餐点和创意饮品，每天带来快乐、爱和成长。",
+    "viewMenu": "查看菜单",
+    "findUs": "找到我们",
+    "instagram": "Instagram"
+  },
+  "popularDrinks": {
+    "title": "热门饮品",
+    "subtitle": "经典与特色。",
+    "clickForStory": "点击图片或标题查看完整故事…"
+  },
+  "menuBoards": {
+    "title": "菜单板",
+    "drinks": "饮品",
+    "food": "餐点",
+    "desserts": "甜点",
+    "drinksLeftAlt": "饮品菜单（左）",
+    "drinksRightAlt": "饮品菜单（右）",
+    "foodLeftAlt": "餐点菜单（左）",
+    "foodRightAlt": "餐点菜单（右）",
+    "dessertLeftAlt": "甜点菜单（左）",
+    "dessertRightAlt": "甜点菜单（右）"
+  },
+  "about": {
+    "title": "我们的故事",
+    "description1": "天使茶位于沃尔瑟姆的穆迪街，是一家评价极高的咖啡馆，提供高品质的珍珠奶茶、美味甜点和地道家常中餐。我们以新鲜食材为荣，打造让人们相聚的饮品与菜肴。",
+    "description2": "由店主赵天使（布兰代斯大学2025届）于2022年创立，咖啡馆迅速收获忠实顾客，并在谷歌上获得4.7★的评价。快乐与爱是我们一切工作的指引。",
+    "badges": {
+      "lessSugar": "低糖",
+      "nonDairy": "非乳制品选择",
+      "locallyRoasted": "本地烘焙"
+    },
+    "storyImageAlt": "天使茶故事"
+  },
+  "testimonials": {
+    "title": "顾客怎么说",
+    "subtitle": "来自社区的真实好评。",
+    "guestReview": "顾客评价",
+    "verifiedGuest": "认证顾客",
+    "quotes": [
+      "I got one of their top 10 drinks, Mango Pomelo Sago Slush. It was amazing, really hit the spot from the first sip.",
+      "Angel Tea offers a unique blend of exquisite tea selections and authentic Chinese dishes. The welcoming atmosphere and friendly staff make every visit feel special.",
+      "Angel Tea maintains a 4.7 out of 5 star rating on Google, reflecting widespread customer satisfaction with its flavors and service."
+    ]
+  },
+  "visit": {
+    "title": "来天使茶看看",
+    "hours": "每天营业 • 下午12:00 – 晚上10:00",
+    "address": "331 Moody St",
+    "city": "Waltham, MA 02453",
+    "parking": "街边可停车，附近有无障碍车位。",
+    "accessibility": "入口和洗手间均无障碍通行；提供性别友善洗手间。",
+    "googleRating": "谷歌评分",
+    "seeReviews": "查看评价",
+    "getDirections": "获取路线"
+  },
+  "faqs": {
+    "title": "常见问题",
+    "subtitle": "解答常见疑问。",
+    "questions": [
+      {
+        "q": "你们的营业时间是？",
+        "a": "我们每天中午12点至晚上10点营业。"
+      },
+      {
+        "q": "是否提供外卖或线上点餐？",
+        "a": "我们提供外带与堂食，并支持 DoorDash、Grubhub 和 Uber Eats 外送。"
+      },
+      {
+        "q": "附近有停车位吗？",
+        "a": "穆迪街有街边停车，附近也有公共停车场，并设有无障碍车位。"
+      },
+      {
+        "q": "店内是否方便轮椅出入？",
+        "a": "是的，入口和洗手间均可供轮椅通行，座位也能容纳行动辅助器具。"
+      },
+      {
+        "q": "有没有非乳制或纯素选项？",
+        "a": "许多水果茶不含乳制品，我们也提供奶茶的非乳制替代品；部分餐点适合纯素饮食。"
+      }
+    ]
+  },
+  "press": {
+    "title": "媒体报道",
+    "subtitle": "关于天使茶的故事。",
+    "theJustice": "The Justice",
+    "spoonUniversity": "Spoon University",
+    "justiceArticle": "穆迪街最好的珍珠奶茶店由一位布兰代斯学生经营",
+    "justiceDate": "2023年10月3日",
+    "spoonArticle": "这位布兰代斯大学生正在经营自己的奶茶店",
+    "spoonDate": "2024年8月15日"
+  },
+  "shop": {
+    "title": "天使茶周边"
+  },
+  "footer": {
+    "hours": "每天 12:00-22:00 营业 • 331 Moody St., Waltham, MA, 02453"
+  },
+  "common": {
+    "openLink": "打开链接",
+    "goToSlide": "跳转到幻灯片 {number}",
+    "hero": "主图"
+  }
+}
