@@ -20,6 +20,8 @@ import {
 } from '@/services/shopItemUtils';
 import { Trash2, Plus } from 'lucide-react';
 
+const STANDARD_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', 'ONE SIZE'] as const;
+
 export default function EditShopItemButton({
   item,
   onSaved,
@@ -59,18 +61,10 @@ export default function EditShopItemButton({
       if (sanitizedColor) parts.push(sanitizedColor);
     }
     
-    // Add size if present (abbreviate common sizes)
+    // Add size if present
     if (size) {
-      const abbreviatedSize = size.trim().toUpperCase()
-        .replace(/^EXTRA[\s-]*SMALL$/i, 'XS')
-        .replace(/^SMALL$/i, 'S')
-        .replace(/^MEDIUM$/i, 'M')
-        .replace(/^LARGE$/i, 'L')
-        .replace(/^EXTRA[\s-]*LARGE$/i, 'XL')
-        .replace(/^2XL$|^XXL$|^EXTRA[\s-]*EXTRA[\s-]*LARGE$/i, '2XL')
-        .replace(/^3XL$|^XXXL$/i, '3XL')
-        .replace(/[^A-Z0-9]/g, '');
-      if (abbreviatedSize) parts.push(abbreviatedSize);
+      const sanitizedSize = size.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (sanitizedSize) parts.push(sanitizedSize);
     }
     
     return parts.join('-');
@@ -409,12 +403,16 @@ export default function EditShopItemButton({
                   <div className="grid grid-cols-3 gap-2">
                     <div>
                       <Label className="text-xs">Size</Label>
-                      <Input
+                      <select
                         value={variant.size || ''}
                         onChange={(e) => updateVariant(idx, 'size', e.target.value)}
-                        placeholder="e.g., M"
-                        className="h-8 text-sm"
-                      />
+                        className="h-8 text-sm w-full rounded-md border border-input bg-background px-3 py-1"
+                      >
+                        <option value="">Select size</option>
+                        {STANDARD_SIZES.map(s => (
+                          <option key={s} value={s}>{s}</option>
+                        ))}
+                      </select>
                     </div>
                     <div>
                       <Label className="text-xs">Color</Label>
