@@ -16,7 +16,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-full sm:max-w-lg flex flex-col">
+      <SheetContent side="right" className="w-full sm:max-w-[410px] flex flex-col">
         <SheetHeader>
           <SheetTitle className="text-2xl font-bold">Shopping Cart</SheetTitle>
         </SheetHeader>
@@ -106,27 +106,29 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             </div>
 
             <SheetFooter className="flex-col gap-4 sm:flex-col">
-              {/* Clear Cart Button */}
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={clearCart}
-              >
-                Clear Cart
-              </Button>
+              {/* Total */}
+              <div className="flex items-center justify-between text-lg font-bold border-t pt-4">
+                <span>Total:</span>
+                <span>${totalPrice.toFixed(2)}</span>
+              </div>
 
-              {/* Total and Checkout */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between text-lg font-bold border-t pt-4">
-                  <span>Total:</span>
-                  <span>${totalPrice.toFixed(2)}</span>
-                </div>
+              {/* Checkout and Clear Cart Buttons */}
+              <div className="flex gap-2 w-full">
+                <Button
+                    variant="outline"
+                    className="flex-1"
+                    size="lg"
+                    onClick={clearCart}
+                >
+                  Clear Cart
+                </Button>
                 <Button 
-                  className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  className="flex-[3] bg-green-600 hover:bg-green-700 text-white"
                   size="lg"
                 >
                   Proceed to Checkout
                 </Button>
+
               </div>
             </SheetFooter>
           </>
