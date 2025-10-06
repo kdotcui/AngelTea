@@ -27,6 +27,9 @@ export default function SiteLayout({
                 Shop
               </Link>
             )}
+            <Link href="/personality-quiz" className="hover:text-secondary">
+              Personality Quiz
+            </Link>
             <Link href="/#menu" className="hover:text-secondary">
               Popular
             </Link>
@@ -63,6 +66,9 @@ export default function SiteLayout({
                       Shop
                     </Link>
                   )}
+                  <Link href="/personality-quiz" className="hover:underline">
+                    Personality Quiz
+                  </Link>
                   <Link href="/#menu" className="hover:underline">
                     Popular
                   </Link>
