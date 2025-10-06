@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type { ShopItem } from '@/types/ShopItem';
+import type { ShopItem } from '@/types/shop';
 import ItemPreviewCard from './ItemPreviewCard';
 import ItemPreviewModal from './ItemPreviewModal';
 // TODO: Remove this and replace with items stored in firebase.

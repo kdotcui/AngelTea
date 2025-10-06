@@ -1,4 +1,4 @@
-import { ShopItem } from '@/types/ShopItem';
+import { ShopItem } from '@/types/shop';
 import Image from 'next/image';
 
 interface ItemPreviewProps {
@@ -7,7 +7,9 @@ interface ItemPreviewProps {
 }
 
 export default function ItemPreviewCard({ product, onClick }: ItemPreviewProps) {
-  const averageRating = (product.review_score / product.total_reviews).toFixed(1);
+  const averageRating = product.total_reviews > 0 
+    ? (product.review_score / product.total_reviews).toFixed(1) 
+    : '0.0';
   
   return (
     <button
