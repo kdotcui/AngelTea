@@ -56,10 +56,7 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error: unknown) {
-    const message =
-      typeof error === 'object' && error && 'message' in error
-        ? String((error as any).message)
-        : 'Unexpected error';
+    const message = error instanceof Error ? error.message : 'Unexpected error';
     return Response.json({ error: message }, { status: 500 });
   }
 }
