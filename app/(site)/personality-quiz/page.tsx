@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { QUIZ_STATEMENTS } from '@/lib/quiz/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,6 +15,13 @@ export default function PersonalityQuizPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Scroll to top when results are shown
+  useEffect(() => {
+    if (result) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [result]);
 
   const handleChange = (idx: number, value: number) => {
     setAnswers((prev) => prev.map((v, i) => (i === idx ? value : v)));
@@ -50,15 +57,17 @@ export default function PersonalityQuizPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 py-12">
-        {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Drink Personality Quiz
-          </h1>
-          <p className="text-gray-600">
-            Answer honestly to get personalized recommendations
-          </p>
-        </div>
+        {/* Header - Only show when NOT showing results */}
+        {!result && (
+          <div className="mb-10">
+            <h1 className="text-3xl font-bold text-gray-900 mb-3">
+              Find Your Perfect Drink
+            </h1>
+            <p className="text-gray-600">
+              Answer these questions to get personalized recommendations
+            </p>
+          </div>
+        )}
 
         {/* Quiz */}
         {!result && (
@@ -68,7 +77,7 @@ export default function PersonalityQuizPage() {
               <Card key={i} className="border-0 shadow-sm">
                 <CardContent className="p-5">
                   <div className="mb-4">
-                    <span className="text-sm font-medium text-purple-600">
+                    <span className="text-sm font-medium text-primary">
                       Question {i + 1} of {statements.length}
                     </span>
                     <h3 className="text-base font-medium text-gray-900 mt-1.5 leading-relaxed">
@@ -87,8 +96,8 @@ export default function PersonalityQuizPage() {
                         key={opt.v}
                         className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer transition-all border-2 ${
                           answers[i] === opt.v
-                            ? 'bg-purple-500 border-purple-500 text-white shadow-sm'
-                            : 'bg-white border-gray-100 hover:border-purple-200 text-gray-700'
+                            ? 'bg-primary border-primary text-primary-foreground shadow-sm'
+                            : 'bg-white border-gray-100 hover:border-primary/30 text-gray-700'
                         }`}
                       >
                         <input
@@ -143,12 +152,12 @@ export default function PersonalityQuizPage() {
                           onClick={() => setDairy(opt)}
                           className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all border-2 text-center ${
                             dairy === opt
-                              ? 'bg-purple-500 border-purple-500 text-white'
+                              ? 'bg-primary border-primary text-primary-foreground'
                               : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
                           }`}
                         >
                           {opt === 'flex'
-                            ? 'Flexible'
+                            ? 'Any'
                             : opt === 'avoid'
                             ? 'Avoid'
                             : 'OK'}
@@ -169,7 +178,7 @@ export default function PersonalityQuizPage() {
                           onClick={() => setCaffeine(opt)}
                           className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all border-2 text-center ${
                             caffeine === opt
-                              ? 'bg-purple-500 border-purple-500 text-white'
+                              ? 'bg-primary border-primary text-primary-foreground'
                               : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
                           }`}
                         >
@@ -221,11 +230,35 @@ export default function PersonalityQuizPage() {
             <Button
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full h-14 bg-purple-600 hover:bg-purple-700 text-white text-base font-semibold rounded-xl shadow-sm"
+              className="w-full h-14 text-base font-semibold rounded-xl shadow-sm disabled:opacity-90"
             >
-              {loading
-                ? 'Finding Your Perfect Match...'
-                : 'Get My Recommendations'}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="animate-spin h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  Finding Your Perfect Match...
+                </span>
+              ) : (
+                'Get My Recommendations'
+              )}
             </Button>
 
             {error && (
@@ -241,12 +274,12 @@ export default function PersonalityQuizPage() {
           Array.isArray(result?.recommendations) &&
           result.recommendations.length > 0 && (
             <div className="space-y-6">
-              <div>
+              <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
                   Your Perfect Matches
                 </h2>
                 <p className="text-gray-600">
-                  Based on your personality and preferences
+                  Personalized recommendations based on your answers
                 </p>
               </div>
 
@@ -256,7 +289,7 @@ export default function PersonalityQuizPage() {
                     key={idx}
                     className="border-0 shadow-sm overflow-hidden"
                   >
-                    <div className="h-1 bg-gradient-to-r from-purple-500 to-pink-500" />
+                    <div className="h-1 bg-gradient-to-r from-primary to-accent" />
                     <CardContent className="p-5">
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">
                         {r.display_name ?? r.id}
@@ -307,9 +340,7 @@ export default function PersonalityQuizPage() {
                                 key={i2}
                                 className="flex gap-2 text-sm text-gray-700"
                               >
-                                <span className="text-purple-500 mt-0.5">
-                                  •
-                                </span>
+                                <span className="text-primary mt-0.5">•</span>
                                 <span className="leading-relaxed">{w}</span>
                               </li>
                             ))}
