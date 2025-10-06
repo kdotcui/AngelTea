@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
         logoWidth,
         logoHeight
       );
-    } catch (err) {
+    } catch {
       // Skip logo if image type not supported
     }
 
@@ -210,7 +210,7 @@ export async function POST(req: NextRequest) {
     // Convert to buffer
     const buffer = canvas.toBuffer('image/png');
 
-    return new NextResponse(buffer, {
+    return new NextResponse(new Uint8Array(buffer), {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
