@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { getTranslations } from 'next-intl/server';
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const t = await getTranslations();
   const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
   return (
     <div>
@@ -24,64 +27,68 @@ export default function SiteLayout({
           <nav className="hidden items-center gap-5 text-sm md:flex">
             {isShopEnabled && (
               <Link href="/shop" className="hover:text-secondary">
-                Shop
+                {t('navigation.shop')}
               </Link>
             )}
             <Link href="/#menu" className="hover:text-secondary">
-              Popular
+              {t('navigation.popular')}
             </Link>
             <Link href="/#menu-boards" className="hover:text-secondary">
-              Menu
+              {t('navigation.menu')}
             </Link>
             <Link href="/#about" className="hover:text-secondary">
-              About
+              {t('navigation.about')}
             </Link>
             <Link href="/#visit" className="hover:text-secondary">
-              Visit
+              {t('navigation.visit')}
             </Link>
             <Link href="/#press" className="hover:text-secondary">
-              Press
+              {t('navigation.press')}
             </Link>
           </nav>
-          <div className="hidden sm:block">
+          <div className="hidden items-center gap-2 sm:flex">
+            <LanguageSwitcher />
             <a
               href="tel:+17817905313"
               className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
             >
-              Call us
+              {t('common.call_us')}
             </a>
           </div>
-          <details className="md:hidden">
-            <summary className="select-none rounded-md border px-3 py-1.5 text-sm">
-              Menu
-            </summary>
-            <div className="absolute left-0 right-0 mt-2 border-b bg-white/95 px-4 py-3 text-sm shadow-sm backdrop-blur dark:bg-background/95">
-              <div className="mx-auto max-w-6xl">
-                <div className="grid gap-3">
-                  {isShopEnabled && (
-                    <Link href="/shop" className="hover:underline">
-                      Shop
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSwitcher />
+            <details>
+              <summary className="select-none rounded-md border px-3 py-1.5 text-sm">
+                {t('common.menu')}
+              </summary>
+              <div className="absolute left-0 right-0 mt-2 border-b bg-white/95 px-4 py-3 text-sm shadow-sm backdrop-blur dark:bg-background/95">
+                <div className="mx-auto max-w-6xl">
+                  <div className="grid gap-3">
+                    {isShopEnabled && (
+                      <Link href="/shop" className="hover:underline">
+                        {t('navigation.shop')}
+                      </Link>
+                    )}
+                    <Link href="/#menu" className="hover:underline">
+                      {t('navigation.popular')}
                     </Link>
-                  )}
-                  <Link href="/#menu" className="hover:underline">
-                    Popular
-                  </Link>
-                  <Link href="/#menu-boards" className="hover:underline">
-                    Menu
-                  </Link>
-                  <Link href="/#about" className="hover:underline">
-                    About
-                  </Link>
-                  <Link href="/#visit" className="hover:underline">
-                    Visit
-                  </Link>
-                  <Link href="/#press" className="hover:underline">
-                    Press
-                  </Link>
+                    <Link href="/#menu-boards" className="hover:underline">
+                      {t('navigation.menu')}
+                    </Link>
+                    <Link href="/#about" className="hover:underline">
+                      {t('navigation.about')}
+                    </Link>
+                    <Link href="/#visit" className="hover:underline">
+                      {t('navigation.visit')}
+                    </Link>
+                    <Link href="/#press" className="hover:underline">
+                      {t('navigation.press')}
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          </details>
+            </details>
+          </div>
         </div>
       </header>
       {children}
@@ -99,7 +106,7 @@ export default function SiteLayout({
             </a>
           </div>
           <p className="text-muted-foreground mt-2">
-            Open everyday 12:00-10:00PM • 331 Moody St., Waltham, MA, 02453
+            {t('footer.hours')}
           </p>
         </div>
       </footer>

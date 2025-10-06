@@ -20,8 +20,10 @@ import {
 } from '@/components/ui/accordion';
 import PopularDrinks from './PopularDrinks';
 import HeroSlideshow from './HeroSlideshow';
+import { getTranslations } from 'next-intl/server';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations();
   return (
     <main className="min-h-[100vh] space-y-16 p-4 sm:space-y-24 sm:p-6 [--anchor-offset:5rem] [scroll-margin-top:var(--anchor-offset)]">
       {/* Hero */}
@@ -30,27 +32,26 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <Image
               src="/angeltealogo.png"
-              alt="Angel Tea logo"
+              alt={t('hero.alt_logo')}
               width={64}
               height={64}
               priority
               className="rounded-md"
             />
           </div>
-          <Badge variant="secondary">Boba • Coffee • Tea</Badge>
+          <Badge variant="secondary">{t('hero.badge')}</Badge>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
-            Angel Tea
+            {t('hero.title')}
           </h1>
           <p className="text-muted-foreground text-lg">
-            To bring happiness, love, and growth every day through delicious
-            meals and creative beverages.
+            {t('hero.description')}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button className="w-full sm:w-auto" asChild>
-              <Link href="/#menu">View Menu</Link>
+              <Link href="/#menu">{t('common.view_menu')}</Link>
             </Button>
             <Button className="w-full sm:w-auto" variant="outline" asChild>
-              <Link href="/#visit">Find Us</Link>
+              <Link href="/#visit">{t('common.find_us')}</Link>
             </Button>
             <Button
               className="hidden sm:inline-flex"
@@ -79,8 +80,8 @@ export default function Home() {
       {/* Featured Menu */}
       <section id="menu" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">Popular Drinks</h2>
-          <p className="text-muted-foreground">Classics and specialties.</p>
+          <h2 className="text-2xl font-semibold">{t('menu.popular_drinks')}</h2>
+          <p className="text-muted-foreground">{t('menu.popular_drinks_description')}</p>
         </div>
         <PopularDrinks />
       </section>
@@ -91,17 +92,17 @@ export default function Home() {
         className="mx-auto max-w-6xl space-y-8 scroll-mt-24"
       >
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">Menu Boards</h2>
+          <h2 className="text-2xl font-semibold">{t('menu.menu_boards')}</h2>
         </div>
 
         <div className="space-y-8">
           <div>
-            <h3 className="mb-3 text-lg font-medium">Drinks</h3>
+            <h3 className="mb-3 text-lg font-medium">{t('menu.drinks')}</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/drinksleft.webp"
-                  alt="Drinks menu (left)"
+                  alt={t('menu.drinks_left_alt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -110,7 +111,7 @@ export default function Home() {
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/drinksright.webp"
-                  alt="Drinks menu (right)"
+                  alt={t('menu.drinks_right_alt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -120,12 +121,12 @@ export default function Home() {
           </div>
 
           <div>
-            <h3 className="mb-3 text-lg font-medium">Food</h3>
+            <h3 className="mb-3 text-lg font-medium">{t('menu.food')}</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/foodleft.webp"
-                  alt="Food menu (left)"
+                  alt={t('menu.food_left_alt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -134,7 +135,7 @@ export default function Home() {
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/foodright.webp"
-                  alt="Food menu (right)"
+                  alt={t('menu.food_right_alt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -144,12 +145,12 @@ export default function Home() {
           </div>
 
           <div>
-            <h3 className="mb-3 text-lg font-medium">Desserts</h3>
+            <h3 className="mb-3 text-lg font-medium">{t('menu.desserts')}</h3>
             <div className="grid gap-3 md:grid-cols-2">
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/dessertleft.webp"
-                  alt="Dessert menu (left)"
+                  alt={t('menu.dessert_left_alt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -158,7 +159,7 @@ export default function Home() {
               <Card className="overflow-hidden p-0">
                 <Image
                   src="/menu/dessertright.webp"
-                  alt="Dessert menu (right)"
+                  alt={t('menu.dessert_right_alt')}
                   width={640}
                   height={640}
                   className="mx-auto block h-auto w-full max-w-[640px]"
@@ -187,22 +188,17 @@ export default function Home() {
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Our Story</h2>
+          <h2 className="text-2xl font-semibold">{t('about.title')}</h2>
           <p className="text-muted-foreground">
-            Angel Tea is a highly rated cafe on Moody Street in Waltham, serving
-            high-quality bubble tea, delicious desserts, and authentic homestyle
-            Chinese food. We pride ourselves on fresh ingredients and creating
-            drinks and dishes that bring people together.
+            {t('about.description_1')}
           </p>
           <p className="text-muted-foreground">
-            Founded in 2022 by owner Angel Zhao (Brandeis ’25), the cafe has
-            quickly earned a loyal local following with a 4.7★ rating on Google.
-            Our values of happiness and love guide everything we do.
+            {t('about.description_2')}
           </p>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="outline">Less Sugar</Badge>
-            <Badge variant="outline">Non-Dairy Options</Badge>
-            <Badge variant="outline">Locally Roasted</Badge>
+            <Badge variant="outline">{t('about.badges.less_sugar')}</Badge>
+            <Badge variant="outline">{t('about.badges.non_dairy')}</Badge>
+            <Badge variant="outline">{t('about.badges.locally_roasted')}</Badge>
           </div>
         </div>
       </section>
@@ -214,25 +210,21 @@ export default function Home() {
             className="text-2xl font-semibold"
             style={{ fontFamily: 'var(--font-decorative)' }}
           >
-            What guests say
+            {t('testimonials.title')}
           </h2>
-          <p className="text-muted-foreground">Real love from our community.</p>
+          <p className="text-muted-foreground">{t('testimonials.description')}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {[
-            'I got one of their top 10 drinks, Mango Pomelo Sago Slush. It was amazing, really hit the spot from the first sip.',
-            'Angel Tea offers a unique blend of exquisite tea selections and authentic Chinese dishes. The welcoming atmosphere and friendly staff make every visit feel special.',
-            'Angel Tea maintains a 4.7 out of 5 star rating on Google, reflecting widespread customer satisfaction with its flavors and service.',
-          ].map((quote, idx) => (
+          {['quote_1', 'quote_2', 'quote_3'].map((quoteKey, idx) => (
             <Card
               key={idx}
               className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/10 via-[--ring]/5 to-background"
             >
               <CardContent className="pt-6">
                 <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-secondary/30 px-3 py-1 text-xs font-medium text-secondary-foreground">
-                  <Quote className="size-3" /> Guest review
+                  <Quote className="size-3" /> {t('common.guest_review')}
                 </div>
-                <p className="text-balance italic">“{quote}”</p>
+                <p className="text-balance italic">"{t(`testimonials.${quoteKey}`)}"</p>
                 <Separator className="my-4" />
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <div className="flex items-center">
@@ -244,7 +236,7 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                  <span>Verified guest</span>
+                  <span>{t('common.verified_guest')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -256,20 +248,19 @@ export default function Home() {
       <section id="visit" className="mx-auto max-w-6xl scroll-mt-24">
         <Card>
           <CardHeader>
-            <CardTitle>Visit Angel Tea</CardTitle>
+            <CardTitle>{t('visit.title')}</CardTitle>
             <CardDescription>
-              Open every day • 12:00 PM – 10:00 PM
+              {t('visit.hours')}
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
             <div>
-              <p>331 Moody St</p>
-              <p>Waltham, MA 02453</p>
+              <p>{t('visit.address_line_1')}</p>
+              <p>{t('visit.address_line_2')}</p>
               <div className="mt-3 space-y-1 text-sm text-muted-foreground">
-                <p>Street parking available; accessible spot nearby.</p>
+                <p>{t('visit.parking_info')}</p>
                 <p>
-                  Wheelchair-accessible entrance and restroom; gender-neutral
-                  restroom.
+                  {t('visit.accessibility_info')}
                 </p>
               </div>
             </div>
@@ -299,7 +290,7 @@ export default function Home() {
                   </div>
                   <span className="text-sm font-medium">4.7</span>
                   <span className="text-muted-foreground text-sm">
-                    Google rating
+                    {t('visit.google_rating')}
                   </span>
                 </div>
                 <Button variant="outline" asChild>
@@ -308,7 +299,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    See reviews
+                    {t('common.see_reviews')}
                   </Link>
                 </Button>
               </div>
@@ -319,7 +310,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Get Directions
+                    {t('common.get_directions')}
                   </Link>
                 </Button>
               </div>
@@ -331,35 +322,14 @@ export default function Home() {
       {/* FAQs */}
       <section id="faqs" className="mx-auto max-w-6xl space-y-6 scroll-mt-24">
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">FAQs</h2>
-          <p className="text-muted-foreground">Answers to common questions.</p>
+          <h2 className="text-2xl font-semibold">{t('faqs.title')}</h2>
+          <p className="text-muted-foreground">{t('faqs.description')}</p>
         </div>
         <Accordion type="single" collapsible className="w-full">
-          {[
-            {
-              q: 'What are your hours of operation?',
-              a: 'We are open every day from 12:00 PM to 10:00 PM.',
-            },
-            {
-              q: 'Do you offer delivery or online ordering?',
-              a: 'Yes, we offer takeout and dine-in, and delivery via DoorDash, Grubhub, and Uber Eats.',
-            },
-            {
-              q: 'Is there parking available?',
-              a: 'Street parking is available on Moody Street, with public lots nearby and an accessible spot close to the shop.',
-            },
-            {
-              q: 'Are you wheelchair accessible?',
-              a: 'Yes. Our entrance and restroom are wheelchair-accessible, and seating accommodates mobility devices.',
-            },
-            {
-              q: 'Do you have non-dairy or vegan options?',
-              a: 'Many fruit teas contain no dairy, and we have non-dairy alternatives for milk teas. Some food items are vegan-friendly.',
-            },
-          ].map((f, i) => (
+          {['hours', 'delivery', 'parking', 'accessibility', 'dietary'].map((key, i) => (
             <AccordionItem key={i} value={`item-${i}`}>
-              <AccordionTrigger>{f.q}</AccordionTrigger>
-              <AccordionContent>{f.a}</AccordionContent>
+              <AccordionTrigger>{t(`faqs.questions.${key}.q`)}</AccordionTrigger>
+              <AccordionContent>{t(`faqs.questions.${key}.a`)}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
@@ -372,9 +342,9 @@ export default function Home() {
             className="text-2xl font-semibold"
             style={{ fontFamily: 'var(--font-decorative)' }}
           >
-            In the Press
+            {t('press.title')}
           </h2>
-          <p className="text-muted-foreground">Stories about Angel Tea.</p>
+          <p className="text-muted-foreground">{t('press.description')}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="border-accent/30 bg-gradient-to-br from-accent/10 to-background">
@@ -389,11 +359,10 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="hover:text-secondary"
                 >
-                  Moody Street’s best bubble tea shop is run by a Brandeis
-                  junior
+                  {t('press.justice.title')}
                 </Link>
               </CardTitle>
-              <CardDescription>Oct 3, 2023</CardDescription>
+              <CardDescription>{t('press.justice.date')}</CardDescription>
             </CardHeader>
           </Card>
           <Card className="border-accent/30 bg-gradient-to-br from-accent/10 to-background">
@@ -408,10 +377,10 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="hover:text-secondary"
                 >
-                  This Brandeis College Student Is Running Her Own Boba Shop
+                  {t('press.spoon.title')}
                 </Link>
               </CardTitle>
-              <CardDescription>Aug 15, 2024</CardDescription>
+              <CardDescription>{t('press.spoon.date')}</CardDescription>
             </CardHeader>
           </Card>
         </div>
