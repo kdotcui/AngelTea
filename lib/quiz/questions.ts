@@ -1,0 +1,17 @@
+export const QUIZ_STATEMENTS: string[] = [
+  'I feel most myself in winter rather than summer.',
+  'I prefer spontaneous plans over carefully scheduled days.',
+  'I thrive in busy, energetic spaces more than calm, quiet ones.',
+  'I’d rather explore something new than return to a favorite.',
+  'I’m a night owl more than a morning person.',
+  'I’m comfortable taking small risks for a good story.',
+  'I protect my routines even if it means saying no.',
+  'I’m drawn to sleek minimalism more than playful maximalism.',
+  'I recharge with solo time more than with friends.',
+  'I value health and ethics details when choosing products.',
+  'I gravitate toward light, bright experiences more than cozy, heavy ones.',
+  'I enjoy layered complexity more than simple, straightforward things.',
+  'When overwhelmed by options, I default to tried‑and‑true classics.',
+  'I prefer tart and zesty tastes over sweet and mellow.',
+  'I make decisions quickly by gut feel rather than careful comparison.',
+];
