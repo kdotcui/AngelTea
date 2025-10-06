@@ -10,7 +10,10 @@ import {
 } from '@/components/ui/dialog';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Star, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
+import { useState } from 'react';
 
 interface ItemPreviewModalProps {
   item: ShopItem;
@@ -20,6 +23,14 @@ interface ItemPreviewModalProps {
 
 export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewModalProps) {
   const rating = item.total_reviews > 0 ? (item.review_score / item.total_reviews).toFixed(1) : '0.0';
+  const { addToCart } = useCart();
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addToCart(item);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 300); // Reset after 2 seconds
+  };
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -77,6 +88,19 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
                   >
                     {item.quantity > 0 ? `${item.quantity} in stock` : 'Out of stock'}
                   </Badge>
+                </div>
+
+                {/* Add to Cart Button */}
+                <div className="pt-4">
+                  <Button
+                    onClick={handleAddToCart}
+                    disabled={item.quantity <= 0 || isAdded}
+                    className="w-full"
+                    size="lg"
+                  >
+                    <ShoppingCart className="mr-2 h-5 w-5" />
+                    {isAdded ? 'Added to Cart!' : item.quantity <= 0 ? 'Out of Stock' : 'Add to Cart'}
+                  </Button>
                 </div>
               </CardContent>
             </Card>
