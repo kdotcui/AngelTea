@@ -3,7 +3,6 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { QUIZ_QUESTIONS } from '@/lib/quiz/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import html2canvas from 'html2canvas';
 
 type DrinkPersonality = {
   drinkName: string;
