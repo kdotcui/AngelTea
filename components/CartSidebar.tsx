@@ -49,8 +49,18 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                   {/* Product Details */}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm truncate">{item.name}</h3>
+                    
+                    {/* Show variant details if available */}
+                    {item.selectedVariant && (
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {item.selectedVariant.color && <span>Color: {item.selectedVariant.color}</span>}
+                        {item.selectedVariant.color && item.selectedVariant.size && <span> • </span>}
+                        {item.selectedVariant.size && <span>Size: {item.selectedVariant.size}</span>}
+                      </div>
+                    )}
+                    
                     <p className="text-sm text-muted-foreground mt-1">
-                      ${item.price.toFixed(2)} each
+                      ${(item.selectedVariant?.price ?? item.price).toFixed(2)} each
                     </p>
 
                     {/* Quantity Controls */}
@@ -59,7 +69,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         variant="outline"
                         size="icon"
                         className="h-7 w-7"
-                        onClick={() => updateQuantity(item.id, item.cartQuantity - 1)}
+                        onClick={() => updateQuantity(item.id, item.cartQuantity - 1, item.selectedVariant?.sku)}
                       >
                         <Minus className="h-3 w-3" />
                       </Button>
@@ -70,7 +80,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         variant="outline"
                         size="icon"
                         className="h-7 w-7"
-                        onClick={() => updateQuantity(item.id, item.cartQuantity + 1)}
+                        onClick={() => updateQuantity(item.id, item.cartQuantity + 1, item.selectedVariant?.sku)}
                       >
                         <Plus className="h-3 w-3" />
                       </Button>
@@ -78,7 +88,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         variant="ghost"
                         size="icon"
                         className="h-7 w-7 ml-auto text-red-600 hover:text-red-700 hover:bg-red-50"
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => removeFromCart(item.id, item.selectedVariant?.sku)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -88,7 +98,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                   {/* Item Total */}
                   <div className="text-right">
                     <p className="font-semibold">
-                      ${(item.price * item.cartQuantity).toFixed(2)}
+                      ${((item.selectedVariant?.price ?? item.price) * item.cartQuantity).toFixed(2)}
                     </p>
                   </div>
                 </div>

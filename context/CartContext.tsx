@@ -1,19 +1,20 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { ShopItem } from '@/types/shop';
+import { ShopItem, ProductVariant } from '@/types/shop';
 
 interface CartItem extends ShopItem {
   cartQuantity: number;
+  selectedVariant?: ProductVariant; // The specific variant chosen (if product has variants)
 }
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (item: ShopItem) => void;
-  removeFromCart: (itemId: string) => void;
+  addToCart: (item: ShopItem, selectedVariant?: ProductVariant) => void;
+  removeFromCart: (itemId: string, variantSku?: string) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
-  updateQuantity: (itemId: string, quantity: number) => void;
+  updateQuantity: (itemId: string, quantity: number, variantSku?: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -42,38 +43,66 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [cart, isInitialized]);
 
-  const addToCart = (item: ShopItem) => {
+  const addToCart = (item: ShopItem, selectedVariant?: ProductVariant) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+      // Find existing cart item: match by ID and variant SKU (if variant exists)
+      const existingItem = prevCart.find((cartItem) => {
+        const idMatches = cartItem.id === item.id;
+        const variantMatches = selectedVariant 
+          ? cartItem.selectedVariant?.sku === selectedVariant.sku
+          : !cartItem.selectedVariant;
+        return idMatches && variantMatches;
+      });
       
       if (existingItem) {
         // Item already in cart, increase quantity
-        return prevCart.map((cartItem) =>
-          cartItem.id === item.id
+        return prevCart.map((cartItem) => {
+          const idMatches = cartItem.id === item.id;
+          const variantMatches = selectedVariant 
+            ? cartItem.selectedVariant?.sku === selectedVariant.sku
+            : !cartItem.selectedVariant;
+          return idMatches && variantMatches
             ? { ...cartItem, cartQuantity: cartItem.cartQuantity + 1 }
-            : cartItem
-        );
+            : cartItem;
+        });
       } else {
         // New item, add to cart with quantity 1
-        return [...prevCart, { ...item, cartQuantity: 1 }];
+        return [...prevCart, { ...item, selectedVariant, cartQuantity: 1 }];
       }
     });
   };
 
-  const removeFromCart = (itemId: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
+  const removeFromCart = (itemId: string, variantSku?: string) => {
+    setCart((prevCart) => prevCart.filter((item) => {
+      const idMatches = item.id === itemId;
+      if (!idMatches) {
+        return true; // Keep items that don't match ID
+      }
+      // If variantSku provided, only remove if both ID and SKU match
+      if (variantSku) {
+        return item.selectedVariant?.sku !== variantSku;
+      }
+      // If no variantSku provided and item has no variant, remove it
+      return !!item.selectedVariant;
+    }));
   };
 
-  const updateQuantity = (itemId: string, quantity: number) => {
+  const updateQuantity = (itemId: string, quantity: number, variantSku?: string) => {
     if (quantity <= 0) {
-      removeFromCart(itemId);
+      removeFromCart(itemId, variantSku);
       return;
     }
 
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === itemId ? { ...item, cartQuantity: quantity } : item
-      )
+      prevCart.map((item) => {
+        const idMatches = item.id === itemId;
+        const variantMatches = variantSku 
+          ? item.selectedVariant?.sku === variantSku
+          : !item.selectedVariant;
+        return idMatches && variantMatches
+          ? { ...item, cartQuantity: quantity }
+          : item;
+      })
     );
   };
 
@@ -86,7 +115,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.price * item.cartQuantity, 0);
+    return cart.reduce((total, item) => {
+      // Use variant price if available, otherwise use base price
+      const itemPrice = item.selectedVariant?.price ?? item.price;
+      return total + itemPrice * item.cartQuantity;
+    }, 0);
   };
 
   const value: CartContextType = {
