@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
     const {
       messages,
-      model = 'gpt-4o-mini',
+      model = 'gpt-5-nano',
       temperature = 0.7,
       max_tokens,
     }: {

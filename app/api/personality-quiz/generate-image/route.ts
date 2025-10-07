@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
       const logoPath = path.join(
         process.cwd(),
         'public',
-        'angeltealogo-real.png'
+        'angeltealogo.png'
       );
       const logo = await loadImage(logoPath);
       const logoHeight = 64 * scale;
