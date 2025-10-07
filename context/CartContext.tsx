@@ -55,18 +55,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
       });
       
       if (existingItem) {
-        // Item already in cart, increase quantity
+        // Item already in cart, increase quantity (respecting stock limits)
         return prevCart.map((cartItem) => {
           const idMatches = cartItem.id === item.id;
           const variantMatches = selectedVariant 
             ? cartItem.selectedVariant?.sku === selectedVariant.sku
             : !cartItem.selectedVariant;
-          return idMatches && variantMatches
-            ? { ...cartItem, cartQuantity: cartItem.cartQuantity + 1 }
-            : cartItem;
+          if (idMatches && variantMatches) {
+            const maxStock = cartItem.selectedVariant?.stock ?? cartItem.quantity ?? Infinity;
+            const newQuantity = Math.min(cartItem.cartQuantity + 1, maxStock);
+            if (newQuantity <= cartItem.cartQuantity) {
+              console.warn(`Cannot add more: stock limit reached (${maxStock} available)`);
+            }
+            return { ...cartItem, cartQuantity: newQuantity };
+          }
+          return cartItem;
         });
       } else {
-        // New item, add to cart with quantity 1
+        // New item, validate stock before adding to cart
+        const maxStock = selectedVariant?.stock ?? item.quantity ?? Infinity;
+        if (maxStock <= 0) {
+          console.warn(`Cannot add item: out of stock`);
+          return prevCart;
+        }
         return [...prevCart, { ...item, selectedVariant, cartQuantity: 1 }];
       }
     });
@@ -99,9 +110,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const variantMatches = variantSku 
           ? item.selectedVariant?.sku === variantSku
           : !item.selectedVariant;
-        return idMatches && variantMatches
-          ? { ...item, cartQuantity: quantity }
-          : item;
+        if (idMatches && variantMatches) {
+          const maxStock = item.selectedVariant?.stock ?? item.quantity ?? Infinity;
+          const cappedQuantity = Math.min(quantity, maxStock);
+          if (cappedQuantity < quantity) {
+            console.warn(`Quantity capped at ${cappedQuantity}: only ${maxStock} items available in stock`);
+          }
+          return { ...item, cartQuantity: cappedQuantity };
+        }
+        return item;
       })
     );
   };

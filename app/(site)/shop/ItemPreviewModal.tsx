@@ -64,11 +64,10 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
 
   // Check if user needs to select variant options
   const needsVariantSelection = item.variants && item.variants.length > 0;
-  const hasSelectedVariant = !needsVariantSelection || 
-    ((!availableSizes.length || selectedSize) && (!availableColors.length || selectedColor));
+  const hasValidSelectedVariant = !needsVariantSelection || !!selectedVariant;
 
   const handleAddToCart = () => {
-    if (needsVariantSelection && !hasSelectedVariant) return;
+    if (needsVariantSelection && !hasValidSelectedVariant) return;
     
     addToCart(item, selectedVariant);
     setIsAdded(true);
@@ -185,7 +184,7 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
                 <div className="pt-4">
                   <Button
                     onClick={handleAddToCart}
-                    disabled={availableStock <= 0 || isAdded || (needsVariantSelection && !hasSelectedVariant)}
+                    disabled={availableStock <= 0 || isAdded || (needsVariantSelection && !hasValidSelectedVariant)}
                     className="w-full"
                     size="lg"
                   >
@@ -194,7 +193,7 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
                       ? 'Added to Cart!' 
                       : availableStock <= 0 
                       ? 'Out of Stock' 
-                      : needsVariantSelection && !hasSelectedVariant
+                      : needsVariantSelection && !hasValidSelectedVariant
                       ? 'Select Options'
                       : 'Add to Cart'}
                   </Button>
