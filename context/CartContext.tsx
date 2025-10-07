@@ -1,11 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { ShopItem, ProductVariant } from '@/types/shop';
-
-interface CartItem extends ShopItem {
-  cartQuantity: number;
-  selectedVariant?: ProductVariant; // The specific variant chosen (if product has variants)
-}
+import { ShopItem, ProductVariant, CartItem } from '@/types/shop';
 
 interface CartContextType {
   cart: CartItem[];
