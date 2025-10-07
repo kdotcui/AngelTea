@@ -28,3 +28,24 @@ export interface ShopItem {
 }
 
 export type CreateShopItemType = WithFieldValue<Omit<ShopItem, 'id'>>;
+
+// Cart-related types
+export interface CartItem extends ShopItem {
+  cartQuantity: number;
+  selectedVariant?: ProductVariant; // The specific variant chosen (if product has variants)
+}
+
+// Checkout-related types (Stripe integration)
+export interface CheckoutItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  images?: string[];
+  selectedVariant?: ProductVariant;
+}
+
+export interface PaymentLinkResponse {
+  url: string;
+  id: string;
+}
