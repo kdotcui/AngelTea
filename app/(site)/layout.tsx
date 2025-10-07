@@ -1,17 +1,15 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
-  const t = useTranslations();
+  const t = await getTranslations();
   return (
     <div>
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
