@@ -1,3 +1,5 @@
+import { WithFieldValue } from "firebase/firestore";
+
 export interface ShopItem {
   id: string;
   name: string;
@@ -9,3 +11,5 @@ export interface ShopItem {
   review_score: number; // Score out of 5
   purchases: number;
 }
+
+export type CreateShopItemType = WithFieldValue<Omit<ShopItem, 'id'>>;

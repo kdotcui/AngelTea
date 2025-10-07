@@ -1,31 +1,63 @@
 "use client";
-import { useState} from 'react';
-import { ShopItem } from '@/types/ShopItem';
+import { useState, useEffect } from 'react';
+import { ShopItem } from '@/types/shop';
+import { getShopItems } from '@/services/shopItemUtils';
 import ItemPreviewCard from './ItemPreviewCard';
 import ItemPreviewModal from './ItemPreviewModal';
-// TODO: Remove this and replace with items stored in firebase.
-import { products } from './hardcodedProducts';
+import Image from 'next/image';
 
 export default function ShopPage() {
+  const [items, setItems] = useState<ShopItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<ShopItem | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchShopItems() {
+      try {
+        const fetchedItems = await getShopItems();
+        setItems(fetchedItems);
+      } catch (error) {
+        console.error('Error fetching shop items:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchShopItems();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center mb-8">Angel Tea Merchandise</h1>
+        <Image src="/loading.gif" alt="Loading" width={500} height={500} className="mx-auto block" />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Angel Tea Merchandise</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ItemPreviewCard
-            key={product.id}
-            product={product}
-            onClick={() => setSelectedItem(product)}
-          />
-        ))}
-      </div>
-      <ItemPreviewModal 
-        item={selectedItem || products[0]} 
-        open={selectedItem !== null} 
-        onClose={() => setSelectedItem(null)} 
-      />
+      {items.length === 0 ? (
+        <div className="text-center text-gray-500">No items available</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {items.map((product) => (
+            <ItemPreviewCard
+              key={product.id}
+              product={product}
+              onClick={() => setSelectedItem(product)}
+            />
+          ))}
+        </div>
+      )}
+      {selectedItem && (
+        <ItemPreviewModal 
+          item={selectedItem} 
+          open={selectedItem !== null} 
+          onClose={() => setSelectedItem(null)} 
+        />
+      )}
     </div>
   );
 }
