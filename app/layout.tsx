@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins, Roboto, Pacifico } from 'next/font/google';
 import { AnalyticsInit } from './AnalyticsInit';
-import { LanguageProvider } from '@/components/LanguageContext';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import './globals.css';
 
 const poppins = Poppins({
@@ -59,19 +60,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages();
+
   return (
     <html lang="en">
       <body
         className={`${poppins.variable} ${roboto.variable} ${pacifico.variable} antialiased`}
       >
-        <LanguageProvider>
+        <NextIntlClientProvider messages={messages}>
           {children}
-        </LanguageProvider>
+        </NextIntlClientProvider>
         <AnalyticsInit />
       </body>
     </html>

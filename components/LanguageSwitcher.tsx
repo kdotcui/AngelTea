@@ -1,12 +1,15 @@
 'use client';
 
-import {Button} from '@/components/ui/button';
-import {useLanguage} from './LanguageContext';
-import {Globe, ChevronDown} from 'lucide-react';
-import {useState, useRef, useEffect} from 'react';
+import { useLocale } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Globe, ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 
-export default function LanguageToggle() {
-  const { language, setLanguage } = useLanguage();
+export default function LanguageSwitcher() {
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -16,7 +19,7 @@ export default function LanguageToggle() {
     { code: 'es', name: 'Español' }
   ];
 
-  const currentLanguage = languages.find(lang => lang.code === language) || languages[0];
+  const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -30,6 +33,13 @@ export default function LanguageToggle() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const switchLanguage = (newLocale: string) => {
+    // Set cookie and reload the page
+    document.cookie = `locale=${newLocale}; path=/; max-age=31536000`; // 1 year
+    router.refresh();
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -49,12 +59,9 @@ export default function LanguageToggle() {
           {languages.map((lang) => (
             <button
               key={lang.code}
-              onClick={() => {
-                setLanguage(lang.code as 'en' | 'zh' | 'es');
-                setIsOpen(false);
-              }}
+              onClick={() => switchLanguage(lang.code)}
               className={`w-full px-3 py-2 text-left hover:bg-gray-50 ${
-                language === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                locale === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
               }`}
             >
               {lang.name}

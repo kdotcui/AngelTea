@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -22,10 +20,10 @@ import {
 } from '@/components/ui/accordion';
 import PopularDrinks from './PopularDrinks';
 import HeroSlideshow from './HeroSlideshow';
-import { useLanguage } from '@/components/LanguageContext';
+import { getTranslations } from 'next-intl/server';
 
-export default function Home() {
-  const { t } = useLanguage();
+export default async function Home() {
+  const t = await getTranslations();
   
   return (
     <main className="min-h-[100vh] space-y-16 p-4 sm:space-y-24 sm:p-6 [--anchor-offset:5rem] [scroll-margin-top:var(--anchor-offset)]">

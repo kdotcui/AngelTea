@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import LanguageToggle from '@/components/LanguageToggle';
-import { useLanguage } from '@/components/LanguageContext';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function SiteLayout({
   children,
@@ -11,7 +11,7 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
-  const { t } = useLanguage();
+  const t = useTranslations();
   return (
     <div>
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
@@ -49,7 +49,7 @@ export default function SiteLayout({
             </Link>
           </nav>
           <div className="hidden sm:flex items-center gap-3">
-            <LanguageToggle />
+            <LanguageSwitcher />
             <a
               href="tel:+17817905313"
               className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
@@ -85,7 +85,7 @@ export default function SiteLayout({
                     {t('navigation.press')}
                   </Link>
                   <div className="flex items-center gap-3 pt-2 border-t">
-                    <LanguageToggle />
+                    <LanguageSwitcher />
                     <a
                       href="tel:+17817905313"
                       className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
