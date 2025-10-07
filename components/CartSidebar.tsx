@@ -1,9 +1,11 @@
 "use client";
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Minus, Plus, Trash2 } from 'lucide-react';
+import { Minus, Plus, Trash2, Loader2 } from 'lucide-react';
 import Image from 'next/image';
+import { createPaymentLink, formatCartItemsForCheckout } from '@/services/checkout';
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -12,7 +14,29 @@ interface CartSidebarProps {
 
 export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   const { cart, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const totalPrice = getTotalPrice();
+
+  const handleCheckout = async () => {
+    setIsCheckingOut(true);
+    setCheckoutError(null);
+
+    try {
+      // Format cart items for checkout
+      const checkoutItems = formatCartItemsForCheckout(cart);
+      
+      // Create payment link
+      const { url } = await createPaymentLink(checkoutItems);
+      
+      // Redirect to Stripe checkout
+      window.location.href = url;
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setCheckoutError(error instanceof Error ? error.message : 'Failed to process checkout');
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -113,6 +137,13 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
 
+              {/* Error Message */}
+              {checkoutError && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+                  {checkoutError}
+                </div>
+              )}
+
               {/* Checkout and Clear Cart Buttons */}
               <div className="flex gap-2 w-full">
                 <Button
@@ -120,14 +151,24 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                     className="flex-1"
                     size="lg"
                     onClick={clearCart}
+                    disabled={isCheckingOut}
                 >
                   Clear Cart
                 </Button>
                 <Button 
                   className="flex-[3] bg-green-600 hover:bg-green-700 text-white"
                   size="lg"
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
                 >
-                  Proceed to Checkout
+                  {isCheckingOut ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    'Proceed to Checkout'
+                  )}
                 </Button>
 
               </div>
