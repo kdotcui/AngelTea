@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins, Roboto, Pacifico } from 'next/font/google';
 import { AnalyticsInit } from './AnalyticsInit';
+import { LanguageProvider } from '@/components/LanguageContext';
 import './globals.css';
 
 const poppins = Poppins({
@@ -68,7 +69,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${roboto.variable} ${pacifico.variable} antialiased`}
       >
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
         <AnalyticsInit />
       </body>
     </html>

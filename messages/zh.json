@@ -1,0 +1,139 @@
+{
+  "common": {
+    "loading": "加载中…",
+    "back_to_site": "返回网站",
+    "see_reviews": "查看评价",
+    "get_directions": "获取路线",
+    "view_menu": "查看菜单",
+    "find_us": "找到我们",
+    "open_link": "打开链接",
+    "go_to_slide": "转到幻灯片",
+    "verified_guest": "已验证客人",
+    "guest_review": "客人评价",
+    "purchases": "购买",
+    "reviews": "评价",
+    "in_stock": "有库存",
+    "out_of_stock": "缺货",
+    "call_us": "联系我们",
+    "menu": "菜单"
+  },
+  "navigation": {
+    "shop": "商店",
+    "popular": "热门",
+    "menu": "菜单",
+    "about": "关于",
+    "visit": "访问",
+    "press": "媒体"
+  },
+  "footer": {
+    "hours": "每天开放 12:00-22:00 • 马萨诸塞州沃尔瑟姆穆迪街331号，02453"
+  },
+  "hero": {
+    "badge": "珍珠奶茶 • 咖啡 • 茶",
+    "title": "天使茶",
+    "description": "通过美味的餐点和创意饮品，每天带来快乐、爱和成长。",
+    "alt_logo": "天使茶标志"
+  },
+  "menu": {
+    "popular_drinks": "热门饮品",
+    "popular_drinks_description": "经典和特色饮品。",
+    "menu_boards": "菜单板",
+    "drinks": "饮品",
+    "food": "食物",
+    "desserts": "甜点",
+    "drinks_left_alt": "饮品菜单（左）",
+    "drinks_right_alt": "饮品菜单（右）",
+    "food_left_alt": "食物菜单（左）",
+    "food_right_alt": "食物菜单（右）",
+    "dessert_left_alt": "甜点菜单（左）",
+    "dessert_right_alt": "甜点菜单（右）"
+  },
+  "about": {
+    "title": "我们的故事",
+    "description_1": "天使茶是沃尔瑟姆穆迪街上的一家高评价咖啡厅，提供高品质的珍珠奶茶、美味甜点和正宗家常中餐。我们以新鲜食材为荣，创造将人们聚集在一起的饮品和菜肴。",
+    "description_2": "天使茶由老板赵天使（布兰代斯大学25届）于2022年创立，咖啡厅迅速赢得了忠实的本地追随者，在谷歌上获得4.7★评分。我们的快乐和爱的价值观指导着我们所做的一切。",
+    "alt_image": "将牛奶倒入咖啡",
+    "badges": {
+      "less_sugar": "少糖",
+      "non_dairy": "非乳制品选择",
+      "locally_roasted": "本地烘焙"
+    }
+  },
+  "testimonials": {
+    "title": "客人怎么说",
+    "description": "来自我们社区的真爱。",
+    "quote_1": "我点了他们十大饮品之一的芒果柚子西米露。太棒了，第一口就让我印象深刻。",
+    "quote_2": "天使茶提供独特的精致茶品选择和正宗中餐。温馨的氛围和友好的员工让每次访问都感觉特别。",
+    "quote_3": "天使茶在谷歌上保持4.7分（满分5分）的评分，反映了客户对其口味和服务的广泛满意度。"
+  },
+  "visit": {
+    "title": "访问天使茶",
+    "hours": "每天开放 • 中午12:00 – 晚上10:00",
+    "address_line_1": "穆迪街331号",
+    "address_line_2": "沃尔瑟姆，马萨诸塞州 02453",
+    "parking_info": "街道停车位可用；附近有无障碍停车位。",
+    "accessibility_info": "轮椅无障碍入口和洗手间；性别中性洗手间。",
+    "google_rating": "谷歌评分"
+  },
+  "faqs": {
+    "title": "常见问题",
+    "description": "常见问题的答案。",
+    "questions": {
+      "hours": {
+        "q": "你们的营业时间是什么？",
+        "a": "我们每天从中午12:00到晚上10:00开放。"
+      },
+      "delivery": {
+        "q": "你们提供外卖或在线订购吗？",
+        "a": "是的，我们提供外卖和堂食，以及通过DoorDash、Grubhub和Uber Eats的外卖服务。"
+      },
+      "parking": {
+        "q": "有停车位吗？",
+        "a": "穆迪街有街道停车位，附近有公共停车场，商店附近有无障碍停车位。"
+      },
+      "accessibility": {
+        "q": "你们对轮椅无障碍吗？",
+        "a": "是的。我们的入口和洗手间都是轮椅无障碍的，座位可以容纳移动设备。"
+      },
+      "dietary": {
+        "q": "你们有非乳制品或素食选择吗？",
+        "a": "许多水果茶不含乳制品，我们的奶茶有非乳制品替代品。一些食物是素食友好的。"
+      }
+    }
+  },
+  "press": {
+    "title": "媒体报道",
+    "description": "关于天使茶的故事。",
+    "justice": {
+      "title": "穆迪街最好的珍珠奶茶店由布兰代斯大学大三学生经营",
+      "date": "2023年10月3日"
+    },
+    "spoon": {
+      "title": "这位布兰代斯大学学生正在经营自己的珍珠奶茶店",
+      "date": "2024年8月15日"
+    }
+  },
+  "shop": {
+    "title": "天使茶商品",
+    "click_for_story": "点击图片或标题查看完整故事…"
+  },
+  "admin": {
+    "title": "管理",
+    "description": "管理内容和设置。",
+    "hero_slideshow": {
+      "title": "首页轮播",
+      "description": "管理轮播图片。",
+      "slides_count": "张幻灯片",
+      "add_slide": "添加幻灯片",
+      "no_slides": "暂无幻灯片。",
+      "untitled": "无标题"
+    },
+    "popular_drinks": {
+      "title": "热门饮品",
+      "description": "首页热门饮品部分显示的内容。",
+      "add_drink": "添加饮品",
+      "no_items": "暂无项目。",
+      "add_first_item": "添加第一个项目"
+    }
+  }
+}
