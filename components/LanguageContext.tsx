@@ -15,10 +15,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [messages, setMessages] = useState<any>({});
 
   useEffect(() => {
-    // Load saved language from localStorage
-    const savedLanguage = localStorage.getItem('language') as 'en' | 'zh' | 'es' || 'en';
-    setLanguageState(savedLanguage);
-    loadMessages(savedLanguage);
+    // Load saved language from localStorage (only in browser)
+    if (typeof window !== 'undefined') {
+      const allowedLanguages = ['en', 'zh', 'es'];
+      const storedLanguage = localStorage.getItem('language');
+      const savedLanguage = allowedLanguages.includes(storedLanguage as string)
+        ? (storedLanguage as 'en' | 'zh' | 'es')
+        : 'en';
+      setLanguageState(savedLanguage);
+      loadMessages(savedLanguage);
+    }
   }, []);
 
   const loadMessages = async (lang: 'en' | 'zh' | 'es') => {
