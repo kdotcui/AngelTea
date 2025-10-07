@@ -30,6 +30,9 @@ export default async function SiteLayout({
                 {t('navigation.shop')}
               </Link>
             )}
+            <Link href="/personality-quiz" className="hover:text-secondary">
+              Personality Quiz
+            </Link>
             <Link href="/#menu" className="hover:text-secondary">
               {t('navigation.popular')}
             </Link>
@@ -67,6 +70,9 @@ export default async function SiteLayout({
                       {t('navigation.shop')}
                     </Link>
                   )}
+                  <Link href="/personality-quiz" className="hover:underline">
+                    Personality Quiz
+                  </Link>
                   <Link href="/#menu" className="hover:underline">
                     {t('navigation.popular')}
                   </Link>
