@@ -18,6 +18,7 @@ import {
 } from '@/services/shopItemUtils';
 import { CreateShopItemType, ProductVariant } from '@/types/shop';
 import { Trash2, Plus } from 'lucide-react';
+import { generateSKU } from '@/lib/sku';
 
 const STANDARD_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', 'ONE SIZE'] as const;
 
@@ -40,31 +41,6 @@ export default function AddShopItemButton({
   // Variants state
   const [hasVariants, setHasVariants] = useState(false);
   const [variants, setVariants] = useState<ProductVariant[]>([]);
-
-  // Generate SKU from name, size, and color
-  const generateSKU = (productName: string, size?: string, color?: string): string => {
-    // Remove all non-alphanumeric characters and convert to uppercase
-    const sanitizedName = productName
-      .trim()
-      .toUpperCase()
-      .replace(/[^A-Z0-9]/g, '');
-    
-    const parts = [sanitizedName];
-    
-    // Add color if present (remove spaces and special chars)
-    if (color) {
-      const sanitizedColor = color.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-      if (sanitizedColor) parts.push(sanitizedColor);
-    }
-    
-    // Add size if present
-    if (size) {
-      const sanitizedSize = size.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-      if (sanitizedSize) parts.push(sanitizedSize);
-    }
-    
-    return parts.join('-');
-  };
 
   // Update all variant SKUs when product name changes
   useEffect(() => {
