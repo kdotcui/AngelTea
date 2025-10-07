@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import LanguageToggle from '@/components/LanguageToggle';
+import { useLanguage } from '@/components/LanguageContext';
 
 export default function SiteLayout({
   children,
@@ -7,6 +11,7 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
+  const { t } = useLanguage();
   return (
     <div>
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
@@ -14,70 +19,80 @@ export default function SiteLayout({
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/angeltealogo.png"
-              alt="Angel Tea logo"
+              alt={t('hero.alt_logo')}
               width={28}
               height={28}
               className="rounded-sm"
             />
-            <span className="text-sm font-semibold">Angel Tea</span>
+            <span className="text-sm font-semibold">{t('hero.title')}</span>
           </Link>
           <nav className="hidden items-center gap-5 text-sm md:flex">
             {isShopEnabled && (
               <Link href="/shop" className="hover:text-secondary">
-                Shop
+                {t('navigation.shop')}
               </Link>
             )}
             <Link href="/#menu" className="hover:text-secondary">
-              Popular
+              {t('navigation.popular')}
             </Link>
             <Link href="/#menu-boards" className="hover:text-secondary">
-              Menu
+              {t('navigation.menu')}
             </Link>
             <Link href="/#about" className="hover:text-secondary">
-              About
+              {t('navigation.about')}
             </Link>
             <Link href="/#visit" className="hover:text-secondary">
-              Visit
+              {t('navigation.visit')}
             </Link>
             <Link href="/#press" className="hover:text-secondary">
-              Press
+              {t('navigation.press')}
             </Link>
           </nav>
-          <div className="hidden sm:block">
+          <div className="hidden sm:flex items-center gap-3">
+            <LanguageToggle />
             <a
               href="tel:+17817905313"
               className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
             >
-              Call us
+              {t('common.call_us')}
             </a>
           </div>
           <details className="md:hidden">
             <summary className="select-none rounded-md border px-3 py-1.5 text-sm">
-              Menu
+              {t('common.menu')}
             </summary>
             <div className="absolute left-0 right-0 mt-2 border-b bg-white/95 px-4 py-3 text-sm shadow-sm backdrop-blur dark:bg-background/95">
               <div className="mx-auto max-w-6xl">
                 <div className="grid gap-3">
                   {isShopEnabled && (
                     <Link href="/shop" className="hover:underline">
-                      Shop
+                      {t('navigation.shop')}
                     </Link>
                   )}
                   <Link href="/#menu" className="hover:underline">
-                    Popular
+                    {t('navigation.popular')}
                   </Link>
                   <Link href="/#menu-boards" className="hover:underline">
-                    Menu
+                    {t('navigation.menu')}
                   </Link>
                   <Link href="/#about" className="hover:underline">
-                    About
+                    {t('navigation.about')}
                   </Link>
                   <Link href="/#visit" className="hover:underline">
-                    Visit
+                    {t('navigation.visit')}
                   </Link>
                   <Link href="/#press" className="hover:underline">
-                    Press
+                    {t('navigation.press')}
                   </Link>
+                  <div className="flex items-center gap-3 pt-2 border-t">
+                    <LanguageToggle />
+                    <a
+                      href="tel:+17817905313"
+                      className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
+                    >
+                      {t('common.call_us')}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
