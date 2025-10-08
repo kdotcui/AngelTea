@@ -1,0 +1,577 @@
+{
+  "menu": {
+    "angel_milk_tea": {
+      "id": "angel_milk_tea",
+      "name": "Angel Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 5.99, "L": 6.89 },
+      "description": "Classic black milk tea with balanced sweetness and creamy finish.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "jasmine_milk_tea": {
+      "id": "jasmine_milk_tea",
+      "name": "Jasmine Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 5.99, "L": 6.89 },
+      "description": "Fragrant jasmine tea with milk; floral, smooth, lightly sweet.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "coffee_milk_tea": {
+      "id": "coffee_milk_tea",
+      "name": "Coffee Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.59, "L": 7.49 },
+      "description": "Blend of coffee and milk tea; bold, creamy pick-me-up.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "taro_milk_tea": {
+      "id": "taro_milk_tea",
+      "name": "Taro Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.29, "L": 7.19 },
+      "description": "Creamy taro with milk tea; subtly sweet and nutty.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "matcha_milk_tea": {
+      "id": "matcha_milk_tea",
+      "name": "Matcha Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.29, "L": 7.19 },
+      "description": "Earthy Japanese matcha whisked with milk; smooth and aromatic.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "thai_milk_tea": {
+      "id": "thai_milk_tea",
+      "name": "Thai Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.29, "L": 7.19 },
+      "description": "Spiced Thai black tea with milk; rich, caramel notes.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "oreo_milk_tea": {
+      "id": "oreo_milk_tea",
+      "name": "Oreo Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.59, "L": 7.49 },
+      "description": "Cookies-and-cream milk tea with crushed Oreo flavor.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "mango_milk_tea": {
+      "id": "mango_milk_tea",
+      "name": "Mango Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.29, "L": 7.19 },
+      "description": "Sunny mango blended into creamy milk tea.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "strawberry_milk_tea": {
+      "id": "strawberry_milk_tea",
+      "name": "Strawberry Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.29, "L": 7.19 },
+      "description": "Fresh strawberry sweetness swirled into milk tea.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "lychee_jasmine_milk_tea": {
+      "id": "lychee_jasmine_milk_tea",
+      "name": "Lychee Jasmine Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.29, "L": 7.19 },
+      "description": "Lychee fruit and jasmine tea with milk; floral, fruity.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "brown_sugar_bubble_tea": {
+      "id": "brown_sugar_bubble_tea",
+      "name": "Brown Sugar Bubble Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 6.59, "L": 7.49 },
+      "description": "Caramelized brown sugar milk tea with chewy boba.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "milk_foam_caramel_milk_tea": {
+      "id": "milk_foam_caramel_milk_tea",
+      "name": "Milk Foam Caramel Milk Tea",
+      "category": "Angel Milk Tea",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Silky milk foam over caramel milk tea; sweet and creamy.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "three_brother_four_season_spring_tea": {
+      "id": "three_brother_four_season_spring_tea",
+      "name": "3 Brother 4 Season Spring Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Oolong tea with boba, pudding, and grass jelly trio.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "mango_passion_green_tea": {
+      "id": "mango_passion_green_tea",
+      "name": "Mango Passion Green Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.75, "L": 7.69 },
+      "description": "Bright mango and passionfruit over crisp green tea.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "passion_fruit_green_tea": {
+      "id": "passion_fruit_green_tea",
+      "name": "Passion Fruit Green Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.25, "L": 7.19 },
+      "description": "Tangy passionfruit balanced with refreshing green tea.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "bayberry_jasmine_green_tea": {
+      "id": "bayberry_jasmine_green_tea",
+      "name": "Bayberry Jasmine Green Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.25, "L": 7.19 },
+      "description": "Tart bayberry with jasmine green tea; floral and zesty.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "pineapple_mango_green_tea": {
+      "id": "pineapple_mango_green_tea",
+      "name": "Pineapple Mango Green Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.75, "L": 7.69 },
+      "description": "Tropical pineapple and mango with chilled green tea.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "peach_coconut_green_tea": {
+      "id": "peach_coconut_green_tea",
+      "name": "Peach Coconut Green Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.75, "L": 7.69 },
+      "description": "Juicy peach and coconut layered over green tea.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "strawberry_pineapple_green_tea": {
+      "id": "strawberry_pineapple_green_tea",
+      "name": "Strawberry Pineapple Green Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.75, "L": 7.69 },
+      "description": "Strawberry and pineapple with green tea; sweet-tart and bright.",
+      "tags": { "caffeine_free": false, "popular": true }
+    },
+    "milk_foam_honey_peach_black_tea": {
+      "id": "milk_foam_honey_peach_black_tea",
+      "name": "Milk Foam Honey Peach Black Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Black tea topped with milk foam and honeyed peach.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "honey_lemon_black_tea": {
+      "id": "honey_lemon_black_tea",
+      "name": "Honey Lemon Black Tea",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 6.49, "L": 7.39 },
+      "description": "Zesty lemon and honey stirred into brisk black tea.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "chinese_sour_plum_drink": {
+      "id": "chinese_sour_plum_drink",
+      "name": "Chinese Sour Plum Drink (Suānméitāng)",
+      "category": "Angel Fruit Tea",
+      "price": { "M": 5.99, "L": 6.89 },
+      "description": "Traditional sweet-tart smoked plum cooler with herbs.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "strawberry_matcha_latte": {
+      "id": "strawberry_matcha_latte",
+      "name": "Strawberry Matcha Latte",
+      "category": "Latte Series",
+      "price": { "M": 6.79, "L": 7.69 },
+      "description": "Layered fresh strawberry purée with creamy matcha latte.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "kiwi_matcha_latte": {
+      "id": "kiwi_matcha_latte",
+      "name": "Kiwi Matcha Latte",
+      "category": "Latte Series",
+      "price": { "M": 6.79, "L": 7.69 },
+      "description": "Tangy kiwi blended into a smooth matcha latte.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "peach_matcha_latte": {
+      "id": "peach_matcha_latte",
+      "name": "Peach Matcha Latte",
+      "category": "Latte Series",
+      "price": { "M": 6.79, "L": 7.69 },
+      "description": "Ripe peach notes in a creamy matcha latte.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "strawberry_ube_latte": {
+      "id": "strawberry_ube_latte",
+      "name": "Strawberry Ube Latte",
+      "category": "Latte Series",
+      "price": { "M": 6.79, "L": 7.69 },
+      "description": "Strawberry and ube layered latte; creamy and subtly nutty.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "brown_sugar_bubble_latte": {
+      "id": "brown_sugar_bubble_latte",
+      "name": "Brown Sugar Bubble Latte",
+      "category": "Latte Series",
+      "price": { "M": 6.59, "L": 7.49 },
+      "description": "Brown sugar latte with bouncy boba; caramel-like sweetness.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "mango_pomelo_sago_nectar": {
+      "id": "mango_pomelo_sago_nectar",
+      "name": "Mango Pomelo Sago Nectar",
+      "category": "Sago Nectar Series",
+      "price": { "M": 7.59, "L": 8.49 },
+      "description": "Mango and pomelo with sago pearls in creamy nectar.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "strawberry_sago_nectar": {
+      "id": "strawberry_sago_nectar",
+      "name": "Strawberry Sago Nectar",
+      "category": "Sago Nectar Series",
+      "price": { "M": 7.59, "L": 8.49 },
+      "description": "Strawberry pulp and sago pearls in a velvety nectar.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "pina_colada_sago_nectar": {
+      "id": "pina_colada_sago_nectar",
+      "name": "Pina Colada Sago Nectar",
+      "category": "Sago Nectar Series",
+      "price": { "M": 7.59, "L": 8.49 },
+      "description": "Pineapple, coconut, and sago pearls; tropical creamy treat.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "peach_sago_nectar": {
+      "id": "peach_sago_nectar",
+      "name": "Peach Sago Nectar",
+      "category": "Sago Nectar Series",
+      "price": { "M": 7.59, "L": 8.49 },
+      "description": "Peach purée with chewy sago in smooth nectar.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "lychee_bayberry_sago_nectar": {
+      "id": "lychee_bayberry_sago_nectar",
+      "name": "Lychee Bayberry Sago Nectar",
+      "category": "Sago Nectar Series",
+      "price": { "M": 7.59, "L": 8.49 },
+      "description": "Lychee and bayberry with sago; floral-tart, refreshing.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "strawberry_sparkling": {
+      "id": "strawberry_sparkling",
+      "name": "Strawberry Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Strawberry fruit soda; lightly sweet and bubbly.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "pineapple_sparkling": {
+      "id": "pineapple_sparkling",
+      "name": "Pineapple Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Pineapple sparkling refresher; bright and tropical.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "mango_sparkling": {
+      "id": "mango_sparkling",
+      "name": "Mango Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Juicy mango soda; crisp, fruity fizz.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "kiwi_sparkling": {
+      "id": "kiwi_sparkling",
+      "name": "Kiwi Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Tart-sweet kiwi soda with sparkling finish.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "passion_fruit_sparkling": {
+      "id": "passion_fruit_sparkling",
+      "name": "Passion Fruit Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Vibrant passionfruit soda; tangy and effervescent.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "peach_sparkling": {
+      "id": "peach_sparkling",
+      "name": "Peach Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Peach-forward sparkling drink; juicy and refreshing.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "bayberry_sparkling": {
+      "id": "bayberry_sparkling",
+      "name": "Bayberry Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Zesty bayberry soda; sparkling and lightly tart.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "orange_sparkling": {
+      "id": "orange_sparkling",
+      "name": "Orange Sparkling",
+      "category": "Sparkling Series",
+      "price": { "M": 7.39, "L": 8.29 },
+      "description": "Citrusy orange soda; bright, classic bubbles.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "mango_yogurt_smoothie": {
+      "id": "mango_yogurt_smoothie",
+      "name": "Mango Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Creamy yogurt smoothie blended with ripe mango.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "strawberry_yogurt_smoothie": {
+      "id": "strawberry_yogurt_smoothie",
+      "name": "Strawberry Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Tangy yogurt smoothie with fresh strawberry.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "passion_fruit_yogurt_smoothie": {
+      "id": "passion_fruit_yogurt_smoothie",
+      "name": "Passion Fruit Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Yogurt smoothie with tangy passionfruit; creamy and bright.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "lychee_yogurt_smoothie": {
+      "id": "lychee_yogurt_smoothie",
+      "name": "Lychee Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Lychee-infused yogurt smoothie; floral and refreshing.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "pineapple_yogurt_smoothie": {
+      "id": "pineapple_yogurt_smoothie",
+      "name": "Pineapple Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Tropical pineapple yogurt smoothie; creamy and sunny.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "peach_yogurt_smoothie": {
+      "id": "peach_yogurt_smoothie",
+      "name": "Peach Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Peachy yogurt smoothie; smooth, fruity, satisfying.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "bayberry_yogurt_smoothie": {
+      "id": "bayberry_yogurt_smoothie",
+      "name": "Bayberry Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Bayberry yogurt smoothie; tart, creamy, refreshing.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "orange_yogurt_smoothie": {
+      "id": "orange_yogurt_smoothie",
+      "name": "Orange Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Citrus-bright yogurt smoothie with sweet orange.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "kiwi_yogurt_smoothie": {
+      "id": "kiwi_yogurt_smoothie",
+      "name": "Kiwi Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Kiwi yogurt smoothie; tangy, creamy, energizing.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "oreo_yogurt_smoothie": {
+      "id": "oreo_yogurt_smoothie",
+      "name": "Oreo Yogurt Smoothie",
+      "category": "Yogurt Smoothie",
+      "price": { "M": 7.69, "L": 8.59 },
+      "description": "Cookies-and-cream yogurt smoothie with Oreo.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "chrysanthemum_gojiberry_cassia_tea": {
+      "id": "chrysanthemum_gojiberry_cassia_tea",
+      "name": "Chrysanthemum Gojiberry Cassia Tea",
+      "category": "Herbal Health Tea",
+      "price": { "M": 5.99, "L": 7.79 },
+      "description": "Herbal blend of chrysanthemum, goji berry, and cassia seeds.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "longan_rose_ginger_tea": {
+      "id": "longan_rose_ginger_tea",
+      "name": "Longan Rose Ginger Tea",
+      "category": "Herbal Health Tea",
+      "price": { "M": 5.99, "L": 7.79 },
+      "description": "Warming longan, rose, and ginger herbal infusion.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "jasmine_date_gojiberry_rose_tea": {
+      "id": "jasmine_date_gojiberry_rose_tea",
+      "name": "Jasmine Date Gojiberry Rose Tea",
+      "category": "Herbal Health Tea",
+      "price": { "M": 5.99, "L": 7.79 },
+      "description": "Jasmine with red dates, goji, and rose; soothing herbal tea.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "brown_sugar_date_ginger_tea": {
+      "id": "brown_sugar_date_ginger_tea",
+      "name": "Brown Sugar Date Ginger Tea",
+      "category": "Herbal Health Tea",
+      "price": { "M": 5.99, "L": 7.79 },
+      "description": "Brown sugar with red dates and ginger; cozy, sweet-spicy.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "ginseng_mulberry_chrysanthemum_gojiberry_tea": {
+      "id": "ginseng_mulberry_chrysanthemum_gojiberry_tea",
+      "name": "Ginseng Mulberry Chrysanthemum Gojiberry Tea",
+      "category": "Herbal Health Tea",
+      "price": { "M": 5.99, "L": 7.79 },
+      "description": "Ginseng, mulberry, chrysanthemum, and goji; balanced herbal tonic.",
+      "tags": { "caffeine_free": false, "popular": false }
+    },
+    "mango_milk_slush": {
+      "id": "mango_milk_slush",
+      "name": "Mango Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Frozen mango slush blended with milk; creamy and icy.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "passion_fruit_milk_slush": {
+      "id": "passion_fruit_milk_slush",
+      "name": "Passion Fruit Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Icy passionfruit slush with a creamy milk base.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "strawberry_milk_slush": {
+      "id": "strawberry_milk_slush",
+      "name": "Strawberry Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Refreshing strawberry milk slush; fruity and smooth.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "lychee_milk_slush": {
+      "id": "lychee_milk_slush",
+      "name": "Lychee Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Floral lychee milk slush; sweet and cooling.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "pineapple_milk_slush": {
+      "id": "pineapple_milk_slush",
+      "name": "Pineapple Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Tropical pineapple milk slush; bright and creamy.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "peach_milk_slush": {
+      "id": "peach_milk_slush",
+      "name": "Peach Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Juicy peach milk slush; smooth and refreshing.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "bayberry_milk_slush": {
+      "id": "bayberry_milk_slush",
+      "name": "Bayberry Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Bayberry milk slush; tart, creamy, and chilled.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "orange_milk_slush": {
+      "id": "orange_milk_slush",
+      "name": "Orange Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Citrusy orange milk slush; creamy and zesty.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "kiwi_milk_slush": {
+      "id": "kiwi_milk_slush",
+      "name": "Kiwi Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Tangy kiwi milk slush; icy and smooth.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "oreo_milk_slush": {
+      "id": "oreo_milk_slush",
+      "name": "Oreo Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Cookies-and-cream milk slush with Oreo.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "matcha_milk_slush": {
+      "id": "matcha_milk_slush",
+      "name": "Matcha Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Earthy matcha milk slush; creamy and chilled.",
+      "tags": { "caffeine_free": true, "popular": false }
+    },
+    "taro_milk_slush": {
+      "id": "taro_milk_slush",
+      "name": "Taro Milk Slush",
+      "category": "Milk Slush",
+      "price": { "M": 6.69, "L": 7.89 },
+      "description": "Nutty taro milk slush; creamy purple treat.",
+      "tags": { "caffeine_free": true, "popular": false }
+    }
+  },
+  "toppings": {
+    "price_add": 0.8,
+    "items": [
+      { "id": "brown_sugar_boba", "name": "Brown Sugar Boba" },
+      { "id": "coconut_jelly", "name": "Coconut Jelly" },
+      { "id": "herbal_jelly", "name": "Herbal Jelly" },
+      { "id": "sago", "name": "Sago" },
+      { "id": "oreo_crumbs", "name": "Oreo Crumbs" },
+      { "id": "milk_foam", "name": "Milk Foam" },
+      { "id": "popping_bubbles_mango", "name": "Popping Bubbles: Mango" },
+      {
+        "id": "popping_bubbles_green_apple",
+        "name": "Popping Bubbles: Green Apple"
+      },
+      { "id": "popping_bubbles_lychee", "name": "Popping Bubbles: Lychee" },
+      {
+        "id": "popping_bubbles_blueberry",
+        "name": "Popping Bubbles: Blueberry"
+      },
+      {
+        "id": "popping_bubbles_strawberry",
+        "name": "Popping Bubbles: Strawberry"
+      },
+      {
+        "id": "popping_bubbles_chocolate",
+        "name": "Popping Bubbles: Chocolate"
+      },
+      { "id": "red_bean", "name": "Red Bean" }
+    ]
+  },
+  "notes": {
+    "non_dairy_substitute": "Non-dairy substitute: Coconut Milk (ask when ordering)",
+    "boba_not_included": "Boba is not included in drinks unless stated in the name.",
+    "legend_popular": "⭐ = popular",
+    "labels": { "caffeine_free": "CAFFEINE FREE" },
+    "toppings_note": "TOPPINGS +0.80 each"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "back_to_site": "Back to site",
+    "see_reviews": "See reviews",
+    "get_directions": "Get Directions",
+    "view_menu": "View Menu",
+    "find_us": "Find Us",
+    "open_link": "Open link",
+    "go_to_slide": "Go to slide",
+    "verified_guest": "Verified guest",
+    "guest_review": "Guest review",
+    "purchases": "purchases",
+    "reviews": "reviews",
+    "in_stock": "in stock",
+    "out_of_stock": "Out of stock",
+    "call_us": "Call us",
+    "menu": "Menu"
+  },
+  "navigation": {
+    "shop": "Shop",
+    "popular": "Popular",
+    "menu": "Menu",
+    "about": "About",
+    "visit": "Visit",
+    "press": "Press"
+  },
+  "footer": {
+    "hours": "Open everyday 12:00-10:00PM • 331 Moody St., Waltham, MA, 02453"
+  },
+  "hero": {
+    "badge": "Boba • Coffee • Tea",
+    "title": "Angel Tea",
+    "description": "To bring happiness, love, and growth every day through delicious meals and creative beverages.",
+    "alt_logo": "Angel Tea logo"
+  },
+  "menu": {
+    "popular_drinks": "Popular Drinks",
+    "popular_drinks_description": "Classics and specialties.",
+    "menu_boards": "Menu Boards",
+    "drinks": "Drinks",
+    "food": "Food",
+    "desserts": "Desserts",
+    "drinks_left_alt": "Drinks menu (left)",
+    "drinks_right_alt": "Drinks menu (right)",
+    "food_left_alt": "Food menu (left)",
+    "food_right_alt": "Food menu (right)",
+    "dessert_left_alt": "Dessert menu (left)",
+    "dessert_right_alt": "Dessert menu (right)"
+  },
+  "about": {
+    "title": "Our Story",
+    "description_1": "Angel Tea is a highly rated cafe on Moody Street in Waltham, serving high-quality bubble tea, delicious desserts, and authentic homestyle Chinese food. We pride ourselves on fresh ingredients and creating drinks and dishes that bring people together.",
+    "description_2": "Founded in 2022 by owner Angel Zhao (Brandeis '25), the cafe has quickly earned a loyal local following with a 4.7★ rating on Google. Our values of happiness and love guide everything we do.",
+    "alt_image": "Pouring milk into coffee",
+    "badges": {
+      "less_sugar": "Less Sugar",
+      "non_dairy": "Non-Dairy Options",
+      "locally_roasted": "Locally Roasted"
+    }
+  },
+  "testimonials": {
+    "title": "What guests say",
+    "description": "Real love from our community.",
+    "quote_1": "I got one of their top 10 drinks, Mango Pomelo Sago Slush. It was amazing, really hit the spot from the first sip.",
+    "quote_2": "Angel Tea offers a unique blend of exquisite tea selections and authentic Chinese dishes. The welcoming atmosphere and friendly staff make every visit feel special.",
+    "quote_3": "Angel Tea maintains a 4.7 out of 5 star rating on Google, reflecting widespread customer satisfaction with its flavors and service."
+  },
+  "visit": {
+    "title": "Visit Angel Tea",
+    "hours": "Open every day • 12:00 PM – 10:00 PM",
+    "address_line_1": "331 Moody St",
+    "address_line_2": "Waltham, MA 02453",
+    "parking_info": "Street parking available; accessible spot nearby.",
+    "accessibility_info": "Wheelchair-accessible entrance and restroom; gender-neutral restroom.",
+    "google_rating": "Google rating"
+  },
+  "faqs": {
+    "title": "FAQs",
+    "description": "Answers to common questions.",
+    "questions": {
+      "hours": {
+        "q": "What are your hours of operation?",
+        "a": "We are open every day from 12:00 PM to 10:00 PM."
+      },
+      "delivery": {
+        "q": "Do you offer delivery or online ordering?",
+        "a": "Yes, we offer takeout and dine-in, and delivery via DoorDash, Grubhub, and Uber Eats."
+      },
+      "parking": {
+        "q": "Is there parking available?",
+        "a": "Street parking is available on Moody Street, with public lots nearby and an accessible spot close to the shop."
+      },
+      "accessibility": {
+        "q": "Are you wheelchair accessible?",
+        "a": "Yes. Our entrance and restroom are wheelchair-accessible, and seating accommodates mobility devices."
+      },
+      "dietary": {
+        "q": "Do you have non-dairy or vegan options?",
+        "a": "Many fruit teas contain no dairy, and we have non-dairy alternatives for milk teas. Some food items are vegan-friendly."
+      }
+    }
+  },
+  "press": {
+    "title": "In the Press",
+    "description": "Stories about Angel Tea.",
+    "justice": {
+      "title": "Moody Street's best bubble tea shop is run by a Brandeis junior",
+      "date": "Oct 3, 2023"
+    },
+    "spoon": {
+      "title": "This Brandeis College Student Is Running Her Own Boba Shop",
+      "date": "Aug 15, 2024"
+    }
+  },
+  "shop": {
+    "title": "Angel Tea Merchandise",
+    "click_for_story": "Click image or title for full story…"
+  },
+  "admin": {
+    "title": "Admin",
+    "description": "Manage content and settings.",
+    "hero_slideshow": {
+      "title": "Hero Slideshow",
+      "description": "Manage rotating hero images.",
+      "slides_count": "slides",
+      "add_slide": "Add Slide",
+      "no_slides": "No slides yet.",
+      "untitled": "Untitled"
+    },
+    "popular_drinks": {
+      "title": "Popular Drinks",
+      "description": "Content shown on the homepage Popular Drinks section.",
+      "add_drink": "Add Drink",
+      "no_items": "No items yet.",
+      "add_first_item": "Add first item"
+    }
+  }
+}
