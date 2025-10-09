@@ -9,7 +9,6 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from '@/components/ui/card';
 import { Star, Quote, Newspaper, InstagramIcon } from 'lucide-react';
 import {
