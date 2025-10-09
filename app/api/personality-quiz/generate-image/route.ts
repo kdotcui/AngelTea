@@ -1,10 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, registerFont } from 'canvas';
 import type { CanvasRenderingContext2D as NodeCanvasContext } from 'canvas';
 import path from 'path';
 
+let fontsRegistered = false;
+
 export async function POST(req: NextRequest) {
   try {
+    // Register fonts once
+    if (!fontsRegistered) {
+      try {
+        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf'), { family: 'Roboto', weight: 'normal' });
+        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), { family: 'Roboto', weight: 'bold' });
+        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Medium.ttf'), { family: 'Roboto', weight: '600' });
+        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Black.ttf'), { family: 'Roboto', weight: '900' });
+        fontsRegistered = true;
+      } catch (fontError) {
+        console.error('Font registration error:', fontError);
+        // Continue without custom fonts - will fall back to system fonts
+      }
+    }
+
     const body = await req.json();
     const { drinkName, personalityAnalysis, drinkMatch, vibes } = body;
 
@@ -112,7 +128,7 @@ export async function POST(req: NextRequest) {
 
     // Draw "2025 PERSONALITY MATCH" text
     ctx.fillStyle = '#6a4c9c';
-    ctx.font = `bold ${11 * scale}px Arial`;
+    ctx.font = `bold ${11 * scale}px Roboto`;
     ctx.textAlign = 'center';
     ctx.fillText(
       '2 0 2 5   P E R S O N A L I T Y   M A T C H',
@@ -122,11 +138,11 @@ export async function POST(req: NextRequest) {
 
     // Draw "You are a" text
     ctx.fillStyle = '#111827';
-    ctx.font = `bold ${42 * scale}px Arial`;
+    ctx.font = `bold ${42 * scale}px Roboto`;
     ctx.fillText('You are a', width / 2, 400 * scale);
 
     // Draw drink name (with word wrapping and shadow)
-    ctx.font = `900 ${36 * scale}px Arial`;
+    ctx.font = `900 ${36 * scale}px Roboto`;
     ctx.fillStyle = '#6a4c9c';
     ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
     ctx.shadowBlur = 15 * scale;
@@ -143,7 +159,7 @@ export async function POST(req: NextRequest) {
 
     // Draw personality analysis
     ctx.fillStyle = '#111827';
-    ctx.font = `600 ${18 * scale}px Arial`;
+    ctx.font = `600 ${18 * scale}px Roboto`;
     wrapText(
       ctx,
       personalityAnalysis,
@@ -155,12 +171,12 @@ export async function POST(req: NextRequest) {
 
     // Draw drink match
     ctx.fillStyle = '#374151';
-    ctx.font = `${16 * scale}px Arial`;
+    ctx.font = `${16 * scale}px Roboto`;
     wrapText(ctx, drinkMatch, width / 2, 650 * scale, 380 * scale, 26 * scale);
 
     // Draw vibes
     if (vibes && vibes.length > 0) {
-      ctx.font = `bold ${13 * scale}px Arial`;
+      ctx.font = `bold ${13 * scale}px Roboto`;
       const vibeY = 740 * scale;
       const vibeGap = 12 * scale;
 
@@ -199,7 +215,7 @@ export async function POST(req: NextRequest) {
 
     // Draw footer
     ctx.fillStyle = '#6b7280';
-    ctx.font = `bold ${11 * scale}px Arial`;
+    ctx.font = `bold ${11 * scale}px Roboto`;
     ctx.textAlign = 'center';
     ctx.fillText(
       'F I N D  Y O U R  M A T C H  A T  A N G E L  T E A',
