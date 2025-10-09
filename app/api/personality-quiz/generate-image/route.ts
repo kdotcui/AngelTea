@@ -3,24 +3,14 @@ import { createCanvas, loadImage, registerFont } from 'canvas';
 import type { CanvasRenderingContext2D as NodeCanvasContext } from 'canvas';
 import path from 'path';
 
-let fontsRegistered = false;
+// Register fonts at module initialization (runs once when module is loaded)
+registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf'), { family: 'Roboto', weight: 'normal' });
+registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), { family: 'Roboto', weight: 'bold' });
+registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Medium.ttf'), { family: 'Roboto', weight: '600' });
+registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Black.ttf'), { family: 'Roboto', weight: '900' });
 
 export async function POST(req: NextRequest) {
   try {
-    // Register fonts once
-    if (!fontsRegistered) {
-      try {
-        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf'), { family: 'Roboto', weight: 'normal' });
-        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Bold.ttf'), { family: 'Roboto', weight: 'bold' });
-        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Medium.ttf'), { family: 'Roboto', weight: '600' });
-        registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Black.ttf'), { family: 'Roboto', weight: '900' });
-        fontsRegistered = true;
-      } catch (fontError) {
-        console.error('Font registration error:', fontError);
-        // Continue without custom fonts - will fall back to system fonts
-      }
-    }
-
     const body = await req.json();
     const { drinkName, personalityAnalysis, drinkMatch, vibes } = body;
 
