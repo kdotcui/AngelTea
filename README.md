@@ -4,8 +4,14 @@ Visit the live deployed app [here](https://angel-tea-zeta.vercel.app/)!
 
 ## Getting Started
 
+First, install the dependencies:
 
-First, run the development server:
+```bash
+npm install
+```
+
+
+Second, run the development server:
 
 ```bash
 npm run dev
