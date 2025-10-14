@@ -1,5 +1,5 @@
 Last updated 17:08 10/10/2025 UTC
-Visit the live deployed app [here](https://angel-tea-zeta.vercel.app/)! 
+Visit the live deployed app [here](https://angel-tea-zeta.vercel.app/)!
 
 
 ## Getting Started
