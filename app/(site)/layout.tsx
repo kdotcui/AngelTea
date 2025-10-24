@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import dynamic from 'next/dynamic';
+const BottomNav = dynamic(() => import('@/components/BottomNav'), { ssr: false });
 
 export default async function SiteLayout({
   children,
@@ -11,7 +13,7 @@ export default async function SiteLayout({
   const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
   const t = await getTranslations();
   return (
-    <div>
+    <div className="pb-16 sm:pb-0">
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2">
@@ -104,6 +106,7 @@ export default async function SiteLayout({
         </div>
       </header>
       {children}
+      <BottomNav />
       <footer className="border-t">
         <div className="mx-auto max-w-6xl p-6 text-sm">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
