@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import ConfirmationDialog from '@/components/ui/confirmation-dialog';
 import {
   deleteHeroSlide,
   updateHeroSlide,
@@ -127,9 +128,16 @@ export default function HeroSlideActions({
           </form>
         </DialogContent>
       </Dialog>
-      <Button size="sm" variant="destructive" onClick={onDelete}>
-        Delete
-      </Button>
+      <ConfirmationDialog
+        title="Delete this hero slide?"
+        trigger={
+          <Button size="sm" variant="destructive">
+            Delete
+          </Button>
+        }
+        onConfirm={onDelete}
+        confirmText="Delete"
+      />
     </div>
   );
 }

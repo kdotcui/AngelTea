@@ -1,5 +1,5 @@
-
 import { getFirebaseApp } from '@/lib/firebase';
+import { uploadFile } from '@/lib/storage';
 import { ShopItem } from '@/types/shop';
 import {
   getFirestore,
@@ -12,7 +12,6 @@ import {
   serverTimestamp,
   type UpdateData,
 } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { CreateShopItemType } from '@/types/shop';
 
 const COLLECTION = 'shopMerchandise';
@@ -53,11 +52,6 @@ export async function deleteShopItem(id: string) {
 }
 
 export async function uploadShopItemImage(file: File, pathPrefix = 'shop-items') {
-  const app = getFirebaseApp();
-  const storage = getStorage(app);
-  const fileRef = ref(storage, `${pathPrefix}/${Date.now()}-${file.name}`);
-  const res = await uploadBytes(fileRef, file);
-  const url = await getDownloadURL(res.ref);
-  return url;
+  return uploadFile(file, pathPrefix);
 }
 
