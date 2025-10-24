@@ -1,4 +1,6 @@
 import { getFirebaseApp } from '@/lib/firebase';
+import { uploadFile } from '@/lib/storage';
+import { sanitizeFirestoreData } from '@/lib/firestore';
 import { type HeroSlide } from '@/types/hero';
 import {
   getFirestore,
@@ -12,7 +14,6 @@ import {
   doc,
   serverTimestamp,
 } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const COLLECTION = 'heroSlides';
 
@@ -42,12 +43,9 @@ export async function createHeroSlide(
   const app = getFirebaseApp();
   const db = getFirestore(app);
   const col = collection(db, COLLECTION);
-  // Remove undefined fields to satisfy Firestore
-  const payload = Object.fromEntries(
-    Object.entries(input).filter(([, v]) => v !== undefined)
-  );
+  const payload = sanitizeFirestoreData(input);
   const docRef = await addDoc(col, {
-    ...(payload),
+    ...payload,
     createdAt: serverTimestamp(),
   });
   return docRef.id;
@@ -59,9 +57,7 @@ export async function updateHeroSlide(
 ) {
   const app = getFirebaseApp();
   const db = getFirestore(app);
-  const sanitized = Object.fromEntries(
-    Object.entries(patch).filter(([, v]) => v !== undefined)
-  );
+  const sanitized = sanitizeFirestoreData(patch);
   await updateDoc(doc(db, COLLECTION, id), sanitized);
 }
 
@@ -72,9 +68,5 @@ export async function deleteHeroSlide(id: string) {
 }
 
 export async function uploadHeroImage(file: File, pathPrefix = 'hero') {
-  const app = getFirebaseApp();
-  const storage = getStorage(app);
-  const fileRef = ref(storage, `${pathPrefix}/${Date.now()}-${file.name}`);
-  const res = await uploadBytes(fileRef, file);
-  return await getDownloadURL(res.ref);
+  return uploadFile(file, pathPrefix);
 }

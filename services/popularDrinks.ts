@@ -1,4 +1,5 @@
 import { getFirebaseApp } from '@/lib/firebase';
+import { uploadFile } from '@/lib/storage';
 import { PopularDrink, type DrinkSizePrice } from '@/types/drink';
 import {
   getFirestore,
@@ -15,7 +16,6 @@ import {
   type WithFieldValue,
   type FirestoreDataConverter,
 } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const COLLECTION = 'popularDrinks';
 
@@ -60,24 +60,14 @@ export async function createPopularDrink(input: CreatePopularDrinkInput) {
 }
 
 export async function uploadPopularImage(file: File, pathPrefix = 'popular') {
-  const app = getFirebaseApp();
-  const storage = getStorage(app);
-  const fileRef = ref(storage, `${pathPrefix}/${Date.now()}-${file.name}`);
-  const res = await uploadBytes(fileRef, file);
-  const url = await getDownloadURL(res.ref);
-  return url;
+  return uploadFile(file, pathPrefix);
 }
 
 export async function uploadPopularVideo(
   file: File,
   pathPrefix = 'popular-videos'
 ) {
-  const app = getFirebaseApp();
-  const storage = getStorage(app);
-  const fileRef = ref(storage, `${pathPrefix}/${Date.now()}-${file.name}`);
-  const res = await uploadBytes(fileRef, file);
-  const url = await getDownloadURL(res.ref);
-  return url;
+  return uploadFile(file, pathPrefix);
 }
 
 export async function updatePopularDrink(
