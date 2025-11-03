@@ -23,7 +23,8 @@
     "menu": "菜单",
     "about": "关于",
     "visit": "访问",
-    "press": "媒体"
+    "press": "媒体",
+    "rewards": "奖励"
   },
   "footer": {
     "hours": "每天开放 12:00-22:00 • 马萨诸塞州沃尔瑟姆穆迪街331号，02453"
@@ -135,5 +136,92 @@
       "no_items": "暂无项目。",
       "add_first_item": "添加第一个项目"
     }
+  },
+  "rewards": {
+    "badge": "忠诚度计划",
+    "title": "奖励计划",
+    "description": "每次购买即可赚取积分并解锁专属奖励。加入我们的忠诚度计划，成为忠实客户即可获得奖励。",
+    "alt_hero": "天使茶奖励计划",
+    "join_now": "立即加入",
+    "learn_more": "了解更多",
+    "points": "积分",
+    "how_it_works": {
+      "title": "如何运作",
+      "description": "三个简单步骤即可开始赚取奖励。",
+      "step_1": {
+        "title": "注册",
+        "description": "通过Chowbus或店内加入我们的奖励计划。"
+      },
+      "step_2": {
+        "title": "赚取积分",
+        "description": "每次购买、评价和推荐即可获得积分。"
+      },
+      "step_3": {
+        "title": "兑换奖励",
+        "description": "使用您的积分解锁折扣和免费商品。"
+      }
+    },
+    "chowbus": {
+      "title": "通过Chowbus订购",
+      "description": "通过Chowbus订购即可获得双倍积分！追踪您的订单，更快赚取奖励，享受专属会员福利。",
+      "placeholder": "Chowbus集成即将推出",
+      "join_button": "在Chowbus加入",
+      "check_status": "查看积分状态",
+      "coming_soon": "Chowbus集成链接即将推出。",
+      "benefits": {
+        "title": "福利",
+        "item_1": "所有订单双倍积分",
+        "item_2": "追踪您的订单历史",
+        "item_3": "专属会员促销活动"
+      }
+    },
+    "tiers": {
+      "title": "奖励等级",
+      "description": "升级等级并解锁更多奖励。",
+      "bronze": {
+        "name": "铜牌",
+        "points": "0-99积分",
+        "benefit_1": "生日当天10%折扣",
+        "benefit_2": "每消费$1获得1积分"
+      },
+      "silver": {
+        "name": "银牌",
+        "points": "100-499积分",
+        "benefit_1": "生日当天15%折扣",
+        "benefit_2": "每消费$1获得1.5积分",
+        "benefit_3": "中杯饮品免费升级"
+      },
+      "gold": {
+        "name": "金牌",
+        "points": "500+积分",
+        "benefit_1": "生日当天20%折扣",
+        "benefit_2": "每消费$1获得2积分",
+        "benefit_3": "所有饮品免费升级",
+        "benefit_4": "专属月度免费商品"
+      }
+    },
+    "earning": {
+      "title": "赚取积分的方式",
+      "description": "多种方式累积积分并升级。",
+      "in_store": {
+        "title": "店内",
+        "description": "亲自到店即可赚取积分。",
+        "purchase": "每消费$1",
+        "review": "留下评价",
+        "referral": "推荐朋友"
+      },
+      "online": {
+        "title": "在线",
+        "description": "在线订单可获得奖励积分。",
+        "order": "每次在线订单",
+        "first_order": "首次在线订单奖励",
+        "birthday": "生日奖励"
+      }
+    },
+    "menu_preview": {
+      "title": "今天开始赚取",
+      "description": "浏览我们的菜单，从第一次购买开始赚取积分。"
+    },
+    "view_full_menu": "查看完整菜单"
   }
 }

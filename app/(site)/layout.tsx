@@ -48,6 +48,9 @@ export default async function SiteLayout({
             <Link href="/#press" className="hover:text-secondary">
               {t('navigation.press')}
             </Link>
+            <Link href="/rewards" className="hover:text-secondary">
+              {t('navigation.rewards')}
+            </Link>
           </nav>
           <div className="hidden sm:flex items-center gap-3">
             <LanguageSwitcher />
@@ -87,6 +90,9 @@ export default async function SiteLayout({
                   </Link>
                   <Link href="/#press" className="hover:underline">
                     {t('navigation.press')}
+                  </Link>
+                  <Link href="/rewards" className="hover:underline">
+                    {t('navigation.rewards')}
                   </Link>
                   <div className="flex items-center gap-3 pt-2 border-t">
                     <LanguageSwitcher />

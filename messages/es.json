@@ -23,7 +23,8 @@
     "menu": "Menú",
     "about": "Acerca de",
     "visit": "Visitar",
-    "press": "Prensa"
+    "press": "Prensa",
+    "rewards": "Recompensas"
   },
   "footer": {
     "hours": "Abierto todos los días 12:00-22:00 • 331 Moody St., Waltham, MA, 02453"
@@ -135,5 +136,92 @@
       "no_items": "Aún no hay elementos.",
       "add_first_item": "Agregar primer elemento"
     }
+  },
+  "rewards": {
+    "badge": "Programa de Lealtad",
+    "title": "Programa de Recompensas",
+    "description": "Gana puntos con cada compra y desbloquea recompensas exclusivas. Únete a nuestro programa de lealtad y sé recompensado por ser un cliente valioso.",
+    "alt_hero": "Programa de recompensas de Angel Tea",
+    "join_now": "Únete Ahora",
+    "learn_more": "Aprende Más",
+    "points": "puntos",
+    "how_it_works": {
+      "title": "Cómo Funciona",
+      "description": "Comienza a ganar recompensas en tres pasos simples.",
+      "step_1": {
+        "title": "Regístrate",
+        "description": "Únete a nuestro programa de recompensas a través de Chowbus o en la tienda."
+      },
+      "step_2": {
+        "title": "Gana Puntos",
+        "description": "Obtén puntos por cada compra, reseña y referencia."
+      },
+      "step_3": {
+        "title": "Canjea Recompensas",
+        "description": "Usa tus puntos para desbloquear descuentos y artículos gratis."
+      }
+    },
+    "chowbus": {
+      "title": "Ordena con Chowbus",
+      "description": "¡Obtén doble puntos cuando ordenes a través de Chowbus! Rastrea tus pedidos, gana recompensas más rápido y disfruta de beneficios exclusivos para miembros.",
+      "placeholder": "Integración de Chowbus próximamente",
+      "join_button": "Únete en Chowbus",
+      "check_status": "Ver Estado de Puntos",
+      "coming_soon": "Los enlaces de integración de Chowbus estarán disponibles pronto.",
+      "benefits": {
+        "title": "Beneficios",
+        "item_1": "Doble puntos en todos los pedidos",
+        "item_2": "Rastrea tu historial de pedidos",
+        "item_3": "Promociones exclusivas solo para miembros"
+      }
+    },
+    "tiers": {
+      "title": "Niveles de Recompensas",
+      "description": "Progresa a través de niveles y desbloquea mejores recompensas.",
+      "bronze": {
+        "name": "Bronce",
+        "points": "0-99 puntos",
+        "benefit_1": "10% de descuento en tu cumpleaños",
+        "benefit_2": "1 punto por $1 gastado"
+      },
+      "silver": {
+        "name": "Plata",
+        "points": "100-499 puntos",
+        "benefit_1": "15% de descuento en tu cumpleaños",
+        "benefit_2": "1.5 puntos por $1 gastado",
+        "benefit_3": "Actualización gratis en bebidas medianas"
+      },
+      "gold": {
+        "name": "Oro",
+        "points": "500+ puntos",
+        "benefit_1": "20% de descuento en tu cumpleaños",
+        "benefit_2": "2 puntos por $1 gastado",
+        "benefit_3": "Actualización gratis en todas las bebidas",
+        "benefit_4": "Artículo gratis mensual exclusivo"
+      }
+    },
+    "earning": {
+      "title": "Formas de Ganar Puntos",
+      "description": "Múltiples formas de acumular puntos y subir de nivel.",
+      "in_store": {
+        "title": "En la Tienda",
+        "description": "Gana puntos cuando nos visites en persona.",
+        "purchase": "Cada $1 gastado",
+        "review": "Deja una reseña",
+        "referral": "Refiere a un amigo"
+      },
+      "online": {
+        "title": "En Línea",
+        "description": "Obtén puntos de bonificación por pedidos en línea.",
+        "order": "Cada pedido en línea",
+        "first_order": "Bonificación del primer pedido",
+        "birthday": "Bonificación de cumpleaños"
+      }
+    },
+    "menu_preview": {
+      "title": "Comienza a Ganar Hoy",
+      "description": "Explora nuestro menú y comienza a ganar puntos con tu primera compra."
+    },
+    "view_full_menu": "Ver Menú Completo"
   }
 }

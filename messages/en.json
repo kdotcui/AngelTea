@@ -23,7 +23,8 @@
     "menu": "Menu",
     "about": "About",
     "visit": "Visit",
-    "press": "Press"
+    "press": "Press",
+    "rewards": "Rewards"
   },
   "footer": {
     "hours": "Open everyday 12:00-10:00PM • 331 Moody St., Waltham, MA, 02453"
@@ -135,5 +136,92 @@
       "no_items": "No items yet.",
       "add_first_item": "Add first item"
     }
+  },
+  "rewards": {
+    "badge": "Loyalty Program",
+    "title": "Rewards Program",
+    "description": "Earn points with every purchase and unlock exclusive rewards. Join our loyalty program and get rewarded for being a valued customer.",
+    "alt_hero": "Angel Tea rewards program",
+    "join_now": "Join Now",
+    "learn_more": "Learn More",
+    "points": "points",
+    "how_it_works": {
+      "title": "How It Works",
+      "description": "Start earning rewards in three simple steps.",
+      "step_1": {
+        "title": "Sign Up",
+        "description": "Join our rewards program through Chowbus or in-store."
+      },
+      "step_2": {
+        "title": "Earn Points",
+        "description": "Get points for every purchase, review, and referral."
+      },
+      "step_3": {
+        "title": "Redeem Rewards",
+        "description": "Use your points to unlock discounts and free items."
+      }
+    },
+    "chowbus": {
+      "title": "Order with Chowbus",
+      "description": "Get double points when you order through Chowbus! Track your orders, earn rewards faster, and enjoy exclusive member benefits.",
+      "placeholder": "Chowbus integration coming soon",
+      "join_button": "Join on Chowbus",
+      "check_status": "Check Points Status",
+      "coming_soon": "Chowbus integration links will be available soon.",
+      "benefits": {
+        "title": "Benefits",
+        "item_1": "Double points on all orders",
+        "item_2": "Track your order history",
+        "item_3": "Exclusive member-only promotions"
+      }
+    },
+    "tiers": {
+      "title": "Rewards Tiers",
+      "description": "Progress through tiers and unlock greater rewards.",
+      "bronze": {
+        "name": "Bronze",
+        "points": "0-99 points",
+        "benefit_1": "10% off on your birthday",
+        "benefit_2": "1 point per $1 spent"
+      },
+      "silver": {
+        "name": "Silver",
+        "points": "100-499 points",
+        "benefit_1": "15% off on your birthday",
+        "benefit_2": "1.5 points per $1 spent",
+        "benefit_3": "Free upgrade on medium drinks"
+      },
+      "gold": {
+        "name": "Gold",
+        "points": "500+ points",
+        "benefit_1": "20% off on your birthday",
+        "benefit_2": "2 points per $1 spent",
+        "benefit_3": "Free upgrade on all drinks",
+        "benefit_4": "Exclusive monthly free item"
+      }
+    },
+    "earning": {
+      "title": "Ways to Earn Points",
+      "description": "Multiple ways to accumulate points and level up.",
+      "in_store": {
+        "title": "In-Store",
+        "description": "Earn points when you visit us in person.",
+        "purchase": "Every $1 spent",
+        "review": "Leave a review",
+        "referral": "Refer a friend"
+      },
+      "online": {
+        "title": "Online",
+        "description": "Get bonus points for online orders.",
+        "order": "Every online order",
+        "first_order": "First online order bonus",
+        "birthday": "Birthday bonus"
+      }
+    },
+    "menu_preview": {
+      "title": "Start Earning Today",
+      "description": "Browse our menu and start earning points with your first purchase."
+    },
+    "view_full_menu": "View Full Menu"
   }
 }
