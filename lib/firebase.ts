@@ -12,6 +12,7 @@ import {
   signOut,
   type User,
 } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // Importing analytics conditionally to avoid SSR errors
 let analytics: import('firebase/analytics').Analytics | undefined;
@@ -46,6 +47,11 @@ export async function initAnalytics() {
 export function getAuthClient() {
   const app = getFirebaseApp();
   return getAuth(app);
+}
+
+export function getFirestoreDb() {
+  const app = getFirebaseApp();
+  return getFirestore(app);
 }
 
 export async function signInWithGooglePopup() {

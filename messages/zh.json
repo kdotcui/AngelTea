@@ -260,5 +260,40 @@
       "description": "浏览我们的菜单，从第一次购买开始赚取积分。"
     },
     "view_full_menu": "查看完整菜单"
+  },
+  "plinko": {
+    "title": "天使茶+奖品游戏",
+    "subtitle": "投下球并赢取超值折扣！",
+    "loading": "游戏加载中...",
+    "playsRemaining": "今日剩余游戏次数",
+    "howToPlay": {
+      "title": "如何游戏",
+      "step1": "点击棋盘顶部任意位置投下球",
+      "step2": "观看球在钉子间弹跳",
+      "step3": "球将落入底部的奖品槽之一",
+      "step4": "每天可以玩3次 - 明天再来获得更多机会！"
+    },
+    "yourPrizes": "您的奖品",
+    "won": "获得",
+    "expires": "过期",
+    "redeemed": "已兑换",
+    "active": "有效",
+    "noPlaysRemaining": "今天没有剩余游戏次数了！",
+    "comeBackTomorrow": "明天再来获得3次机会赢取奖品！",
+    "congratulations": "恭喜！",
+    "tryAgain": "再试一次！",
+    "youWon": "您赢得了：{prize}",
+    "yourCode": "您的奖品代码",
+    "copyCode": "复制代码",
+    "showAtCheckout": "结账时出示此代码以兑换您的奖品",
+    "expiresIn30Days": "30天后过期",
+    "betterLuckMessage": "别担心，您还有更多机会！回来再试一次。",
+    "close": "关闭",
+    "enterPhoneNumber": "输入您的电话号码以领取",
+    "phoneNumberPlaceholder": "(781) 790-5313",
+    "claimPrize": "领取奖品",
+    "phoneNumberInstructions": "我们将保存您的奖品。结账时出示此号码以兑换。",
+    "givePhoneAtCheckout": "结账时提供您的电话号码以兑换",
+    "processingPrize": "正在处理您的奖品..."
   }
 }
