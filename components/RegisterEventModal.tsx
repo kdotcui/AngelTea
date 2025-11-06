@@ -161,7 +161,7 @@ export function RegisterEventModal({
                   aria-invalid={error && !email.trim() ? 'true' : 'false'}
                 />
                 <FieldDescription>
-                  We'll use this to send you event updates and reminders.
+                  We&apos;ll use this to send you event updates and reminders.
                 </FieldDescription>
               </Field>
 
