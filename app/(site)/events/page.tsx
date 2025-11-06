@@ -1,5 +1,5 @@
 import { listEvents } from '@/services/events';
-import { type Event } from '@/types/event';
+import { Event } from '@/types/event';
 import {
   Accordion,
   AccordionContent,
@@ -54,11 +54,14 @@ function EventCard({ event }: { event: Event }) {
           {event.location && ` • ${event.location}`}
         </CardDescription>
       </CardHeader>
-      {event.description && (
-        <CardContent>
+      <CardContent>
+        <div className="mb-2">
+          <span className="text-lg font-semibold">${event.price.toFixed(2)}</span>
+        </div>
+        {event.description && (
           <p className="text-muted-foreground">{event.description}</p>
-        </CardContent>
-      )}
+        )}
+      </CardContent>
     </Card>
   );
 }
@@ -82,7 +85,7 @@ export default async function EventsPage() {
           </p>
         </div>
 
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="multiple" defaultValue={["upcoming"]} className="w-full">
           <AccordionItem value="upcoming">
             <AccordionTrigger>Upcoming Events</AccordionTrigger>
             <AccordionContent>

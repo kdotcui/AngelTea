@@ -15,6 +15,7 @@ import {
   createEvent,
   uploadEventImage,
 } from '@/services/events';
+import type { Event } from '@/types/event';
 
 // Validate time format XX:XX
 function validateTimeFormat(time: string): boolean {
@@ -35,6 +36,7 @@ export default function AddEventButton({
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [location, setLocation] = useState('');
+  const [price, setPrice] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -49,6 +51,15 @@ export default function AddEventButton({
       setStatus('Date is required');
       return;
     }
+    if (!price.trim()) {
+      setStatus('Price is required');
+      return;
+    }
+    const priceNum = parseFloat(price.trim());
+    if (isNaN(priceNum) || priceNum < 0) {
+      setStatus('Price must be a valid non-negative number');
+      return;
+    }
     if (startTime && !validateTimeFormat(startTime)) {
       setStatus('Start time must be in XX:XX format (e.g., 06:00 or 14:30)');
       return;
@@ -60,13 +71,14 @@ export default function AddEventButton({
     setSaving(true);
     setStatus(null);
     try {
-      const payload: Omit<import('@/types/event').Event, 'id' | 'createdAt'> = {
+      const payload: Omit<Event, 'id' | 'createdAt'> = {
         title: title.trim(),
         description: description.trim() || undefined,
         date,
         startTime: startTime.trim() || undefined,
         endTime: endTime.trim() || undefined,
         location: location.trim() || undefined,
+        price: priceNum,
       };
       if (imageFile) {
         const imageUrl = await uploadEventImage(imageFile);
@@ -81,6 +93,7 @@ export default function AddEventButton({
       setStartTime('');
       setEndTime('');
       setLocation('');
+      setPrice('');
       setImageFile(null);
       setOpen(false);
       await onAdded();
@@ -163,6 +176,19 @@ export default function AddEventButton({
               placeholder="e.g., Angel Tea, 331 Moody St"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="price">Price *</Label>
+            <Input
+              id="price"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="e.g., 25.00"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
             />
           </div>
           <div className="space-y-2">

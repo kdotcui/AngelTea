@@ -39,6 +39,7 @@ export default function EditEventButton({
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [location, setLocation] = useState(event.location ?? '');
+  const [price, setPrice] = useState(event.price.toString());
   const [newImageFile, setNewImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -47,7 +48,8 @@ export default function EditEventButton({
   useEffect(() => {
     setStartTime(event.startTime ?? '');
     setEndTime(event.endTime ?? '');
-  }, [event.startTime, event.endTime, open]);
+    setPrice(event.price.toString());
+  }, [event.startTime, event.endTime, event.price, open]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -58,6 +60,15 @@ export default function EditEventButton({
     }
     if (!date) {
       setStatus('Date is required');
+      return;
+    }
+    if (!price.trim()) {
+      setStatus('Price is required');
+      return;
+    }
+    const priceNum = parseFloat(price.trim());
+    if (isNaN(priceNum) || priceNum < 0) {
+      setStatus('Price must be a valid non-negative number');
       return;
     }
     if (startTime && !validateTimeFormat(startTime)) {
@@ -78,6 +89,7 @@ export default function EditEventButton({
         startTime: startTime.trim() || undefined,
         endTime: endTime.trim() || undefined,
         location: location.trim() || undefined,
+        price: priceNum,
       };
       if (newImageFile) {
         const imageUrl = await uploadEventImage(newImageFile);
@@ -190,6 +202,19 @@ export default function EditEventButton({
               placeholder="e.g., Angel Tea, 331 Moody St"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="eprice">Price *</Label>
+            <Input
+              id="eprice"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="e.g., 25.00"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
             />
           </div>
           <div className="flex gap-2">

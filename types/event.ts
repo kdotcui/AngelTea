@@ -7,6 +7,7 @@ export interface Event {
   endTime?: string; // Optional end time (e.g., "18:00" or "6:00")
   time?: string; // Optional time (deprecated, kept for backward compatibility)
   location?: string;
+  price: number;
   imageUrl?: string;
   createdAt?: unknown;
 }

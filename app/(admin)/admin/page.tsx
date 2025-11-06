@@ -162,6 +162,9 @@ export default function AdminDashboard() {
                       {event.startTime && !event.endTime && ` • ${event.startTime}`}
                       {!event.startTime && event.endTime && ` • until ${event.endTime}`}
                     </div>
+                    <div className="text-sm font-semibold mt-1">
+                      ${event.price.toFixed(2)}
+                    </div>
                     {event.location && (
                       <div className="text-muted-foreground text-sm mt-1">
                         {event.location}
