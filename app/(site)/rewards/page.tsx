@@ -9,7 +9,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { Gift, Star, TrendingUp, Zap, Coffee, Users } from 'lucide-react';
+import { Gift, Star, TrendingUp, Zap, Coffee, Users, Check, Sparkles } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
 export default async function RewardsPage() {
@@ -158,103 +158,227 @@ export default async function RewardsPage() {
         </Card>
       </section>
 
-      {/* Rewards Tiers */}
-      <section id="tiers" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
+      {/* Membership Plan */}
+      <section id="membership" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
         <div className="space-y-2 text-center">
-          <h2 className="text-2xl font-semibold">{t('rewards.tiers.title')}</h2>
-          <p className="text-muted-foreground">{t('rewards.tiers.description')}</p>
+          <h2 className="text-2xl font-semibold">{t('rewards.membership.title')}</h2>
+          <p className="text-muted-foreground">{t('rewards.membership.description')}</p>
+        </div>
+        
+        {/* Payment Options */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Annual Plan */}
+          <Card className="overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-accent/5 to-background shadow-xl flex flex-col">
+            <CardHeader className="pb-4 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="size-5 text-primary" />
+                <CardTitle className="text-2xl">{t('rewards.membership.annual.plan_name')}</CardTitle>
+              </div>
+              <div className="text-left mt-4">
+                <div className="text-4xl font-bold text-primary">
+                  {t('rewards.membership.annual.annual_total')}
+                </div>
+                <p className="text-sm text-muted-foreground mt-2">
+                  {t('rewards.membership.annual.savings')}
+                </p>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <Button className="w-full" size="lg" disabled>
+                {t('rewards.membership.annual.join_button')}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Monthly Plan */}
+          <Card className="overflow-hidden border-2 border-border bg-gradient-to-br from-muted/50 to-background shadow-lg flex flex-col">
+            <CardHeader className="pb-4 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="size-5 text-muted-foreground" />
+                <CardTitle className="text-2xl">{t('rewards.membership.monthly.plan_name')}</CardTitle>
+              </div>
+              <div className="text-left mt-4">
+                <div className="text-4xl font-bold text-foreground">
+                  {t('rewards.membership.monthly.monthly_price')}
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <Button className="w-full" size="lg" variant="outline" disabled>
+                {t('rewards.membership.monthly.join_button')}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Membership Benefits Card */}
+        <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+          <CardHeader>
+            <CardTitle className="text-xl">{t('rewards.membership.shared_benefits_title')}</CardTitle>
+            <CardDescription>
+              {t('rewards.membership.billing_note')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Key Benefits */}
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  icon: Gift,
+                  title: t('rewards.membership.benefit_free_drink.title'),
+                  description: t('rewards.membership.benefit_free_drink.description'),
+                  highlight: true,
+                },
+                {
+                  icon: TrendingUp,
+                  title: t('rewards.membership.benefit_points.title'),
+                  description: t('rewards.membership.benefit_points.description'),
+                  highlight: true,
+                },
+                {
+                  icon: Star,
+                  title: t('rewards.membership.benefit_pricing.title'),
+                  description: t('rewards.membership.benefit_pricing.description'),
+                },
+                {
+                  icon: Zap,
+                  title: t('rewards.membership.benefit_exclusive.title'),
+                  description: t('rewards.membership.benefit_exclusive.description'),
+                },
+              ].map((benefit, idx) => (
+                <div
+                  key={idx}
+                  className={`flex gap-3 p-4 rounded-xl ${
+                    benefit.highlight
+                      ? 'bg-primary/10 border border-primary/20'
+                      : 'bg-background/50'
+                  }`}
+                >
+                  <div className={`shrink-0 size-10 rounded-full flex items-center justify-center ${
+                    benefit.highlight ? 'bg-primary/20' : 'bg-muted'
+                  }`}>
+                    <benefit.icon className={`size-5 ${
+                      benefit.highlight ? 'text-primary' : 'text-muted-foreground'
+                    }`} />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold mb-1">{benefit.title}</h4>
+                    <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* All Benefits List */}
+            <div className="border-t pt-6">
+              <h4 className="font-semibold mb-4">{t('rewards.membership.all_benefits_title')}</h4>
+              <ul className="space-y-3">
+                {[
+                  t('rewards.membership.benefit_list.item_1'),
+                  t('rewards.membership.benefit_list.item_2'),
+                  t('rewards.membership.benefit_list.item_3'),
+                  t('rewards.membership.benefit_list.item_4'),
+                ].map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Check className="size-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Terms */}
+            <div className="bg-muted/50 rounded-lg p-4 border border-border">
+              <p className="text-xs text-muted-foreground text-center">
+                {t('rewards.membership.terms')}
+              </p>
+            </div>
+
+            {/* Status Check */}
+            <div className="flex flex-col gap-3">
+              <Button className="w-full" variant="outline" size="lg" disabled>
+                {t('rewards.chowbus.check_status')}
+              </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                {t('rewards.chowbus.coming_soon')}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Redeem Points */}
+      <section id="redeem" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
+        <div className="space-y-2 text-center">
+          <h2 className="text-2xl font-semibold">{t('rewards.redeem.title')}</h2>
+          <p className="text-muted-foreground">{t('rewards.redeem.description')}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              name: t('rewards.tiers.bronze.name'),
-              points: t('rewards.tiers.bronze.points'),
-              benefits: [
-                t('rewards.tiers.bronze.benefit_1'),
-                t('rewards.tiers.bronze.benefit_2'),
-              ],
-              color: 'from-orange-500/20 to-orange-600/10',
-              borderColor: 'border-orange-500/30',
-            },
-            {
-              name: t('rewards.tiers.silver.name'),
-              points: t('rewards.tiers.silver.points'),
-              benefits: [
-                t('rewards.tiers.silver.benefit_1'),
-                t('rewards.tiers.silver.benefit_2'),
-                t('rewards.tiers.silver.benefit_3'),
-              ],
-              color: 'from-gray-400/20 to-gray-500/10',
-              borderColor: 'border-gray-400/30',
-            },
-            {
-              name: t('rewards.tiers.gold.name'),
-              points: t('rewards.tiers.gold.points'),
-              benefits: [
-                t('rewards.tiers.gold.benefit_1'),
-                t('rewards.tiers.gold.benefit_2'),
-                t('rewards.tiers.gold.benefit_3'),
-                t('rewards.tiers.gold.benefit_4'),
-              ],
-              color: 'from-yellow-500/20 to-yellow-600/10',
-              borderColor: 'border-yellow-500/30',
-            },
-          ].map((tier, idx) => (
-            <Card
-              key={idx}
-              className={`overflow-hidden bg-gradient-to-br ${tier.color} ${tier.borderColor}`}
-            >
-              <CardHeader>
-                <CardTitle className="text-xl">{tier.name}</CardTitle>
-                <CardDescription className="text-base font-medium text-foreground">
-                  {tier.points}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-2">
-                  {tier.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm">
-                      <Star className="mt-0.5 size-4 text-primary shrink-0 fill-primary" />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
+          <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/10 via-[--ring]/5 to-background">
+            <CardContent className="pt-6 text-center">
+              <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-primary/20 mx-auto">
+                <Coffee className="size-8 text-primary" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">
+                {t('rewards.redeem.drink.points')}
+              </div>
+              <h3 className="text-lg font-semibold mb-2">{t('rewards.redeem.drink.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('rewards.redeem.drink.description')}</p>
+            </CardContent>
+          </Card>
+          <Card className="overflow-hidden border-accent/20 bg-gradient-to-br from-accent/10 via-[--ring]/5 to-background">
+            <CardContent className="pt-6 text-center">
+              <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-accent/20 mx-auto">
+                <Star className="size-8 text-accent" />
+              </div>
+              <div className="text-3xl font-bold text-accent mb-2">
+                {t('rewards.redeem.appetizer.points')}
+              </div>
+              <h3 className="text-lg font-semibold mb-2">{t('rewards.redeem.appetizer.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('rewards.redeem.appetizer.description')}</p>
+            </CardContent>
+          </Card>
+          <Card className="overflow-hidden border-secondary/20 bg-gradient-to-br from-secondary/10 via-[--ring]/5 to-background">
+            <CardContent className="pt-6 text-center">
+              <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-secondary/20 mx-auto">
+                <Gift className="size-8 text-secondary-foreground" />
+              </div>
+              <div className="text-3xl font-bold text-secondary-foreground mb-2">
+                {t('rewards.redeem.shirt.points')}
+              </div>
+              <h3 className="text-lg font-semibold mb-2">{t('rewards.redeem.shirt.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('rewards.redeem.shirt.description')}</p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      {/* Earning Points */}
-      <section id="earning" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-semibold">{t('rewards.earning.title')}</h2>
-          <p className="text-muted-foreground">{t('rewards.earning.description')}</p>
+      {/* How Points Work */}
+      <section id="points" className="mx-auto max-w-6xl space-y-8 scroll-mt-24">
+        <div className="space-y-2 text-center">
+          <h2 className="text-2xl font-semibold">{t('rewards.points.title')}</h2>
+          <p className="text-muted-foreground">{t('rewards.points.description')}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/10 via-[--ring]/5 to-background">
             <CardHeader>
               <div className="mb-2 flex items-center gap-2">
                 <Coffee className="size-5 text-primary" />
-                <CardTitle>{t('rewards.earning.in_store.title')}</CardTitle>
+                <CardTitle>{t('rewards.points.member.title')}</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                {t('rewards.earning.in_store.description')}
+                {t('rewards.points.member.description')}
               </p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between rounded-lg bg-background/50 p-3">
-                  <span className="text-sm">{t('rewards.earning.in_store.purchase')}</span>
-                  <Badge variant="secondary">+10 {t('rewards.points')}</Badge>
+                  <span className="text-sm">{t('rewards.points.member.purchase')}</span>
+                  <Badge variant="secondary" className="font-bold">2× {t('rewards.points_label')}</Badge>
                 </div>
                 <div className="flex items-center justify-between rounded-lg bg-background/50 p-3">
-                  <span className="text-sm">{t('rewards.earning.in_store.review')}</span>
-                  <Badge variant="secondary">+5 {t('rewards.points')}</Badge>
-                </div>
-                <div className="flex items-center justify-between rounded-lg bg-background/50 p-3">
-                  <span className="text-sm">{t('rewards.earning.in_store.referral')}</span>
-                  <Badge variant="secondary">+25 {t('rewards.points')}</Badge>
+                  <span className="text-sm">{t('rewards.points.member.free_drink')}</span>
+                  <Badge variant="secondary" className="font-bold">{t('rewards.points.member.monthly')}</Badge>
                 </div>
               </div>
             </CardContent>
@@ -263,25 +387,21 @@ export default async function RewardsPage() {
             <CardHeader>
               <div className="mb-2 flex items-center gap-2">
                 <TrendingUp className="size-5 text-accent" />
-                <CardTitle>{t('rewards.earning.online.title')}</CardTitle>
+                <CardTitle>{t('rewards.points.guest.title')}</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                {t('rewards.earning.online.description')}
+                {t('rewards.points.guest.description')}
               </p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between rounded-lg bg-background/50 p-3">
-                  <span className="text-sm">{t('rewards.earning.online.order')}</span>
-                  <Badge variant="secondary">+15 {t('rewards.points')}</Badge>
+                  <span className="text-sm">{t('rewards.points.guest.purchase')}</span>
+                  <Badge variant="secondary">1× {t('rewards.points_label')}</Badge>
                 </div>
                 <div className="flex items-center justify-between rounded-lg bg-background/50 p-3">
-                  <span className="text-sm">{t('rewards.earning.online.first_order')}</span>
-                  <Badge variant="secondary">+50 {t('rewards.points')}</Badge>
-                </div>
-                <div className="flex items-center justify-between rounded-lg bg-background/50 p-3">
-                  <span className="text-sm">{t('rewards.earning.online.birthday')}</span>
-                  <Badge variant="secondary">+100 {t('rewards.points')}</Badge>
+                  <span className="text-sm">{t('rewards.points.guest.bonus')}</span>
+                  <Badge variant="secondary">{t('rewards.points.guest.available')}</Badge>
                 </div>
               </div>
             </CardContent>

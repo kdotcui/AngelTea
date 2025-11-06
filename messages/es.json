@@ -144,7 +144,7 @@
     "alt_hero": "Programa de recompensas de Angel Tea",
     "join_now": "Únete Ahora",
     "learn_more": "Aprende Más",
-    "points": "puntos",
+    "points_label": "puntos",
     "how_it_works": {
       "title": "Cómo Funciona",
       "description": "Comienza a ganar recompensas en tres pasos simples.",
@@ -175,47 +175,84 @@
         "item_3": "Promociones exclusivas solo para miembros"
       }
     },
-    "tiers": {
-      "title": "Niveles de Recompensas",
-      "description": "Progresa a través de niveles y desbloquea mejores recompensas.",
-      "bronze": {
-        "name": "Bronce",
-        "points": "0-99 puntos",
-        "benefit_1": "10% de descuento en tu cumpleaños",
-        "benefit_2": "1 punto por $1 gastado"
+    "membership": {
+      "title": "Membresía Angel Tea",
+      "description": "Elige tu plan y desbloquea beneficios mensuales.",
+      "shared_benefits_title": "Todos los Planes Incluyen",
+      "billing_note": "1 bebida gratis cada mes + 2× puntos; beneficios se restablecen mensualmente.",
+      "annual": {
+        "plan_name": "Angel Tea+ Anual",
+        "billed_annually": "facturado anualmente",
+        "annual_total": "$100/año",
+        "savings": "Ahorra $19.88/año vs mensual",
+        "join_button": "Únete al Plan Anual"
       },
-      "silver": {
-        "name": "Plata",
-        "points": "100-499 puntos",
-        "benefit_1": "15% de descuento en tu cumpleaños",
-        "benefit_2": "1.5 puntos por $1 gastado",
-        "benefit_3": "Actualización gratis en bebidas medianas"
+      "monthly": {
+        "plan_name": "Angel Tea+ Mensual",
+        "monthly_price": "$9.99/mes",
+        "billed_monthly": "facturado mensualmente",
+        "join_button": "Únete al Plan Mensual"
       },
-      "gold": {
-        "name": "Oro",
-        "points": "500+ puntos",
-        "benefit_1": "20% de descuento en tu cumpleaños",
-        "benefit_2": "2 puntos por $1 gastado",
-        "benefit_3": "Actualización gratis en todas las bebidas",
-        "benefit_4": "Artículo gratis mensual exclusivo"
+      "benefit_free_drink": {
+        "title": "Bebida Gratis Mensual",
+        "description": "1 bebida gratis cada mes (cualquier tamaño, cualquier bebida)"
+      },
+      "benefit_points": {
+        "title": "Doble Puntos",
+        "description": "Gana 2× puntos en todas las compras"
+      },
+      "benefit_pricing": {
+        "title": "Precios para Miembros",
+        "description": "Descuentos exclusivos en artículos seleccionados"
+      },
+      "benefit_exclusive": {
+        "title": "Beneficios Exclusivos",
+        "description": "Acceso anticipado a nuevas bebidas y promociones"
+      },
+      "all_benefits_title": "Todo Incluido",
+      "benefit_list": {
+        "item_1": "1 bebida gratis cada mes (se restablece mensualmente)",
+        "item_2": "2× puntos en todas las compras mientras la membresía esté activa",
+        "item_3": "Precios exclusivos para miembros en bebidas y artículos seleccionados",
+        "item_4": "Acceso anticipado a bebidas estacionales y promociones especiales"
+      },
+      "terms": "Los beneficios se restablecen mensualmente. El plan anual se renueva anualmente; el plan mensual se renueva mensualmente. Suscripción gestionada a través de Chowbus."
+    },
+    "redeem": {
+      "title": "Canjea Tus Puntos",
+      "description": "Intercambia tus puntos por recompensas.",
+      "drink": {
+        "points": "80 pts",
+        "title": "Bebida Gratis",
+        "description": "Cualquier tamaño, cualquier bebida"
+      },
+      "appetizer": {
+        "points": "150 pts",
+        "title": "Aperitivo Gratis",
+        "description": "Elige de nuestro menú"
+      },
+      "shirt": {
+        "points": "300 pts",
+        "title": "Camiseta Angel Tea",
+        "description": "Mercancía de edición limitada"
       }
     },
-    "earning": {
-      "title": "Formas de Ganar Puntos",
-      "description": "Múltiples formas de acumular puntos y subir de nivel.",
-      "in_store": {
-        "title": "En la Tienda",
-        "description": "Gana puntos cuando nos visites en persona.",
-        "purchase": "Cada $1 gastado",
-        "review": "Deja una reseña",
-        "referral": "Refiere a un amigo"
+    "points": {
+      "title": "Cómo Funcionan los Puntos",
+      "description": "Los miembros obtienen puntos dobles y bebidas gratis mensuales.",
+      "member": {
+        "title": "Miembros",
+        "description": "Con una membresía activa de Angel Tea+",
+        "purchase": "Cada compra",
+        "free_drink": "Bebida gratis mensual",
+        "monthly": "1 por mes"
       },
-      "online": {
-        "title": "En Línea",
-        "description": "Obtén puntos de bonificación por pedidos en línea.",
-        "order": "Cada pedido en línea",
-        "first_order": "Bonificación del primer pedido",
-        "birthday": "Bonificación de cumpleaños"
+      "guest": {
+        "title": "Invitados",
+        "description": "Recompensas estándar para todos los clientes",
+        "purchase": "Cada compra",
+        "bonus": "Promociones especiales",
+        "available": "Consulta las ofertas"
       }
     },
     "menu_preview": {

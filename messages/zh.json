@@ -144,7 +144,7 @@
     "alt_hero": "天使茶奖励计划",
     "join_now": "立即加入",
     "learn_more": "了解更多",
-    "points": "积分",
+    "points_label": "积分",
     "how_it_works": {
       "title": "如何运作",
       "description": "三个简单步骤即可开始赚取奖励。",
@@ -175,47 +175,84 @@
         "item_3": "专属会员促销活动"
       }
     },
-    "tiers": {
-      "title": "奖励等级",
-      "description": "升级等级并解锁更多奖励。",
-      "bronze": {
-        "name": "铜牌",
-        "points": "0-99积分",
-        "benefit_1": "生日当天10%折扣",
-        "benefit_2": "每消费$1获得1积分"
+    "membership": {
+      "title": "天使茶会员",
+      "description": "选择您的计划，解锁月度福利。",
+      "shared_benefits_title": "所有计划包含",
+      "billing_note": "每月1杯免费饮品 + 2×积分；福利每月重置。",
+      "annual": {
+        "plan_name": "天使茶+ 年度",
+        "billed_annually": "按年付费",
+        "annual_total": "$100/年",
+        "savings": "相比月付每年节省 $19.88",
+        "join_button": "加入年度计划"
       },
-      "silver": {
-        "name": "银牌",
-        "points": "100-499积分",
-        "benefit_1": "生日当天15%折扣",
-        "benefit_2": "每消费$1获得1.5积分",
-        "benefit_3": "中杯饮品免费升级"
+      "monthly": {
+        "plan_name": "天使茶+ 月度",
+        "monthly_price": "$9.99/月",
+        "billed_monthly": "按月付费",
+        "join_button": "加入月度计划"
       },
-      "gold": {
-        "name": "金牌",
-        "points": "500+积分",
-        "benefit_1": "生日当天20%折扣",
-        "benefit_2": "每消费$1获得2积分",
-        "benefit_3": "所有饮品免费升级",
-        "benefit_4": "专属月度免费商品"
+      "benefit_free_drink": {
+        "title": "每月免费饮品",
+        "description": "每月1杯免费饮品（任意尺寸，任意饮品）"
+      },
+      "benefit_points": {
+        "title": "双倍积分",
+        "description": "所有消费赚取2×积分"
+      },
+      "benefit_pricing": {
+        "title": "会员价格",
+        "description": "精选商品专属折扣"
+      },
+      "benefit_exclusive": {
+        "title": "会员专属福利",
+        "description": "优先体验新饮品和促销活动"
+      },
+      "all_benefits_title": "全部包含",
+      "benefit_list": {
+        "item_1": "每月1杯免费饮品（每月重置）",
+        "item_2": "会员有效期内所有消费2×积分",
+        "item_3": "精选饮品和商品会员专属价格",
+        "item_4": "优先体验季节性饮品和特别促销"
+      },
+      "terms": "福利每月重置。年度计划每年续费；月度计划每月续费。订阅通过Chowbus管理。"
+    },
+    "redeem": {
+      "title": "兑换您的积分",
+      "description": "用积分换取奖励。",
+      "drink": {
+        "points": "80 积分",
+        "title": "免费饮品",
+        "description": "任意尺寸，任意饮品"
+      },
+      "appetizer": {
+        "points": "150 积分",
+        "title": "免费开胃菜",
+        "description": "从菜单中选择"
+      },
+      "shirt": {
+        "points": "300 积分",
+        "title": "天使茶T恤",
+        "description": "限量版商品"
       }
     },
-    "earning": {
-      "title": "赚取积分的方式",
-      "description": "多种方式累积积分并升级。",
-      "in_store": {
-        "title": "店内",
-        "description": "亲自到店即可赚取积分。",
-        "purchase": "每消费$1",
-        "review": "留下评价",
-        "referral": "推荐朋友"
+    "points": {
+      "title": "积分如何运作",
+      "description": "会员享受双倍积分和每月免费饮品。",
+      "member": {
+        "title": "会员",
+        "description": "拥有活跃的天使茶+会员资格",
+        "purchase": "每次消费",
+        "free_drink": "每月免费饮品",
+        "monthly": "每月1次"
       },
-      "online": {
-        "title": "在线",
-        "description": "在线订单可获得奖励积分。",
-        "order": "每次在线订单",
-        "first_order": "首次在线订单奖励",
-        "birthday": "生日奖励"
+      "guest": {
+        "title": "访客",
+        "description": "所有客户的标准奖励",
+        "purchase": "每次消费",
+        "bonus": "特别促销",
+        "available": "查看优惠"
       }
     },
     "menu_preview": {
