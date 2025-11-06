@@ -163,6 +163,12 @@
     "showAtCheckout": "Show this code at checkout to redeem your prize",
     "expiresIn30Days": "Expires in 30 days",
     "betterLuckMessage": "Don't worry, you have more chances! Come back and try again.",
-    "close": "Close"
+    "close": "Close",
+    "enterPhoneNumber": "Enter your phone number to claim",
+    "phoneNumberPlaceholder": "(781) 790-5313",
+    "claimPrize": "Claim Prize",
+    "phoneNumberInstructions": "We'll save your prize. Show this number at checkout to redeem.",
+    "givePhoneAtCheckout": "Give your phone number at checkout to redeem",
+    "processingPrize": "Processing your prize..."
   }
 }

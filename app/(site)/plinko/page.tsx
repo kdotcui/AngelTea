@@ -115,14 +115,13 @@ export default function PlinkoPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            🎯 {t('title')}
+            {t('title')}
           </h1>
           <p className="text-xl text-gray-600 mb-6">
             {t('subtitle')}
           </p>
           <div className="inline-flex items-center gap-4 bg-white rounded-full px-6 py-3 shadow-lg border-2 border-amber-200">
-            <span className="text-2xl">🎮</span>
-            <div className="text-left">
+            <div className="text-center">
               <p className="text-sm text-gray-500">{t('playsRemaining')}</p>
               <p className="text-2xl font-bold text-amber-600">
                 {playsRemaining} / {DAILY_PLAYS_LIMIT}
@@ -142,7 +141,7 @@ export default function PlinkoPage() {
         {/* How to Play */}
         <Card className="mb-8 border-2 border-amber-200">
           <CardHeader>
-            <CardTitle className="text-2xl">📖 {t('howToPlay.title')}</CardTitle>
+            <CardTitle className="text-2xl">{t('howToPlay.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <ol className="list-decimal list-inside space-y-2 text-gray-700">
@@ -158,7 +157,7 @@ export default function PlinkoPage() {
         {userPrizes.length > 0 && (
           <Card className="border-2 border-amber-200">
             <CardHeader>
-              <CardTitle className="text-2xl">🏆 {t('yourPrizes')}</CardTitle>
+              <CardTitle className="text-2xl">{t('yourPrizes')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -229,6 +228,7 @@ export default function PlinkoPage() {
         prize={wonPrize}
         prizeCode={prizeCode}
         onPhoneSubmit={handlePhoneSubmit}
+        hasPlaysRemaining={playsRemaining > 0}
       />
     </div>
   );

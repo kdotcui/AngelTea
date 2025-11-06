@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Prize } from '@/types/plinko';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
@@ -13,9 +13,10 @@ interface PrizeModalProps {
   prize: Prize | null;
   prizeCode?: string;
   onPhoneSubmit?: (phoneNumber: string) => void;
+  hasPlaysRemaining?: boolean;
 }
 
-export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit }: PrizeModalProps) {
+export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit, hasPlaysRemaining = true }: PrizeModalProps) {
   const t = useTranslations('plinko');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneSubmitted, setPhoneSubmitted] = useState(false);
@@ -59,8 +60,11 @@ export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit }:
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center">
-            {isWin ? '🎉 ' + t('congratulations') : '😊 ' + t('tryAgain')}
+            {isWin ? '🎉 ' + t('congratulations') : t('tryAgain')}
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            {isWin ? t('youWon', { prize: prize.label }) : t('betterLuckMessage')}
+          </DialogDescription>
         </DialogHeader>
         
         <div className="flex flex-col items-center gap-6 py-6">
@@ -89,11 +93,11 @@ export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit }:
                 {needsPhone && (
                   <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-4 space-y-3">
                     <p className="text-sm font-semibold text-gray-700">
-                      📱 Enter your phone number to claim
+                      {t('enterPhoneNumber')}
                     </p>
                     <Input
                       type="tel"
-                      placeholder="(781) 790-5313"
+                      placeholder={t('phoneNumberPlaceholder')}
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       className="text-center text-lg"
@@ -104,10 +108,10 @@ export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit }:
                       className="w-full bg-blue-600 hover:bg-blue-700"
                       disabled={phoneNumber.length < 10}
                     >
-                      Claim Prize
+                      {t('claimPrize')}
                     </Button>
                     <p className="text-xs text-gray-500">
-                      We'll save your prize. Show this number at checkout to redeem.
+                      {t('phoneNumberInstructions')}
                     </p>
                   </div>
                 )}
@@ -125,17 +129,17 @@ export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit }:
                       onClick={copyToClipboard}
                       className="w-full"
                     >
-                      📋 {t('copyCode')}
+                      {t('copyCode')}
                     </Button>
                     <p className="text-xs text-gray-500 mt-2">
-                      Give your phone number at checkout to redeem
+                      {t('givePhoneAtCheckout')}
                     </p>
                   </div>
                 )}
                 
                 {!needsPhone && !prizeCode && (
                   <p className="text-sm text-gray-500 mt-4">
-                    Processing your prize...
+                    {t('processingPrize')}
                   </p>
                 )}
                 
@@ -145,7 +149,7 @@ export function PrizeModal({ isOpen, onClose, prize, prizeCode, onPhoneSubmit }:
               </>
             ) : (
               <p className="text-gray-600">
-                {t('betterLuckMessage')}
+                {hasPlaysRemaining ? t('betterLuckMessage') : t('comeBackTomorrow')}
               </p>
             )}
           </div>

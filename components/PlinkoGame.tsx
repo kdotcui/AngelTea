@@ -255,7 +255,7 @@ export function PlinkoGame({ onPrizeWon, canPlay }: PlinkoGameProps) {
               : 'bg-gray-400 text-gray-200 cursor-not-allowed'
           }`}
         >
-          {isDropping ? '🎯 Dropping...' : '🎯 Drop Ball'}
+          {isDropping ? 'Dropping...' : 'Drop Ball'}
         </button>
       </div>
 

@@ -163,6 +163,12 @@
     "showAtCheckout": "结账时出示此代码以兑换您的奖品",
     "expiresIn30Days": "30天后过期",
     "betterLuckMessage": "别担心，您还有更多机会！回来再试一次。",
-    "close": "关闭"
+    "close": "关闭",
+    "enterPhoneNumber": "输入您的电话号码以领取",
+    "phoneNumberPlaceholder": "(781) 790-5313",
+    "claimPrize": "领取奖品",
+    "phoneNumberInstructions": "我们将保存您的奖品。结账时出示此号码以兑换。",
+    "givePhoneAtCheckout": "结账时提供您的电话号码以兑换",
+    "processingPrize": "正在处理您的奖品..."
   }
 }
