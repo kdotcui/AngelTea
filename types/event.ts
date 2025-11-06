@@ -1,3 +1,9 @@
+export interface Attendee {
+  name: string;
+  email: string;
+  phone?: string; // Optional phone number
+}
+
 export interface Event {
   id?: string;
   title: string;
@@ -10,5 +16,6 @@ export interface Event {
   price: number;
   imageUrl?: string;
   createdAt?: unknown;
+  attendees?: Attendee[]; // Array of attendee objects
 }
 

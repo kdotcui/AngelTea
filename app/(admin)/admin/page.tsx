@@ -175,6 +175,16 @@ export default function AdminDashboard() {
                         {event.description}
                       </div>
                     )}
+                    {event.attendees && event.attendees.length > 0 && (
+                      <div className="mt-2 border-t pt-2">
+                        <div className="text-xs font-semibold text-muted-foreground mb-1">
+                          Attendees ({event.attendees.length})
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {event.attendees.map((attendee) => attendee.name).join(', ')}
+                        </div>
+                      </div>
+                    )}
                     <div className="mt-3 flex gap-2">
                       <EditEventButton event={event} onSaved={refresh} />
                       <DeleteEventButton eventId={event.id!} onDeleted={refresh} />

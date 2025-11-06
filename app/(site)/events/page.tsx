@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Image from 'next/image';
+import { EventCard } from '@/components/EventCard';
 
 function formatEventDate(dateString: string, startTime?: string, endTime?: string): string {
   const date = new Date(dateString);
@@ -33,7 +34,7 @@ function formatEventDate(dateString: string, startTime?: string, endTime?: strin
   return formattedDate;
 }
 
-function EventCard({ event }: { event: Event }) {
+function LegacyEventCard({ event }: { event: Event }) {
   return (
     <Card>
       {event.imageUrl && (
@@ -70,10 +71,24 @@ export default async function EventsPage() {
   const allEvents = await listEvents();
   const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
 
-  const upcomingEvents = allEvents.filter(
-    (event) => event.date >= today
-  );
+  const upcomingEvents = allEvents
+    .filter((event) => event.date >= today)
+    .sort((a, b) => {
+      // Sort by date ascending (most soon first)
+      if (a.date !== b.date) {
+        return a.date.localeCompare(b.date);
+      }
+      // If same date, sort by startTime if available
+      if (a.startTime && b.startTime) {
+        return a.startTime.localeCompare(b.startTime);
+      }
+      return 0;
+    });
   const pastEvents = allEvents.filter((event) => event.date < today);
+
+  // Get the first 3 upcoming events for the featured layout
+  const featuredEvents = upcomingEvents.slice(0, 3);
+  const remainingEvents = upcomingEvents.slice(3);
 
   return (
     <main className="min-h-[100vh] space-y-8 p-4 sm:p-6">
@@ -94,10 +109,43 @@ export default async function EventsPage() {
                   No upcoming events scheduled.
                 </p>
               ) : (
-                <div className="grid gap-6 py-4 md:grid-cols-2">
-                  {upcomingEvents.map((event) => (
-                    <EventCard key={event.id} event={event} />
-                  ))}
+                <div className="py-4 space-y-6">
+                  {/* Featured Events Layout: First event on left (1/2 width), next 2 on right stacked */}
+                  {featuredEvents.length > 0 && (
+                    <div className="flex gap-4 h-[500px]">
+                      {/* First event - takes 1/2 width on left */}
+                      {featuredEvents[0] && (
+                        <div className="w-1/2 h-full">
+                          <EventCard event={featuredEvents[0]} />
+                        </div>
+                      )}
+                      
+                      {/* Second and third events - stacked vertically on right */}
+                      {featuredEvents.length > 1 && (
+                        <div className="w-1/2 flex flex-col gap-4 h-full">
+                          {featuredEvents[1] && (
+                            <div className="flex-1 h-1/2 min-h-0">
+                              <EventCard event={featuredEvents[1]} />
+                            </div>
+                          )}
+                          {featuredEvents[2] && (
+                            <div className="flex-1 h-1/2 min-h-0">
+                              <EventCard event={featuredEvents[2]} />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* Remaining events in grid layout */}
+                  {remainingEvents.length > 0 && (
+                    <div className="grid gap-6 md:grid-cols-2">
+                      {remainingEvents.map((event) => (
+                        <EventCard key={event.id} event={event} />
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </AccordionContent>
@@ -113,7 +161,7 @@ export default async function EventsPage() {
               ) : (
                 <div className="grid gap-6 py-4 md:grid-cols-2">
                   {pastEvents.map((event) => (
-                    <EventCard key={event.id} event={event} />
+                    <LegacyEventCard key={event.id} event={event} />
                   ))}
                 </div>
               )}
