@@ -26,6 +26,12 @@ service cloud.firestore {
       allow write: if true; // TODO: restrict to admins
     }
 
+    // Events collection (public read)
+    match /events/{docId} {
+      allow read: if true;
+      allow write: if true; // TODO: restrict to admins
+    }
+
     // Game users (includes game state and prizes for both Plinko and Mines)
     match /gameUsers/{userId} {
       allow read: if true; // Anyone can read user data
