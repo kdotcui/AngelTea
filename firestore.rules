@@ -26,6 +26,17 @@ service cloud.firestore {
       allow write: if true; // TODO: restrict to admins
     }
 
+    // Plinko game state (per user)
+    match /plinkoGameState/{userId} {
+      allow read, write: if true; // Anyone can read/write their own game state
+    }
+
+    // Plinko prizes
+    match /plinkoPrizes/{prizeId} {
+      allow read: if true; // Anyone can read prizes (needed for phone lookup)
+      allow write: if true; // Anyone can create/update prizes
+    }
+
     // deny everything else by default
     match /{document=**} {
       allow read, write: if false;

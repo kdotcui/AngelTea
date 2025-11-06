@@ -1,0 +1,46 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "plinkoPrizes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "expiresAt",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "wonAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "plinkoPrizes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "phoneNumber",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "expiresAt",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "redeemedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "wonAt",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
+
