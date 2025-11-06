@@ -190,7 +190,7 @@ export function PlinkoGame({ onPrizeWon, canPlay }: PlinkoGameProps) {
         ctx.fillText(line, x + bucketWidth / 2, lineY);
       });
     });
-  }, [isDropping]);
+  }, []);
 
   const animate = useCallback(() => {
     const engine = engineRef.current;

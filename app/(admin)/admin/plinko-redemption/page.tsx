@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getPrizesByPhone, redeemPrize } from '@/services/plinko';
-import { UserPrize } from '@/types/plinko';
+import { getAllPrizesByPhone, redeemPrize } from '@/services/plinko';
+import { UserPrizeEntry } from '@/types/auth';
+import { Prize } from '@/types/plinko';
 
 export default function PlinkoRedemptionPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [prizes, setPrizes] = useState<UserPrize[]>([]);
+  const [activePrizes, setActivePrizes] = useState<Array<UserPrizeEntry & { userId: string }>>([]);
+  const [redeemedPrizes, setRedeemedPrizes] = useState<Array<UserPrizeEntry & { userId: string }>>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -23,11 +25,12 @@ export default function PlinkoRedemptionPage() {
     setError('');
 
     try {
-      const foundPrizes = await getPrizesByPhone(phoneNumber);
-      setPrizes(foundPrizes);
+      const { active, redeemed } = await getAllPrizesByPhone(phoneNumber);
+      setActivePrizes(active);
+      setRedeemedPrizes(redeemed);
       
-      if (foundPrizes.length === 0) {
-        setError('No active prizes found for this phone number');
+      if (active.length === 0 && redeemed.length === 0) {
+        setError('No prizes found for this phone number');
       }
     } catch (err) {
       console.error('Error fetching prizes:', err);
@@ -37,12 +40,16 @@ export default function PlinkoRedemptionPage() {
     }
   };
 
-  const handleRedeem = async (prizeId: string) => {
+  const handleRedeem = async (userId: string, prizeId: string) => {
     try {
-      const success = await redeemPrize(prizeId);
+      const success = await redeemPrize(userId, prizeId);
       if (success) {
-        // Remove redeemed prize from list
-        setPrizes(prizes.filter(p => p.id !== prizeId));
+        // Move prize from active to redeemed
+        const redeemedPrize = activePrizes.find(p => p.id === prizeId);
+        if (redeemedPrize) {
+          setActivePrizes(activePrizes.filter(p => p.id !== prizeId));
+          setRedeemedPrizes([{ ...redeemedPrize, redeemedAt: Date.now() }, ...redeemedPrizes]);
+        }
         alert('Prize redeemed successfully!');
       } else {
         alert('Failed to redeem prize. It may have already been redeemed.');
@@ -63,7 +70,7 @@ export default function PlinkoRedemptionPage() {
 
   return (
     <div className="container mx-auto p-8 max-w-4xl">
-      <h1 className="text-4xl font-bold mb-8 text-center">Plinko Prize Redemption</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Prize Redemption</h1>
 
       {/* Phone Number Search */}
       <Card className="mb-8">
@@ -94,18 +101,18 @@ export default function PlinkoRedemptionPage() {
         </CardContent>
       </Card>
 
-      {/* Prizes List */}
-      {prizes.length > 0 && (
+      {/* Active Prizes List */}
+      {activePrizes.length > 0 && (
         <div className="space-y-4">
           <h2 className="text-2xl font-bold mb-4">
-            Active Prizes ({prizes.length})
+            Active Prizes ({activePrizes.length})
           </h2>
           
-          {prizes.map((userPrize) => (
+          {activePrizes.map((userPrize) => (
             <Card
               key={userPrize.id}
               className="border-2"
-              style={{ borderColor: userPrize.prize.color }}
+              style={{ borderColor: (userPrize.prize as Prize).color }}
             >
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -113,11 +120,11 @@ export default function PlinkoRedemptionPage() {
                   <div className="flex items-center gap-6">
                     <div
                       className="w-20 h-20 rounded-full flex items-center justify-center shadow-lg"
-                      style={{ backgroundColor: userPrize.prize.color }}
+                      style={{ backgroundColor: (userPrize.prize as Prize).color }}
                     >
                       <p
                         className="text-xl font-bold text-center"
-                        style={{ color: userPrize.prize.textColor }}
+                        style={{ color: (userPrize.prize as Prize).textColor }}
                       >
                         {userPrize.prize.label}
                       </p>
@@ -127,9 +134,6 @@ export default function PlinkoRedemptionPage() {
                       <h3 className="text-2xl font-bold mb-1">
                         {userPrize.prize.label}
                       </h3>
-                      <p className="text-gray-600 mb-1">
-                        Code: <span className="font-mono font-bold">{userPrize.code}</span>
-                      </p>
                       <p className="text-sm text-gray-500">
                         Won: {formatDate(userPrize.wonAt)}
                       </p>
@@ -141,11 +145,66 @@ export default function PlinkoRedemptionPage() {
 
                   {/* Redeem Button */}
                   <Button
-                    onClick={() => handleRedeem(userPrize.id)}
+                    onClick={() => handleRedeem(userPrize.userId, userPrize.id)}
                     className="bg-green-600 hover:bg-green-700 px-8 py-6 text-lg"
                   >
                     Redeem
                   </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {/* Redeemed Prizes List */}
+      {redeemedPrizes.length > 0 && (
+        <div className="space-y-4 mt-8">
+          <h2 className="text-2xl font-bold mb-4 text-gray-600">
+            Redeemed Prizes ({redeemedPrizes.length})
+          </h2>
+          
+          {redeemedPrizes.map((userPrize) => (
+            <Card
+              key={userPrize.id}
+              className="border-2 bg-gray-50 opacity-75"
+              style={{ borderColor: (userPrize.prize as Prize).color }}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  {/* Prize Info */}
+                  <div className="flex items-center gap-6">
+                    <div
+                      className="w-20 h-20 rounded-full flex items-center justify-center shadow-lg opacity-50"
+                      style={{ backgroundColor: (userPrize.prize as Prize).color }}
+                    >
+                      <p
+                        className="text-xl font-bold text-center"
+                        style={{ color: (userPrize.prize as Prize).textColor }}
+                      >
+                        {userPrize.prize.label}
+                      </p>
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-2xl font-bold mb-1 text-gray-700">
+                        {userPrize.prize.label}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        Won: {formatDate(userPrize.wonAt)}
+                      </p>
+                      <p className="text-sm text-green-600 font-semibold">
+                        Redeemed: {formatDate(userPrize.redeemedAt!)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Redeemed Badge */}
+                  <div className="text-right">
+                    <span className="inline-block px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold">
+                      ✓ Redeemed
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>

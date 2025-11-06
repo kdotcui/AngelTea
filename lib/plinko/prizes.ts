@@ -122,14 +122,8 @@ export const PRIZES: Prize[] = [
   },
 ];
 
-export const DAILY_PLAYS_LIMIT = 3;
+export const DAILY_PLAYS_LIMIT = 2;
 
-export function generatePrizeCode(prizeType: string): string {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 7).toUpperCase();
-  const prefix = prizeType.substring(0, 3).toUpperCase();
-  return `${prefix}-${random}-${timestamp}`;
-}
 
 export function getPrizeExpiryDate(): number {
   // Prize expires in 30 days

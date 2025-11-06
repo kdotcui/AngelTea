@@ -10,9 +10,9 @@ import {
   updateDoc,
   arrayUnion,
 } from 'firebase/firestore';
-import { Prize } from '@/types/plinko';
+import { MinesPrize } from '@/types/mines';
 import { GameUser, UserPrizeEntry } from '@/types/auth';
-import { getPrizeExpiryDate } from '@/lib/plinko/prizes';
+import { getPrizeExpiryDate } from '@/lib/mines/prizes';
 
 const app = getFirebaseApp();
 const USERS_COLLECTION = 'gameUsers';
@@ -20,20 +20,20 @@ const USERS_COLLECTION = 'gameUsers';
 // Get Firestore instance
 const db = getFirestore(app);
 
-export async function savePrizeToFirebase(
+export async function saveMinesPrizeToFirebase(
   userId: string,
   phoneNumber: string,
-  prize: Prize
+  prize: MinesPrize
 ): Promise<void> {
   const userRef = doc(db, USERS_COLLECTION, userId);
   
   const prizeEntry: UserPrizeEntry = {
-    id: `plinko_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `mines_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     prize,
     wonAt: Date.now(),
     redeemedAt: null,
     expiresAt: getPrizeExpiryDate(),
-    gameType: 'plinko',
+    gameType: 'mines',
   };
 
   // Add prize to user's prizes array
@@ -42,10 +42,10 @@ export async function savePrizeToFirebase(
   });
   
   // Increment play count
-  await incrementPlayCount(userId, true);
+  await incrementMinesPlayCount(userId, true);
 }
 
-export async function getUserPrizes(userId: string): Promise<UserPrizeEntry[]> {
+export async function getUserMinesPrizes(userId: string): Promise<UserPrizeEntry[]> {
   const userRef = doc(db, USERS_COLLECTION, userId);
   const userSnap = await getDoc(userRef);
 
@@ -55,16 +55,13 @@ export async function getUserPrizes(userId: string): Promise<UserPrizeEntry[]> {
 
   const user = userSnap.data() as GameUser;
   
-  // Return all Plinko prizes (active, expired, and redeemed)
+  // Return all Mines prizes (active, expired, and redeemed)
   return (user.prizes || [])
-    .filter(p => p.gameType === 'plinko')
+    .filter(p => p.gameType === 'mines')
     .sort((a, b) => b.wonAt - a.wonAt);
 }
 
-export async function getAllPrizesByPhone(phoneNumber: string): Promise<{
-  active: Array<UserPrizeEntry & { userId: string }>,
-  redeemed: Array<UserPrizeEntry & { userId: string }>
-}> {
+export async function getMinesPrizesByPhone(phoneNumber: string): Promise<Array<UserPrizeEntry & { userId: string }>> {
   // Normalize phone number (remove spaces, dashes, etc.)
   const normalizedPhone = phoneNumber.replace(/\D/g, '');
   
@@ -76,34 +73,25 @@ export async function getAllPrizesByPhone(phoneNumber: string): Promise<{
   const snapshot = await getDocs(q);
   
   if (snapshot.empty) {
-    return { active: [], redeemed: [] };
+    return [];
   }
 
   const now = Date.now();
-  const activePrizes: Array<UserPrizeEntry & { userId: string }> = [];
-  const redeemedPrizes: Array<UserPrizeEntry & { userId: string }> = [];
+  const allPrizes: Array<UserPrizeEntry & { userId: string }> = [];
   
   // Get prizes from all users with this phone number (should only be one)
   snapshot.forEach((doc) => {
     const user = doc.data() as GameUser;
-    
-    (user.prizes || []).forEach(p => {
-      // Show all prizes from both Plinko and Mines
-      if (p.redeemedAt !== null) {
-        redeemedPrizes.push({ ...p, userId: user.id });
-      } else if (p.expiresAt > now) {
-        activePrizes.push({ ...p, userId: user.id });
-      }
-    });
+    const activePrizes = (user.prizes || [])
+      .filter(p => p.expiresAt > now && p.redeemedAt === null && p.gameType === 'mines')
+      .map(p => ({ ...p, userId: user.id }));
+    allPrizes.push(...activePrizes);
   });
 
-  return {
-    active: activePrizes.sort((a, b) => b.wonAt - a.wonAt),
-    redeemed: redeemedPrizes.sort((a, b) => b.redeemedAt! - a.redeemedAt!)
-  };
+  return allPrizes.sort((a, b) => b.wonAt - a.wonAt);
 }
 
-export async function redeemPrize(userId: string, prizeId: string): Promise<boolean> {
+export async function redeemMinesPrize(userId: string, prizeId: string): Promise<boolean> {
   const userRef = doc(db, USERS_COLLECTION, userId);
   const userSnap = await getDoc(userRef);
 
@@ -134,11 +122,11 @@ export async function redeemPrize(userId: string, prizeId: string): Promise<bool
   return true;
 }
 
-export async function incrementPlayCount(
+export async function incrementMinesPlayCount(
   userId: string,
   isWin: boolean
 ): Promise<void> {
-  const { DAILY_PLAYS_LIMIT } = await import('@/lib/plinko/prizes');
+  const { DAILY_PLAYS_LIMIT } = await import('@/lib/mines/prizes');
   const today = new Date().toDateString();
   const userRef = doc(db, USERS_COLLECTION, userId);
   const userSnap = await getDoc(userRef);
@@ -155,20 +143,20 @@ export async function incrementPlayCount(
   }
 
   // Reset if it's a new day
-  if (user.plinkoLastPlayDate !== today) {
+  if (user.minesLastPlayDate !== today) {
     await updateDoc(userRef, {
-      plinkoPlaysRemaining: DAILY_PLAYS_LIMIT - 1,
-      plinkoLastPlayDate: today,
+      minesPlaysRemaining: DAILY_PLAYS_LIMIT - 1,
+      minesLastPlayDate: today,
     });
   } else {
     await updateDoc(userRef, {
-      plinkoPlaysRemaining: Math.max(0, user.plinkoPlaysRemaining - 1),
+      minesPlaysRemaining: Math.max(0, user.minesPlaysRemaining - 1),
     });
   }
 }
 
-export async function getRemainingPlays(userId: string): Promise<number> {
-  const { DAILY_PLAYS_LIMIT } = await import('@/lib/plinko/prizes');
+export async function getRemainingMinesPlays(userId: string): Promise<number> {
+  const { DAILY_PLAYS_LIMIT } = await import('@/lib/mines/prizes');
   const today = new Date().toDateString();
   const userRef = doc(db, USERS_COLLECTION, userId);
   const userSnap = await getDoc(userRef);
@@ -185,10 +173,10 @@ export async function getRemainingPlays(userId: string): Promise<number> {
   }
 
   // Reset if it's a new day
-  if (user.plinkoLastPlayDate !== today) {
+  if (user.minesLastPlayDate !== today) {
     return DAILY_PLAYS_LIMIT;
   }
 
-  return user.plinkoPlaysRemaining;
+  return user.minesPlaysRemaining;
 }
 
