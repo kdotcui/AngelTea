@@ -1,15 +1,45 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { getSession, clearSession } from '@/services/auth';
+import { GameSession } from '@/types/auth';
+import { Button } from '@/components/ui/button';
 
-export default async function SiteLayout({
+export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const isShopEnabled = process.env.NEXT_PUBLIC_SHOP_ACCESS === 'true';
-  const t = await getTranslations();
+  const t = useTranslations();
+  const [session, setSession] = useState<GameSession | null>(null);
+
+  useEffect(() => {
+    const updateSession = () => {
+      const currentSession = getSession();
+      setSession(currentSession);
+    };
+
+    // Initial load
+    updateSession();
+
+    // Listen for session changes
+    window.addEventListener('gameSessionChange', updateSession);
+
+    return () => {
+      window.removeEventListener('gameSessionChange', updateSession);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    clearSession();
+    setSession(null);
+    window.location.reload(); // Refresh to update game pages
+  };
   return (
     <div>
       <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-background/80">
@@ -38,10 +68,22 @@ export default async function SiteLayout({
                 </svg>
               </summary>
               <div className="absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg py-1 hidden group-open:block z-50">
-                <Link href="/plinko" className="block px-4 py-2 hover:bg-gray-100">
+                <Link href="/plinko" className="block px-4 py-2 hover:bg-gray-100" onClick={(e) => {
+                  const details = e.currentTarget.closest('details');
+                  if (details) details.removeAttribute('open');
+                }}>
                   Plinko
                 </Link>
-                <Link href="/personality-quiz" className="block px-4 py-2 hover:bg-gray-100">
+                <Link href="/mines" className="block px-4 py-2 hover:bg-gray-100" onClick={(e) => {
+                  const details = e.currentTarget.closest('details');
+                  if (details) details.removeAttribute('open');
+                }}>
+                  Mines
+                </Link>
+                <Link href="/personality-quiz" className="block px-4 py-2 hover:bg-gray-100" onClick={(e) => {
+                  const details = e.currentTarget.closest('details');
+                  if (details) details.removeAttribute('open');
+                }}>
                   Personality Quiz
                 </Link>
               </div>
@@ -70,6 +112,20 @@ export default async function SiteLayout({
             >
               {t('common.call_us')}
             </a>
+            {session && (
+              <div className="ml-2 flex items-center gap-2">
+                <span className="inline-flex size-7 items-center justify-center overflow-hidden rounded-full bg-muted text-xs font-medium">
+                  {session.email.charAt(0).toUpperCase()}
+                </span>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </div>
+            )}
           </div>
           <details className="md:hidden">
             <summary className="select-none rounded-md border px-3 py-1.5 text-sm">
@@ -94,6 +150,9 @@ export default async function SiteLayout({
                       <Link href="/plinko" className="hover:underline">
                         Plinko
                       </Link>
+                      <Link href="/mines" className="hover:underline">
+                        Mines
+                      </Link>
                       <Link href="/personality-quiz" className="hover:underline">
                         Personality Quiz
                       </Link>
@@ -114,14 +173,32 @@ export default async function SiteLayout({
                   <Link href="/#press" className="hover:underline">
                     {t('navigation.press')}
                   </Link>
-                  <div className="flex items-center gap-3 pt-2 border-t">
-                    <LanguageSwitcher />
-                    <a
-                      href="tel:+17817905313"
-                      className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
-                    >
-                      {t('common.call_us')}
-                    </a>
+                  <div className="grid gap-3 pt-2 border-t">
+                    <div className="flex items-center gap-3">
+                      <LanguageSwitcher />
+                      <a
+                        href="tel:+17817905313"
+                        className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
+                      >
+                        {t('common.call_us')}
+                      </a>
+                    </div>
+                    {session && (
+                      <div className="flex items-center gap-2 pt-2 border-t">
+                        <span className="inline-flex size-7 items-center justify-center overflow-hidden rounded-full bg-muted text-xs font-medium">
+                          {session.email.charAt(0).toUpperCase()}
+                        </span>
+                        <span className="text-xs text-gray-600">{session.email}</span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={handleLogout}
+                          className="ml-auto"
+                        >
+                          Logout
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
