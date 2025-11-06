@@ -176,6 +176,9 @@ export default function SiteLayout({
                   <Link href="/#press" className="hover:underline">
                     {t('navigation.press')}
                   </Link>
+                  <Link href="/rewards" className="hover:underline">
+                    {t('navigation.rewards')}
+                  </Link>
                   <div className="grid gap-3 pt-2 border-t">
                     <div className="flex items-center gap-3">
                       <LanguageSwitcher />
@@ -202,17 +205,6 @@ export default function SiteLayout({
                         </Button>
                       </div>
                     )}
-                  <Link href="/rewards" className="hover:underline">
-                    {t('navigation.rewards')}
-                  </Link>
-                  <div className="flex items-center gap-3 pt-2 border-t">
-                    <LanguageSwitcher />
-                    <a
-                      href="tel:+17817905313"
-                      className="rounded-md border px-3 py-1.5 text-sm hover:bg-secondary"
-                    >
-                      {t('common.call_us')}
-                    </a>
                   </div>
                 </div>
               </div>
