@@ -135,5 +135,40 @@
       "no_items": "No items yet.",
       "add_first_item": "Add first item"
     }
+  },
+  "plinko": {
+    "title": "Plinko Prize Game",
+    "subtitle": "Drop the ball and win amazing discounts!",
+    "loading": "Loading game...",
+    "playsRemaining": "Plays Remaining Today",
+    "howToPlay": {
+      "title": "How to Play",
+      "step1": "Click anywhere on the top of the board to drop the ball",
+      "step2": "Watch as the ball bounces through the pegs",
+      "step3": "The ball will land in one of the prize buckets at the bottom",
+      "step4": "You get 3 plays per day - come back tomorrow for more chances!"
+    },
+    "yourPrizes": "Your Prizes",
+    "won": "Won",
+    "expires": "Expires",
+    "redeemed": "Redeemed",
+    "active": "Active",
+    "noPlaysRemaining": "No plays remaining today!",
+    "comeBackTomorrow": "Come back tomorrow for 3 more chances to win!",
+    "congratulations": "Congratulations!",
+    "tryAgain": "Try Again!",
+    "youWon": "You won: {prize}",
+    "yourCode": "Your Prize Code",
+    "copyCode": "Copy Code",
+    "showAtCheckout": "Show this code at checkout to redeem your prize",
+    "expiresIn30Days": "Expires in 30 days",
+    "betterLuckMessage": "Don't worry, you have more chances! Come back and try again.",
+    "close": "Close",
+    "enterPhoneNumber": "Enter your phone number to claim",
+    "phoneNumberPlaceholder": "(781) 790-5313",
+    "claimPrize": "Claim Prize",
+    "phoneNumberInstructions": "We'll save your prize. Show this number at checkout to redeem.",
+    "givePhoneAtCheckout": "Give your phone number at checkout to redeem",
+    "processingPrize": "Processing your prize..."
   }
 }

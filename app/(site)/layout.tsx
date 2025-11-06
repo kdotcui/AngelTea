@@ -30,9 +30,22 @@ export default async function SiteLayout({
                 {t('navigation.shop')}
               </Link>
             )}
-            <Link href="/personality-quiz" className="hover:text-secondary">
-              Personality Quiz
-            </Link>
+            <details className="relative group">
+              <summary className="cursor-pointer hover:text-secondary list-none flex items-center gap-1">
+                Minigames
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg py-1 hidden group-open:block z-50">
+                <Link href="/plinko" className="block px-4 py-2 hover:bg-gray-100">
+                  Plinko
+                </Link>
+                <Link href="/personality-quiz" className="block px-4 py-2 hover:bg-gray-100">
+                  Personality Quiz
+                </Link>
+              </div>
+            </details>
             <Link href="/#menu" className="hover:text-secondary">
               {t('navigation.popular')}
             </Link>
@@ -70,9 +83,22 @@ export default async function SiteLayout({
                       {t('navigation.shop')}
                     </Link>
                   )}
-                  <Link href="/personality-quiz" className="hover:underline">
-                    Personality Quiz
-                  </Link>
+                  <details className="group">
+                    <summary className="cursor-pointer hover:underline list-none flex items-center gap-1">
+                      Minigames
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <div className="ml-4 mt-2 grid gap-2">
+                      <Link href="/plinko" className="hover:underline">
+                        Plinko
+                      </Link>
+                      <Link href="/personality-quiz" className="hover:underline">
+                        Personality Quiz
+                      </Link>
+                    </div>
+                  </details>
                   <Link href="/#menu" className="hover:underline">
                     {t('navigation.popular')}
                   </Link>

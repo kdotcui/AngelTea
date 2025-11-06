@@ -135,5 +135,40 @@
       "no_items": "Aún no hay elementos.",
       "add_first_item": "Agregar primer elemento"
     }
+  },
+  "plinko": {
+    "title": "Juego de Premios Plinko",
+    "subtitle": "¡Deja caer la pelota y gana descuentos increíbles!",
+    "loading": "Cargando juego...",
+    "playsRemaining": "Jugadas Restantes Hoy",
+    "howToPlay": {
+      "title": "Cómo Jugar",
+      "step1": "Haz clic en cualquier lugar en la parte superior del tablero para soltar la pelota",
+      "step2": "Observa cómo la pelota rebota a través de las clavijas",
+      "step3": "La pelota caerá en uno de los cubos de premios en la parte inferior",
+      "step4": "¡Tienes 3 jugadas por día - vuelve mañana para más oportunidades!"
+    },
+    "yourPrizes": "Tus Premios",
+    "won": "Ganado",
+    "expires": "Expira",
+    "redeemed": "Canjeado",
+    "active": "Activo",
+    "noPlaysRemaining": "¡No quedan jugadas para hoy!",
+    "comeBackTomorrow": "¡Vuelve mañana para 3 oportunidades más de ganar!",
+    "congratulations": "¡Felicitaciones!",
+    "tryAgain": "¡Inténtalo de Nuevo!",
+    "youWon": "Ganaste: {prize}",
+    "yourCode": "Tu Código de Premio",
+    "copyCode": "Copiar Código",
+    "showAtCheckout": "Muestra este código al pagar para canjear tu premio",
+    "expiresIn30Days": "Expira en 30 días",
+    "betterLuckMessage": "No te preocupes, ¡tienes más oportunidades! Vuelve e inténtalo de nuevo.",
+    "close": "Cerrar",
+    "enterPhoneNumber": "Ingresa tu número de teléfono para reclamar",
+    "phoneNumberPlaceholder": "(781) 790-5313",
+    "claimPrize": "Reclamar Premio",
+    "phoneNumberInstructions": "Guardaremos tu premio. Muestra este número al pagar para canjearlo.",
+    "givePhoneAtCheckout": "Da tu número de teléfono al pagar para canjear",
+    "processingPrize": "Procesando tu premio..."
   }
 }

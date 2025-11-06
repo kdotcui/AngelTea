@@ -66,6 +66,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <Link className="hover:text-secondary" href="/admin">
               Dashboard
             </Link>
+            <Link className="hover:text-secondary" href="/admin/plinko-redemption">
+              Plinko Prizes
+            </Link>
             <Link className="hover:text-secondary" href="/">
               View site
             </Link>
