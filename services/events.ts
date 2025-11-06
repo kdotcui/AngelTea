@@ -11,10 +11,31 @@ import {
   deleteDoc,
   doc,
   serverTimestamp,
+  Timestamp,
 } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const COLLECTION = 'events';
+
+// Helper function to convert Firestore Timestamps to serializable values
+function serializeEvent(data: any): Event {
+  const event = { ...data } as Event;
+  
+  // Convert Firestore Timestamp to ISO string if it exists
+  if (event.createdAt && typeof event.createdAt === 'object' && 'seconds' in event.createdAt) {
+    // Handle both Timestamp instances and plain objects with seconds/nanoseconds
+    if (event.createdAt instanceof Timestamp) {
+      event.createdAt = event.createdAt.toDate().toISOString();
+    } else if ('seconds' in event.createdAt && 'nanoseconds' in event.createdAt) {
+      // Plain object with seconds/nanoseconds - convert to Date then ISO string
+      const timestamp = event.createdAt as { seconds: number; nanoseconds: number };
+      const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+      event.createdAt = date.toISOString();
+    }
+  }
+  
+  return event;
+}
 
 export async function listEvents(): Promise<Event[]> {
   const app = getFirebaseApp();
@@ -23,17 +44,17 @@ export async function listEvents(): Promise<Event[]> {
     // Order by date descending (most recent first)
     const q = query(collection(db, COLLECTION), orderBy('date', 'desc'));
     const snap = await getDocs(q);
-    return snap.docs.map((d) => ({
+    return snap.docs.map((d) => serializeEvent({
       id: d.id,
       ...d.data(),
-    })) as Event[];
+    }));
   } catch (err) {
     console.warn('[events] ordered query failed, falling back', err);
     const snap = await getDocs(collection(db, COLLECTION));
-    return snap.docs.map((d) => ({
+    return snap.docs.map((d) => serializeEvent({
       id: d.id,
       ...d.data(),
-    })) as Event[];
+    }));
   }
 }
 
