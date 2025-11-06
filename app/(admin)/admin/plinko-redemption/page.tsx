@@ -43,7 +43,7 @@ export default function PlinkoRedemptionPage() {
       if (success) {
         // Remove redeemed prize from list
         setPrizes(prizes.filter(p => p.id !== prizeId));
-        alert('Prize redeemed successfully! ✅');
+        alert('Prize redeemed successfully!');
       } else {
         alert('Failed to redeem prize. It may have already been redeemed.');
       }
@@ -63,7 +63,7 @@ export default function PlinkoRedemptionPage() {
 
   return (
     <div className="container mx-auto p-8 max-w-4xl">
-      <h1 className="text-4xl font-bold mb-8 text-center">🎁 Plinko Prize Redemption</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Plinko Prize Redemption</h1>
 
       {/* Phone Number Search */}
       <Card className="mb-8">
@@ -144,7 +144,7 @@ export default function PlinkoRedemptionPage() {
                     onClick={() => handleRedeem(userPrize.id)}
                     className="bg-green-600 hover:bg-green-700 px-8 py-6 text-lg"
                   >
-                    ✅ Redeem
+                    Redeem
                   </Button>
                 </div>
               </CardContent>
@@ -156,20 +156,20 @@ export default function PlinkoRedemptionPage() {
       {/* Instructions */}
       <Card className="mt-8 bg-blue-50">
         <CardHeader>
-          <CardTitle>📋 Instructions</CardTitle>
+          <CardTitle>Instructions</CardTitle>
         </CardHeader>
         <CardContent>
           <ol className="list-decimal list-inside space-y-2 text-gray-700">
             <li>Ask customer for their phone number</li>
-            <li>Enter the phone number and click "Search"</li>
+            <li>Enter the phone number and click &quot;Search&quot;</li>
             <li>Review the active prizes for that customer</li>
-            <li>Click "Redeem" to apply the discount/prize to their order</li>
+            <li>Click &quot;Redeem&quot; to apply the discount/prize to their order</li>
             <li>The prize will be marked as redeemed and removed from their account</li>
           </ol>
           
           <div className="mt-4 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
             <p className="text-sm font-semibold text-yellow-900">
-              ⚠️ Note: Once redeemed, prizes cannot be un-redeemed. Make sure to apply the discount before clicking "Redeem".
+              Note: Once redeemed, prizes cannot be un-redeemed. Make sure to apply the discount before clicking &quot;Redeem&quot;.
             </p>
           </div>
         </CardContent>
