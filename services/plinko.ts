@@ -88,12 +88,11 @@ export async function getAllPrizesByPhone(phoneNumber: string): Promise<{
     const user = doc.data() as GameUser;
     
     (user.prizes || []).forEach(p => {
-      if (p.gameType === 'plinko') {
-        if (p.redeemedAt !== null) {
-          redeemedPrizes.push({ ...p, userId: user.id });
-        } else if (p.expiresAt > now) {
-          activePrizes.push({ ...p, userId: user.id });
-        }
+      // Show all prizes from both Plinko and Mines
+      if (p.redeemedAt !== null) {
+        redeemedPrizes.push({ ...p, userId: user.id });
+      } else if (p.expiresAt > now) {
+        activePrizes.push({ ...p, userId: user.id });
       }
     });
   });
