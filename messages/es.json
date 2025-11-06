@@ -23,7 +23,8 @@
     "menu": "Menú",
     "about": "Acerca de",
     "visit": "Visitar",
-    "press": "Prensa"
+    "press": "Prensa",
+    "rewards": "Recompensas"
   },
   "footer": {
     "hours": "Abierto todos los días 12:00-22:00 • 331 Moody St., Waltham, MA, 02453"
@@ -135,5 +136,157 @@
       "no_items": "Aún no hay elementos.",
       "add_first_item": "Agregar primer elemento"
     }
+  },
+  "rewards": {
+    "badge": "Programa de Lealtad",
+    "title": "Programa de Recompensas",
+    "description": "Gana puntos con cada compra y desbloquea recompensas exclusivas. Únete a nuestro programa de lealtad y sé recompensado por ser un cliente valioso.",
+    "alt_hero": "Programa de recompensas de Angel Tea",
+    "join_now": "Únete Ahora",
+    "learn_more": "Aprende Más",
+    "points_label": "puntos",
+    "how_it_works": {
+      "title": "Cómo Funciona",
+      "description": "Comienza a ganar recompensas en tres pasos simples.",
+      "step_1": {
+        "title": "Regístrate",
+        "description": "Únete a nuestro programa de recompensas a través de Chowbus o en la tienda."
+      },
+      "step_2": {
+        "title": "Gana Puntos",
+        "description": "Obtén puntos por cada compra, reseña y referencia."
+      },
+      "step_3": {
+        "title": "Canjea Recompensas",
+        "description": "Usa tus puntos para desbloquear descuentos y artículos gratis."
+      }
+    },
+    "chowbus": {
+      "title": "Ordena con Chowbus",
+      "description": "¡Obtén doble puntos cuando ordenes a través de Chowbus! Rastrea tus pedidos, gana recompensas más rápido y disfruta de beneficios exclusivos para miembros.",
+      "placeholder": "Integración de Chowbus próximamente",
+      "join_button": "Únete en Chowbus",
+      "check_status": "Ver Estado de Puntos",
+      "coming_soon": "Los enlaces de integración de Chowbus estarán disponibles pronto.",
+      "benefits": {
+        "title": "Beneficios",
+        "item_1": "Doble puntos en todos los pedidos",
+        "item_2": "Rastrea tu historial de pedidos",
+        "item_3": "Promociones exclusivas solo para miembros"
+      }
+    },
+    "membership": {
+      "title": "Membresía Angel Tea",
+      "description": "Elige tu plan y desbloquea beneficios mensuales.",
+      "shared_benefits_title": "Todos los Planes Incluyen",
+      "billing_note": "1 bebida gratis cada mes + 2× puntos; beneficios se restablecen mensualmente.",
+      "annual": {
+        "plan_name": "Angel Tea+ Anual",
+        "billed_annually": "facturado anualmente",
+        "annual_total": "$100/año",
+        "savings": "Ahorra $19.88/año vs mensual",
+        "join_button": "Únete al Plan Anual"
+      },
+      "monthly": {
+        "plan_name": "Angel Tea+ Mensual",
+        "monthly_price": "$9.99/mes",
+        "billed_monthly": "facturado mensualmente",
+        "join_button": "Únete al Plan Mensual"
+      },
+      "benefit_free_drink": {
+        "title": "Bebida Gratis Mensual",
+        "description": "1 bebida gratis cada mes (cualquier tamaño, cualquier bebida)"
+      },
+      "benefit_points": {
+        "title": "Doble Puntos",
+        "description": "Gana 2× puntos en todas las compras"
+      },
+      "benefit_pricing": {
+        "title": "Precios para Miembros",
+        "description": "Descuentos exclusivos en artículos seleccionados"
+      },
+      "benefit_exclusive": {
+        "title": "Beneficios Exclusivos",
+        "description": "Acceso anticipado a nuevas bebidas y promociones"
+      },
+      "all_benefits_title": "Todo Incluido",
+      "benefit_list": {
+        "item_1": "1 bebida gratis cada mes (se restablece mensualmente)",
+        "item_2": "2× puntos en todas las compras mientras la membresía esté activa",
+        "item_3": "Precios exclusivos para miembros en bebidas y artículos seleccionados",
+        "item_4": "Acceso anticipado a bebidas estacionales y promociones especiales"
+      },
+      "terms": "Los beneficios se restablecen mensualmente. El plan anual se renueva anualmente; el plan mensual se renueva mensualmente. Suscripción gestionada a través de Chowbus."
+    },
+    "redeem": {
+      "title": "Canjea Tus Puntos",
+      "description": "Intercambia tus puntos por recompensas.",
+      "drink": {
+        "points": "80 pts",
+        "title": "Bebida Gratis",
+        "description": "Cualquier tamaño, cualquier bebida"
+      },
+      "appetizer": {
+        "points": "150 pts",
+        "title": "Aperitivo Gratis",
+        "description": "Elige de nuestro menú"
+      },
+      "shirt": {
+        "points": "300 pts",
+        "title": "Camiseta Angel Tea",
+        "description": "Mercancía de edición limitada"
+      }
+    },
+    "points": {
+      "title": "Cómo Funcionan los Puntos",
+      "description": "Los miembros obtienen puntos dobles y bebidas gratis mensuales.",
+      "member": {
+        "title": "Miembros",
+        "description": "Con una membresía activa de Angel Tea+",
+        "purchase": "Cada compra",
+        "free_drink": "Bebida gratis mensual",
+        "monthly": "1 por mes"
+      },
+      "guest": {
+        "title": "Invitados",
+        "description": "Recompensas estándar para todos los clientes",
+        "purchase": "Cada compra",
+        "bonus": "Promociones especiales",
+        "available": "Consulta las ofertas"
+      }
+    },
+    "menu_preview": {
+      "title": "Comienza a Ganar Hoy",
+      "description": "Explora nuestro menú y comienza a ganar puntos con tu primera compra."
+    },
+    "view_full_menu": "Ver Menú Completo"
+  },
+  "plinko": {
+    "title": "Juego de Premios Plinko",
+    "subtitle": "¡Deja caer la pelota y gana descuentos increíbles!",
+    "loading": "Cargando juego...",
+    "playsRemaining": "Jugadas Restantes Hoy",
+    "howToPlay": {
+      "title": "Cómo Jugar",
+      "step1": "Haz clic en cualquier lugar en la parte superior del tablero para soltar la pelota",
+      "step2": "Observa cómo la pelota rebota a través de las clavijas",
+      "step3": "La pelota caerá en uno de los cubos de premios en la parte inferior",
+      "step4": "¡Tienes 3 jugadas por día - vuelve mañana para más oportunidades!"
+    },
+    "yourPrizes": "Tus Premios",
+    "won": "Ganado",
+    "expires": "Expira",
+    "redeemed": "Canjeado",
+    "active": "Activo",
+    "noPlaysRemaining": "¡No quedan jugadas para hoy!",
+    "comeBackTomorrow": "¡Vuelve mañana para 3 oportunidades más de ganar!",
+    "congratulations": "¡Felicitaciones!",
+    "tryAgain": "¡Inténtalo de Nuevo!",
+    "youWon": "Ganaste: {prize}",
+    "expiresIn30Days": "Expira en 30 días",
+    "betterLuckMessage": "No te preocupes, ¡tienes más oportunidades! Vuelve e inténtalo de nuevo.",
+    "close": "Cerrar",
+    "prizeSaved": "¡Premio Guardado!",
+    "givePhoneAtCheckout": "Da tu número de teléfono al pagar para canjear"
   }
 }

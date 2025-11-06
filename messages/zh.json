@@ -23,7 +23,8 @@
     "menu": "菜单",
     "about": "关于",
     "visit": "访问",
-    "press": "媒体"
+    "press": "媒体",
+    "rewards": "奖励"
   },
   "footer": {
     "hours": "每天开放 12:00-22:00 • 马萨诸塞州沃尔瑟姆穆迪街331号，02453"
@@ -135,5 +136,157 @@
       "no_items": "暂无项目。",
       "add_first_item": "添加第一个项目"
     }
+  },
+  "rewards": {
+    "badge": "忠诚度计划",
+    "title": "奖励计划",
+    "description": "每次购买即可赚取积分并解锁专属奖励。加入我们的忠诚度计划，成为忠实客户即可获得奖励。",
+    "alt_hero": "天使茶奖励计划",
+    "join_now": "立即加入",
+    "learn_more": "了解更多",
+    "points_label": "积分",
+    "how_it_works": {
+      "title": "如何运作",
+      "description": "三个简单步骤即可开始赚取奖励。",
+      "step_1": {
+        "title": "注册",
+        "description": "通过Chowbus或店内加入我们的奖励计划。"
+      },
+      "step_2": {
+        "title": "赚取积分",
+        "description": "每次购买、评价和推荐即可获得积分。"
+      },
+      "step_3": {
+        "title": "兑换奖励",
+        "description": "使用您的积分解锁折扣和免费商品。"
+      }
+    },
+    "chowbus": {
+      "title": "通过Chowbus订购",
+      "description": "通过Chowbus订购即可获得双倍积分！追踪您的订单，更快赚取奖励，享受专属会员福利。",
+      "placeholder": "Chowbus集成即将推出",
+      "join_button": "在Chowbus加入",
+      "check_status": "查看积分状态",
+      "coming_soon": "Chowbus集成链接即将推出。",
+      "benefits": {
+        "title": "福利",
+        "item_1": "所有订单双倍积分",
+        "item_2": "追踪您的订单历史",
+        "item_3": "专属会员促销活动"
+      }
+    },
+    "membership": {
+      "title": "天使茶会员",
+      "description": "选择您的计划，解锁月度福利。",
+      "shared_benefits_title": "所有计划包含",
+      "billing_note": "每月1杯免费饮品 + 2×积分；福利每月重置。",
+      "annual": {
+        "plan_name": "天使茶+ 年度",
+        "billed_annually": "按年付费",
+        "annual_total": "$100/年",
+        "savings": "相比月付每年节省 $19.88",
+        "join_button": "加入年度计划"
+      },
+      "monthly": {
+        "plan_name": "天使茶+ 月度",
+        "monthly_price": "$9.99/月",
+        "billed_monthly": "按月付费",
+        "join_button": "加入月度计划"
+      },
+      "benefit_free_drink": {
+        "title": "每月免费饮品",
+        "description": "每月1杯免费饮品（任意尺寸，任意饮品）"
+      },
+      "benefit_points": {
+        "title": "双倍积分",
+        "description": "所有消费赚取2×积分"
+      },
+      "benefit_pricing": {
+        "title": "会员价格",
+        "description": "精选商品专属折扣"
+      },
+      "benefit_exclusive": {
+        "title": "会员专属福利",
+        "description": "优先体验新饮品和促销活动"
+      },
+      "all_benefits_title": "全部包含",
+      "benefit_list": {
+        "item_1": "每月1杯免费饮品（每月重置）",
+        "item_2": "会员有效期内所有消费2×积分",
+        "item_3": "精选饮品和商品会员专属价格",
+        "item_4": "优先体验季节性饮品和特别促销"
+      },
+      "terms": "福利每月重置。年度计划每年续费；月度计划每月续费。订阅通过Chowbus管理。"
+    },
+    "redeem": {
+      "title": "兑换您的积分",
+      "description": "用积分换取奖励。",
+      "drink": {
+        "points": "80 积分",
+        "title": "免费饮品",
+        "description": "任意尺寸，任意饮品"
+      },
+      "appetizer": {
+        "points": "150 积分",
+        "title": "免费开胃菜",
+        "description": "从菜单中选择"
+      },
+      "shirt": {
+        "points": "300 积分",
+        "title": "天使茶T恤",
+        "description": "限量版商品"
+      }
+    },
+    "points": {
+      "title": "积分如何运作",
+      "description": "会员享受双倍积分和每月免费饮品。",
+      "member": {
+        "title": "会员",
+        "description": "拥有活跃的天使茶+会员资格",
+        "purchase": "每次消费",
+        "free_drink": "每月免费饮品",
+        "monthly": "每月1次"
+      },
+      "guest": {
+        "title": "访客",
+        "description": "所有客户的标准奖励",
+        "purchase": "每次消费",
+        "bonus": "特别促销",
+        "available": "查看优惠"
+      }
+    },
+    "menu_preview": {
+      "title": "今天开始赚取",
+      "description": "浏览我们的菜单，从第一次购买开始赚取积分。"
+    },
+    "view_full_menu": "查看完整菜单"
+  },
+  "plinko": {
+    "title": "天使茶+奖品游戏",
+    "subtitle": "投下球并赢取超值折扣！",
+    "loading": "游戏加载中...",
+    "playsRemaining": "今日剩余游戏次数",
+    "howToPlay": {
+      "title": "如何游戏",
+      "step1": "点击棋盘顶部任意位置投下球",
+      "step2": "观看球在钉子间弹跳",
+      "step3": "球将落入底部的奖品槽之一",
+      "step4": "每天可以玩3次 - 明天再来获得更多机会！"
+    },
+    "yourPrizes": "您的奖品",
+    "won": "获得",
+    "expires": "过期",
+    "redeemed": "已兑换",
+    "active": "有效",
+    "noPlaysRemaining": "今天没有剩余游戏次数了！",
+    "comeBackTomorrow": "明天再来获得3次机会赢取奖品！",
+    "congratulations": "恭喜！",
+    "tryAgain": "再试一次！",
+    "youWon": "您赢得了：{prize}",
+    "expiresIn30Days": "30天后过期",
+    "betterLuckMessage": "别担心，您还有更多机会！回来再试一次。",
+    "close": "关闭",
+    "prizeSaved": "奖品已保存！",
+    "givePhoneAtCheckout": "结账时提供您的电话号码以兑换"
   }
 }

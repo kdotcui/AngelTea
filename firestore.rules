@@ -32,6 +32,12 @@ service cloud.firestore {
       allow write: if true; // TODO: restrict to admins
     }
 
+    // Game users (includes game state and prizes for both Plinko and Mines)
+    match /gameUsers/{userId} {
+      allow read: if true; // Anyone can read user data
+      allow write: if true; // Anyone can create/update users
+    }
+
     // deny everything else by default
     match /{document=**} {
       allow read, write: if false;

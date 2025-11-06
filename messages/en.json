@@ -23,7 +23,8 @@
     "menu": "Menu",
     "about": "About",
     "visit": "Visit",
-    "press": "Press"
+    "press": "Press",
+    "rewards": "Rewards"
   },
   "footer": {
     "hours": "Open everyday 12:00-10:00PM • 331 Moody St., Waltham, MA, 02453"
@@ -135,5 +136,157 @@
       "no_items": "No items yet.",
       "add_first_item": "Add first item"
     }
+  },
+  "rewards": {
+    "badge": "Loyalty Program",
+    "title": "Rewards Program",
+    "description": "Earn points with every purchase and unlock exclusive rewards. Join our loyalty program and get rewarded for being a valued customer.",
+    "alt_hero": "Angel Tea rewards program",
+    "join_now": "Join Now",
+    "learn_more": "Learn More",
+    "points_label": "points",
+    "how_it_works": {
+      "title": "How It Works",
+      "description": "Start earning rewards in three simple steps.",
+      "step_1": {
+        "title": "Sign Up",
+        "description": "Join our rewards program through Chowbus or in-store."
+      },
+      "step_2": {
+        "title": "Earn Points",
+        "description": "Get points for every purchase, review, and referral."
+      },
+      "step_3": {
+        "title": "Redeem Rewards",
+        "description": "Use your points to unlock discounts and free items."
+      }
+    },
+    "chowbus": {
+      "title": "Order with Chowbus",
+      "description": "Get double points when you order through Chowbus! Track your orders, earn rewards faster, and enjoy exclusive member benefits.",
+      "placeholder": "Chowbus integration coming soon",
+      "join_button": "Join on Chowbus",
+      "check_status": "Check Points Status",
+      "coming_soon": "Chowbus integration links will be available soon.",
+      "benefits": {
+        "title": "Benefits",
+        "item_1": "Double points on all orders",
+        "item_2": "Track your order history",
+        "item_3": "Exclusive member-only promotions"
+      }
+    },
+    "membership": {
+      "title": "Angel Tea Membership",
+      "description": "Choose your plan and unlock monthly benefits.",
+      "shared_benefits_title": "All Plans Include",
+      "billing_note": "1 free drink each month + 2× points; perks reset monthly.",
+      "annual": {
+        "plan_name": "Angel Tea+ Annual",
+        "billed_annually": "billed annually",
+        "annual_total": "$100/year",
+        "savings": "Save $19.88/year vs monthly",
+        "join_button": "Join Annual Plan"
+      },
+      "monthly": {
+        "plan_name": "Angel Tea+ Monthly",
+        "monthly_price": "$9.99/month",
+        "billed_monthly": "billed monthly",
+        "join_button": "Join Monthly Plan"
+      },
+      "benefit_free_drink": {
+        "title": "Free Drink Monthly",
+        "description": "1 free drink every month (any size, any drink)"
+      },
+      "benefit_points": {
+        "title": "Double Points",
+        "description": "Earn 2× points on all purchases"
+      },
+      "benefit_pricing": {
+        "title": "Member Pricing",
+        "description": "Exclusive discounts on select items"
+      },
+      "benefit_exclusive": {
+        "title": "Member-Only Perks",
+        "description": "Early access to new drinks and promotions"
+      },
+      "all_benefits_title": "Everything Included",
+      "benefit_list": {
+        "item_1": "1 free drink every month (resets monthly)",
+        "item_2": "2× points on all purchases while membership is active",
+        "item_3": "Member-only pricing on select drinks and items",
+        "item_4": "Early access to seasonal drinks and special promotions"
+      },
+      "terms": "Perks reset monthly. Annual plan renews annually; monthly plan renews monthly. Subscription managed through Chowbus."
+    },
+    "redeem": {
+      "title": "Redeem Your Points",
+      "description": "Exchange your points for rewards.",
+      "drink": {
+        "points": "80 pts",
+        "title": "Free Drink",
+        "description": "Any size, any drink"
+      },
+      "appetizer": {
+        "points": "150 pts",
+        "title": "Free Appetizer",
+        "description": "Choose from our menu"
+      },
+      "shirt": {
+        "points": "300 pts",
+        "title": "Angel Tea Shirt",
+        "description": "Limited edition merchandise"
+      }
+    },
+    "points": {
+      "title": "How Points Work",
+      "description": "Members get double points and monthly free drinks.",
+      "member": {
+        "title": "Members",
+        "description": "With an active Angel Tea+ membership",
+        "purchase": "Every purchase",
+        "free_drink": "Monthly free drink",
+        "monthly": "1 per month"
+      },
+      "guest": {
+        "title": "Guests",
+        "description": "Standard rewards for all customers",
+        "purchase": "Every purchase",
+        "bonus": "Special promotions",
+        "available": "Check for offers"
+      }
+    },
+    "menu_preview": {
+      "title": "Start Earning Today",
+      "description": "Browse our menu and start earning points with your first purchase."
+    },
+    "view_full_menu": "View Full Menu"
+  },
+  "plinko": {
+    "title": "Angel Tea+ Prize Game",
+    "subtitle": "Drop the ball and win amazing discounts!",
+    "loading": "Loading game...",
+    "playsRemaining": "Plays Remaining Today",
+    "howToPlay": {
+      "title": "How to Play",
+      "step1": "Click anywhere on the top of the board to drop the ball",
+      "step2": "Watch as the ball bounces through the pegs",
+      "step3": "The ball will land in one of the prize buckets at the bottom",
+      "step4": "You get 3 plays per day - come back tomorrow for more chances!"
+    },
+    "yourPrizes": "Your Prizes",
+    "won": "Won",
+    "expires": "Expires",
+    "redeemed": "Redeemed",
+    "active": "Active",
+    "noPlaysRemaining": "No plays remaining today!",
+    "comeBackTomorrow": "Come back tomorrow for 3 more chances to win!",
+    "congratulations": "Congratulations!",
+    "tryAgain": "Try Again!",
+    "youWon": "You won: {prize}",
+    "expiresIn30Days": "Expires in 30 days",
+    "betterLuckMessage": "Don't worry, you have more chances! Come back and try again.",
+    "close": "Close",
+    "prizeSaved": "Prize Saved!",
+    "givePhoneAtCheckout": "Give your phone number at checkout to redeem"
   }
 }
