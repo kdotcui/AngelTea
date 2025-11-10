@@ -283,17 +283,10 @@
     "congratulations": "¡Felicitaciones!",
     "tryAgain": "¡Inténtalo de Nuevo!",
     "youWon": "Ganaste: {prize}",
-    "yourCode": "Tu Código de Premio",
-    "copyCode": "Copiar Código",
-    "showAtCheckout": "Muestra este código al pagar para canjear tu premio",
     "expiresIn30Days": "Expira en 30 días",
     "betterLuckMessage": "No te preocupes, ¡tienes más oportunidades! Vuelve e inténtalo de nuevo.",
     "close": "Cerrar",
-    "enterPhoneNumber": "Ingresa tu número de teléfono para reclamar",
-    "phoneNumberPlaceholder": "(781) 790-5313",
-    "claimPrize": "Reclamar Premio",
-    "phoneNumberInstructions": "Guardaremos tu premio. Muestra este número al pagar para canjearlo.",
-    "givePhoneAtCheckout": "Da tu número de teléfono al pagar para canjear",
-    "processingPrize": "Procesando tu premio..."
+    "prizeSaved": "¡Premio Guardado!",
+    "givePhoneAtCheckout": "Da tu número de teléfono al pagar para canjear"
   }
 }
