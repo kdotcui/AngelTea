@@ -740,6 +740,19 @@ export default function PersonalityQuizPage() {
               </div>
             </div>
 
+            {/* Promotional Text */}
+            <Card className="border-0 shadow-sm bg-gradient-to-r from-primary/10 to-accent/10">
+              <CardContent className="p-6 text-center">
+                <p className="text-lg font-semibold text-gray-900 mb-2">
+                  Tag us <span className="text-primary font-bold">@AngelTeaOfficial</span> for a special{' '}
+                  <span className="text-accent font-bold">10% off</span> your next order! 🎉
+                </p>
+                <p className="text-sm text-gray-600">
+                  Share your personality match on social media and don&apos;t forget to tag us!
+                </p>
+              </CardContent>
+            </Card>
+
             {/* Share Buttons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Button
