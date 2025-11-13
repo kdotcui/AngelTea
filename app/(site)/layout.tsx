@@ -97,15 +97,6 @@ export default function SiteLayout({
                 </Link>
               </div>
             </details>
-            <Link href="/#about" className="hover:text-secondary">
-              {t('navigation.about')}
-            </Link>
-            <Link href="/#visit" className="hover:text-secondary">
-              {t('navigation.visit')}
-            </Link>
-            <Link href="/#press" className="hover:text-secondary">
-              {t('navigation.press')}
-            </Link>
             <Link href="/rewards" className="hover:text-secondary">
               {t('navigation.rewards')}
             </Link>
@@ -173,15 +164,6 @@ export default function SiteLayout({
                       </Link>
                     </div>
                   </details>
-                  <Link href="/#about" className="hover:underline">
-                    {t('navigation.about')}
-                  </Link>
-                  <Link href="/#visit" className="hover:underline">
-                    {t('navigation.visit')}
-                  </Link>
-                  <Link href="/#press" className="hover:underline">
-                    {t('navigation.press')}
-                  </Link>
                   <Link href="/rewards" className="hover:underline">
                     {t('navigation.rewards')}
                   </Link>
