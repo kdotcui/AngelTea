@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Event, Attendee } from '@/types/event';
-import { updateEvent } from '@/services/events';
+import { addAttendeeToEvent } from '@/services/events';
 
 interface RegisterEventModalProps {
   event: Event;
@@ -84,11 +84,8 @@ export function RegisterEventModal({
         ...(phone.trim() && { phone: phone.trim() }),
       };
 
-      // Update event with new attendee
-      const updatedAttendees = [...existingAttendees, newAttendee];
-      await updateEvent(event.id!, {
-        attendees: updatedAttendees,
-      });
+      // Add attendee to event using arrayUnion (more efficient - atomic operation)
+      await addAttendeeToEvent(event.id!, newAttendee);
 
       // Reset form
       setName('');
