@@ -1,4 +1,5 @@
 import { CheckoutItem, PaymentLinkResponse, CartItem } from '@/types/shop';
+import { Attendee } from '@/types/event';
 
 /**
  * Creates a Stripe payment link for the given cart items
@@ -36,5 +37,31 @@ export function formatCartItemsForCheckout(cartItems: CartItem[]): CheckoutItem[
     images: item.images,
     selectedVariant: item.selectedVariant,
   }));
+}
+
+/**
+ * Creates a Stripe payment link for event registration
+ * @param eventId - The ID of the event to register for
+ * @param attendee - Attendee information (name, email, phone)
+ * @returns The payment link URL and ID
+ */
+export async function createEventPaymentLink(
+  eventId: string,
+  attendee: Attendee
+): Promise<PaymentLinkResponse> {
+  const response = await fetch('/api/checkout/create-event-payment-link', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ eventId, attendee }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to create event payment link');
+  }
+
+  return response.json();
 }
 

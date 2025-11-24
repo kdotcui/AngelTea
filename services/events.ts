@@ -12,6 +12,7 @@ import {
   doc,
   serverTimestamp,
   Timestamp,
+  arrayUnion,
 } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -91,6 +92,17 @@ export async function deleteEvent(id: string) {
   const app = getFirebaseApp();
   const db = getFirestore(app);
   await deleteDoc(doc(db, COLLECTION, id));
+}
+
+export async function addAttendeeToEvent(
+  eventId: string,
+  attendee: { name: string; email: string; phone?: string }
+) {
+  const app = getFirebaseApp();
+  const db = getFirestore(app);
+  await updateDoc(doc(db, COLLECTION, eventId), {
+    attendees: arrayUnion(attendee),
+  });
 }
 
 export async function uploadEventImage(file: File, pathPrefix = 'events') {

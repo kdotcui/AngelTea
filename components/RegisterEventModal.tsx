@@ -20,7 +20,8 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Event, Attendee } from '@/types/event';
-import { updateEvent } from '@/services/events';
+import { addAttendeeToEvent } from '@/services/events';
+import { createEventPaymentLink } from '@/services/checkout';
 
 interface RegisterEventModalProps {
   event: Event;
@@ -84,25 +85,45 @@ export function RegisterEventModal({
         ...(phone.trim() && { phone: phone.trim() }),
       };
 
-      // Update event with new attendee
-      const updatedAttendees = [...existingAttendees, newAttendee];
-      await updateEvent(event.id!, {
-        attendees: updatedAttendees,
-      });
+      // Check if event is paid
+      const isPaidEvent = event.price > 0;
 
-      // Reset form
-      setName('');
-      setEmail('');
-      setPhone('');
-      setError(null);
+      if (isPaidEvent) {
+        // For paid events, create payment link and redirect to Stripe
+        const { url, id: paymentLinkId } = await createEventPaymentLink(
+          event.id!,
+          newAttendee
+        );
 
-      // Close modal and notify parent
-      onOpenChange(false);
-      onRegistered?.();
+        // Store payment link ID in sessionStorage for verification
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('event_payment_link_id', paymentLinkId);
+          sessionStorage.setItem('event_id', event.id!);
+        }
+
+        // Redirect to Stripe checkout
+        window.location.href = url;
+      } else {
+        // For free events, directly add attendee to event
+        await addAttendeeToEvent(event.id!, newAttendee);
+
+        // Reset form
+        setName('');
+        setEmail('');
+        setPhone('');
+        setError(null);
+
+        // Close modal and notify parent
+        onOpenChange(false);
+        onRegistered?.();
+      }
     } catch (err) {
       console.error('Error registering for event:', err);
-      setError('Failed to register. Please try again.');
-    } finally {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to register. Please try again.'
+      );
       setIsSubmitting(false);
     }
   };
@@ -196,7 +217,13 @@ export function RegisterEventModal({
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Registering...' : 'Register'}
+              {isSubmitting
+                ? event.price > 0
+                  ? 'Processing...'
+                  : 'Registering...'
+                : event.price > 0
+                  ? `Register & Pay $${event.price.toFixed(2)}`
+                  : 'Register'}
             </Button>
           </DialogFooter>
         </form>
