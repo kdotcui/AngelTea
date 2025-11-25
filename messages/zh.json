@@ -271,7 +271,7 @@
       "step1": "点击棋盘顶部任意位置投下球",
       "step2": "观看球在钉子间弹跳",
       "step3": "球将落入底部的奖品槽之一",
-      "step4": "每天可以玩3次 - 明天再来获得更多机会！"
+      "step4": "每天可以玩2次 - 明天再来获得更多机会！"
     },
     "yourPrizes": "您的奖品",
     "won": "获得",
@@ -279,7 +279,7 @@
     "redeemed": "已兑换",
     "active": "有效",
     "noPlaysRemaining": "今天没有剩余游戏次数了！",
-    "comeBackTomorrow": "明天再来获得3次机会赢取奖品！",
+    "comeBackTomorrow": "明天再来获得2次机会赢取奖品！",
     "congratulations": "恭喜！",
     "tryAgain": "再试一次！",
     "youWon": "您赢得了：{prize}",

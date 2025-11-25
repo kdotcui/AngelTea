@@ -271,7 +271,7 @@
       "step1": "Haz clic en cualquier lugar en la parte superior del tablero para soltar la pelota",
       "step2": "Observa cómo la pelota rebota a través de las clavijas",
       "step3": "La pelota caerá en uno de los cubos de premios en la parte inferior",
-      "step4": "¡Tienes 3 jugadas por día - vuelve mañana para más oportunidades!"
+      "step4": "¡Tienes 2 jugadas por día - vuelve mañana para más oportunidades!"
     },
     "yourPrizes": "Tus Premios",
     "won": "Ganado",
@@ -279,7 +279,7 @@
     "redeemed": "Canjeado",
     "active": "Activo",
     "noPlaysRemaining": "¡No quedan jugadas para hoy!",
-    "comeBackTomorrow": "¡Vuelve mañana para 3 oportunidades más de ganar!",
+    "comeBackTomorrow": "¡Vuelve mañana para 2 oportunidades más de ganar!",
     "congratulations": "¡Felicitaciones!",
     "tryAgain": "¡Inténtalo de Nuevo!",
     "youWon": "Ganaste: {prize}",

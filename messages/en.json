@@ -271,7 +271,7 @@
       "step1": "Click anywhere on the top of the board to drop the ball",
       "step2": "Watch as the ball bounces through the pegs",
       "step3": "The ball will land in one of the prize buckets at the bottom",
-      "step4": "You get 3 plays per day - come back tomorrow for more chances!"
+      "step4": "You get 2 plays per day - come back tomorrow for more chances!"
     },
     "yourPrizes": "Your Prizes",
     "won": "Won",
@@ -279,7 +279,7 @@
     "redeemed": "Redeemed",
     "active": "Active",
     "noPlaysRemaining": "No plays remaining today!",
-    "comeBackTomorrow": "Come back tomorrow for 3 more chances to win!",
+    "comeBackTomorrow": "Come back tomorrow for 2 more chances to win!",
     "congratulations": "Congratulations!",
     "tryAgain": "Try Again!",
     "youWon": "You won: {prize}",
