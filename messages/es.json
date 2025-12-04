@@ -55,19 +55,10 @@
     "title": "Pide con tu voz (beta)",
     "description": "Pide recomendaciones, precios o haz tu pedido sin usar las manos, con el mismo agente que usamos en la tienda.",
     "cta_primary": "Empezar pedido por voz",
-    "cta_stop": "Detener y enviar",
+    "coming_soon": "Próximamente: activa tu micrófono para probar el pedido por voz en el sitio.",
     "feature_1": "Entiende tamaño, azúcar, hielo, toppings y cantidad",
     "feature_2": "Usa precios reales del menú y reglas de toppings",
-    "feature_3": "Lee tu pedido para confirmarlo",
-    "status_idle": "Toca para empezar a grabar",
-    "status_recording": "Escuchando… toca detener para enviar",
-    "status_processing": "Procesando tu pedido…",
-    "permission_denied": "Permiso de micrófono denegado. Actívalo para continuar.",
-    "error_generic": "Algo salió mal. Intenta de nuevo.",
-    "text_placeholder": "O escribe tu pedido (ej.: “Té de taro grande, 50% azúcar, poco hielo, con boba”).",
-    "send_text": "Enviar texto",
-    "assistant_label": "Asistente",
-    "you_label": "Tú"
+    "feature_3": "Lee tu pedido para confirmarlo"
   },
   "about": {
     "title": "Nuestra Historia",

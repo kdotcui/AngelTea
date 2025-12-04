@@ -55,19 +55,10 @@
     "title": "用语音下单（测试版）",
     "description": "用声音问推荐、查价格，或直接下单，体验和店内一样的智能助手。",
     "cta_primary": "开始语音点单",
-    "cta_stop": "停止并发送",
+    "coming_soon": "即将上线：开启麦克风，在网页上体验语音点单。",
     "feature_1": "听懂大小杯、糖度、冰量、加料和数量",
     "feature_2": "按真实菜单价格和加料规则计算",
-    "feature_3": "下单后复述订单，便于确认",
-    "status_idle": "点击开始录音",
-    "status_recording": "正在聆听…点击停止发送",
-    "status_processing": "正在处理，请稍等…",
-    "permission_denied": "麦克风权限被拒绝，请允许麦克风访问。",
-    "error_generic": "出错了，请再试一次。",
-    "text_placeholder": "或者直接输入（例如：“大杯芋头奶茶，五分糖，少冰，加珍珠”）",
-    "send_text": "发送文字",
-    "assistant_label": "助手",
-    "you_label": "你"
+    "feature_3": "下单后复述订单，便于确认"
   },
   "about": {
     "title": "我们的故事",
