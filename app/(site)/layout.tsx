@@ -100,6 +100,9 @@ export default function SiteLayout({
             <Link href="/rewards" className="hover:text-secondary">
               {t('navigation.rewards')}
             </Link>
+            <Link href="/#voice" className="hover:text-secondary">
+              {t('navigation.voice')}
+            </Link>
           </nav>
           <div className="hidden sm:flex items-center gap-3">
             <LanguageSwitcher />
@@ -166,6 +169,9 @@ export default function SiteLayout({
                   </details>
                   <Link href="/rewards" className="hover:underline">
                     {t('navigation.rewards')}
+                  </Link>
+                  <Link href="/#voice" className="hover:underline">
+                    {t('navigation.voice')}
                   </Link>
                   <div className="grid gap-3 pt-2 border-t">
                     <div className="flex items-center gap-3">

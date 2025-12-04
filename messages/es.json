@@ -24,7 +24,8 @@
     "about": "Acerca de",
     "visit": "Visitar",
     "press": "Prensa",
-    "rewards": "Recompensas"
+    "rewards": "Recompensas",
+    "voice": "Orden por voz"
   },
   "footer": {
     "hours": "Abierto todos los días 12:00-22:00 • 331 Moody St., Waltham, MA, 02453"
@@ -48,6 +49,16 @@
     "food_right_alt": "Menú de comida (derecha)",
     "dessert_left_alt": "Menú de postres (izquierda)",
     "dessert_right_alt": "Menú de postres (derecha)"
+  },
+  "voice": {
+    "badge": "Pedido por voz",
+    "title": "Pide con tu voz (beta)",
+    "description": "Pide recomendaciones, precios o haz tu pedido sin usar las manos, con el mismo agente que usamos en la tienda.",
+    "cta_primary": "Empezar pedido por voz",
+    "coming_soon": "Próximamente: activa tu micrófono para probar el pedido por voz en el sitio.",
+    "feature_1": "Entiende tamaño, azúcar, hielo, toppings y cantidad",
+    "feature_2": "Usa precios reales del menú y reglas de toppings",
+    "feature_3": "Lee tu pedido para confirmarlo"
   },
   "about": {
     "title": "Nuestra Historia",

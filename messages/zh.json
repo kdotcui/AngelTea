@@ -24,7 +24,8 @@
     "about": "关于",
     "visit": "访问",
     "press": "媒体",
-    "rewards": "奖励"
+    "rewards": "奖励",
+    "voice": "语音点单"
   },
   "footer": {
     "hours": "每天开放 12:00-22:00 • 马萨诸塞州沃尔瑟姆穆迪街331号，02453"
@@ -48,6 +49,16 @@
     "food_right_alt": "食物菜单（右）",
     "dessert_left_alt": "甜点菜单（左）",
     "dessert_right_alt": "甜点菜单（右）"
+  },
+  "voice": {
+    "badge": "语音点单",
+    "title": "用语音下单（测试版）",
+    "description": "用声音问推荐、查价格，或直接下单，体验和店内一样的智能助手。",
+    "cta_primary": "开始语音点单",
+    "coming_soon": "即将上线：开启麦克风，在网页上体验语音点单。",
+    "feature_1": "听懂大小杯、糖度、冰量、加料和数量",
+    "feature_2": "按真实菜单价格和加料规则计算",
+    "feature_3": "下单后复述订单，便于确认"
   },
   "about": {
     "title": "我们的故事",
