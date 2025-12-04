@@ -24,7 +24,6 @@ type VoiceOrderCardProps = {
     assistantLabel: string;
     youLabel: string;
     stopLabel: string;
-    unavailable: string;
   };
 };
 
@@ -44,7 +43,6 @@ export default function VoiceOrderCard({
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
-  const [isUnavailable, setIsUnavailable] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<BlobPart[]>([]);
@@ -65,10 +63,6 @@ export default function VoiceOrderCard({
   };
 
   const handleStartRecording = async () => {
-    if (isUnavailable) {
-      setError(copy.unavailable);
-      return;
-    }
     setError('');
     resetAudio();
     try {
@@ -116,10 +110,6 @@ export default function VoiceOrderCard({
       });
       const data = await res.json();
       if (!res.ok) {
-        if (res.status === 503 || (data?.error || '').includes('Voice agent disabled')) {
-          setIsUnavailable(true);
-          throw new Error(copy.unavailable);
-        }
         throw new Error(data?.error || copy.errorGeneric);
       }
       setTranscript(data.transcription || '');
@@ -149,10 +139,6 @@ export default function VoiceOrderCard({
       });
       const data = await res.json();
       if (!res.ok) {
-        if (res.status === 503 || (data?.error || '').includes('Voice agent disabled')) {
-          setIsUnavailable(true);
-          throw new Error(copy.unavailable);
-        }
         throw new Error(data?.error || copy.errorGeneric);
       }
       setTranscript(data.transcription || text);
@@ -199,7 +185,7 @@ export default function VoiceOrderCard({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Button
             onClick={isRecording ? handleStopRecording : handleStartRecording}
-            disabled={isSending || isUnavailable}
+            disabled={isSending}
           >
             {isRecording ? (
               <>

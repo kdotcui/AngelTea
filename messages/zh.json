@@ -67,8 +67,7 @@
     "text_placeholder": "或者直接输入（例如：“大杯芋头奶茶，五分糖，少冰，加珍珠”）",
     "send_text": "发送文字",
     "assistant_label": "助手",
-    "you_label": "你",
-    "unavailable": "语音助手未启用（缺少 API Key），稍后再试。"
+    "you_label": "你"
   },
   "about": {
     "title": "我们的故事",

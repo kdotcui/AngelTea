@@ -67,8 +67,7 @@
     "text_placeholder": "Or type your request (e.g., “Large Taro Milk Tea, 50% sugar, less ice, add boba”).",
     "send_text": "Send text",
     "assistant_label": "Assistant",
-    "you_label": "You",
-    "unavailable": "Voice agent is disabled (no API key). Please try again later."
+    "you_label": "You"
   },
   "about": {
     "title": "Our Story",

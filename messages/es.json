@@ -67,8 +67,7 @@
     "text_placeholder": "O escribe tu pedido (ej.: “Té de taro grande, 50% azúcar, poco hielo, con boba”).",
     "send_text": "Enviar texto",
     "assistant_label": "Asistente",
-    "you_label": "Tú",
-    "unavailable": "El asistente de voz está deshabilitado (sin API key). Inténtalo más tarde."
+    "you_label": "Tú"
   },
   "about": {
     "title": "Nuestra Historia",

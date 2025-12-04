@@ -195,7 +195,6 @@ export default async function Home() {
             assistantLabel: t('voice.assistant_label'),
             youLabel: t('voice.you_label'),
             stopLabel: t('voice.cta_stop'),
-            unavailable: t('voice.unavailable'),
           }}
         />
       </section>
