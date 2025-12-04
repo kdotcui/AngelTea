@@ -4,14 +4,6 @@ import { VOICE_SYSTEM_PROMPT, buildTools, runToolByName } from '@/lib/voice/tool
 
 export const runtime = 'nodejs';
 
-function getClient() {
-  const apiKey = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('Missing OPENAI_API_KEY. Add it to your environment.');
-  }
-  return new OpenAI({ apiKey });
-}
-
 async function transcribeIfNeeded(openai: OpenAI, formData: FormData) {
   const text = formData.get('text');
   if (typeof text === 'string' && text.trim()) {
@@ -99,7 +91,15 @@ async function runAgent(
 
 export async function POST(req: Request) {
   try {
-    const openai = getClient();
+    const apiKey = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    if (!apiKey) {
+      return Response.json(
+        { error: 'Voice agent disabled (no API key).' },
+        { status: 503 }
+      );
+    }
+
+    const openai = new OpenAI({ apiKey });
     const contentType = req.headers.get('content-type') || '';
 
     let userText: string | null = null;
