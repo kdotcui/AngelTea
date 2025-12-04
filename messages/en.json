@@ -55,10 +55,19 @@
     "title": "Order with your voice (beta)",
     "description": "Ask for recommendations, prices, or place an order hands-free—powered by the same agent we use in-store.",
     "cta_primary": "Start voice order",
-    "coming_soon": "Coming soon: enable your mic to try voice ordering on the site.",
+    "cta_stop": "Stop & send",
     "feature_1": "Understands size, sugar, ice, toppings, and quantity",
     "feature_2": "Uses real menu prices and topping rules",
-    "feature_3": "Reads back your order for confirmation"
+    "feature_3": "Reads back your order for confirmation",
+    "status_idle": "Tap to start recording",
+    "status_recording": "Listening… tap stop to send",
+    "status_processing": "Processing your order…",
+    "permission_denied": "Microphone permission denied. Please allow mic access.",
+    "error_generic": "Something went wrong. Please try again.",
+    "text_placeholder": "Or type your request (e.g., “Large Taro Milk Tea, 50% sugar, less ice, add boba”).",
+    "send_text": "Send text",
+    "assistant_label": "Assistant",
+    "you_label": "You"
   },
   "about": {
     "title": "Our Story",

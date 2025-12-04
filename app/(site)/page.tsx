@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { Star, Quote, Newspaper, InstagramIcon, Mic } from 'lucide-react';
+import { Star, Quote, Newspaper, InstagramIcon } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -20,6 +20,7 @@ import {
 import PopularDrinks from './PopularDrinks';
 import HeroSlideshow from './HeroSlideshow';
 import { getTranslations } from 'next-intl/server';
+import VoiceOrderCard from '@/components/voice/VoiceOrderCard';
 
 export default async function Home() {
   const t = await getTranslations();
@@ -176,50 +177,26 @@ export default async function Home() {
       </section>
 
       {/* Voice Ordering */}
-      <section
-        id="voice"
-        className="mx-auto max-w-6xl scroll-mt-24"
-      >
-        <Card className="border-primary/20 bg-gradient-to-br from-primary/10 via-accent/10 to-background">
-          <CardContent className="space-y-4 p-6 sm:p-8">
-            <div className="flex flex-wrap items-center gap-3">
-              <Badge variant="secondary">{t('voice.badge')}</Badge>
-              <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                {t('voice.coming_soon')}
-              </span>
-            </div>
-            <div className="space-y-3">
-              <h2 className="text-2xl font-semibold sm:text-3xl">
-                {t('voice.title')}
-              </h2>
-              <p className="text-muted-foreground max-w-3xl">
-                {t('voice.description')}
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {voiceFeatures.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-lg border border-primary/15 bg-white/70 p-3 shadow-sm"
-                >
-                  <div className="flex items-center gap-2 text-sm font-medium">
-                    <Mic className="size-4 text-primary" />
-                    <span>{feature}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Button disabled title={t('voice.coming_soon')}>
-                <Mic className="mr-2 size-4" />
-                {t('voice.cta_primary')}
-              </Button>
-              <p className="text-sm text-muted-foreground">
-                {t('voice.coming_soon')}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+      <section id="voice" className="mx-auto max-w-6xl scroll-mt-24">
+        <VoiceOrderCard
+          badge={t('voice.badge')}
+          title={t('voice.title')}
+          description={t('voice.description')}
+          ctaLabel={t('voice.cta_primary')}
+          featureLabels={voiceFeatures}
+          copy={{
+            statusIdle: t('voice.status_idle'),
+            statusRecording: t('voice.status_recording'),
+            statusProcessing: t('voice.status_processing'),
+            permissionDenied: t('voice.permission_denied'),
+            errorGeneric: t('voice.error_generic'),
+            textPlaceholder: t('voice.text_placeholder'),
+            sendText: t('voice.send_text'),
+            assistantLabel: t('voice.assistant_label'),
+            youLabel: t('voice.you_label'),
+            stopLabel: t('voice.cta_stop'),
+          }}
+        />
       </section>
 
       {/* About / Story */}
