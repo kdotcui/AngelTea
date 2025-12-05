@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -18,6 +18,19 @@ import {
 } from 'lucide-react';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
+type OrderSummary = {
+  items: {
+    name: string;
+    size: string;
+    qty: number;
+    sugar: string;
+    ice: string;
+    toppings: string[];
+    unit_price: number;
+    line_total: number;
+  }[];
+  total: number;
+};
 
 type Status = 'idle' | 'recording' | 'processing';
 
@@ -26,6 +39,7 @@ export default function VoiceOrderingSection() {
   const DISPLAY_HISTORY = 4;
   const MAX_DURATION_MS = 10000;
   const t = useTranslations('voice');
+  const locale = useLocale();
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
   const [transcript, setTranscript] = useState('');
@@ -35,6 +49,12 @@ export default function VoiceOrderingSection() {
   const [hasMicSupport, setHasMicSupport] = useState(true);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [volume, setVolume] = useState(0);
+  const [orderSummary, setOrderSummary] = useState<OrderSummary | null>(null);
+  const currencyFormatter = useMemo(
+    () => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }),
+    []
+  );
+  const formatCurrency = (value: number) => currencyFormatter.format(value);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -175,6 +195,7 @@ export default function VoiceOrderingSection() {
       const safeHistory = history.slice(-HISTORY_LIMIT);
       form.append('audio', blob, 'voice.webm');
       form.append('history', JSON.stringify(safeHistory));
+      form.append('locale', locale);
 
       const res = await fetch('/api/voice', {
         method: 'POST',
@@ -190,9 +211,10 @@ export default function VoiceOrderingSection() {
       }
 
       const data = await res.json();
-      const { transcript: heard, replyText, audio } = data;
+      const { transcript: heard, replyText, audio, order } = data;
       setTranscript(heard || '');
       setReply(replyText || '');
+      setOrderSummary(order?.items ? order : null);
       if (audioUrl) URL.revokeObjectURL(audioUrl);
       if (audio) {
         const url = `data:audio/mpeg;base64,${audio}`;
@@ -238,6 +260,7 @@ export default function VoiceOrderingSection() {
     setReply('');
     setElapsedMs(0);
     setVolume(0);
+    setOrderSummary(null);
     if (audioUrl) URL.revokeObjectURL(audioUrl);
     setAudioUrl(null);
     setError(null);
@@ -341,6 +364,7 @@ export default function VoiceOrderingSection() {
             </div>
             <span className="text-xs">{t('hint_timeout')}</span>
           </div>
+          <div className="text-xs text-muted-foreground">{t('privacy_note')}</div>
 
           {!hasMicSupport && (
             <div className="flex items-center gap-2 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
@@ -387,6 +411,38 @@ export default function VoiceOrderingSection() {
               )}
             </div>
           </div>
+
+          {orderSummary && (
+            <div className="rounded-lg border bg-white/70 p-4 shadow-sm">
+              <div className="flex items-center gap-2 text-sm font-semibold">
+                <Mic className="size-4 text-primary" />
+                {t('order_title')}
+              </div>
+              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                {orderSummary.items.map((item, idx) => (
+                  <li key={`${item.name}-${idx}`} className="rounded-md bg-muted/40 p-2">
+                    <div className="font-semibold text-foreground">
+                      {item.qty}× {item.name} ({item.size})
+                    </div>
+                    <div className="text-xs">
+                      {item.sugar} • {item.ice}
+                    </div>
+                    <div className="text-xs">
+                      {t('order_toppings')}:{' '}
+                      {item.toppings.length ? item.toppings.join(', ') : t('order_none')}
+                    </div>
+                    <div className="text-xs">
+                      {formatCurrency(item.line_total)} ({formatCurrency(item.unit_price)} ea)
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-3 flex items-center justify-between text-sm font-semibold text-foreground">
+                <span>{t('order_total')}</span>
+                <span>{formatCurrency(orderSummary.total)}</span>
+              </div>
+            </div>
+          )}
 
           <div className="rounded-lg border bg-white/70 p-4 shadow-sm">
             <div className="flex items-center gap-2 text-sm font-semibold">

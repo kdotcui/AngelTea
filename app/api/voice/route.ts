@@ -4,6 +4,7 @@ import type {
   ChatCompletionMessageParam,
   ChatCompletionTool,
 } from 'openai/resources/chat/completions';
+import type { PlaceOrderOk } from '@/lib/voice/menu';
 
 import {
   getMenu,
@@ -101,6 +102,7 @@ const tools: ChatCompletionTool[] = [
 ];
 
 type HistoryMessage = ChatCompletionMessageParam;
+type AgentResult = { replyText: string; order?: PlaceOrderOk };
 
 const parseJSON = (value: string | null | undefined) => {
   if (!value) return undefined;
@@ -141,7 +143,7 @@ async function runAgent({
   text: string;
   history: HistoryMessage[];
   client: OpenAI;
-}): Promise<string> {
+}): Promise<AgentResult> {
   const baseMessages: ChatCompletionMessageParam[] = [
     { role: 'system', content: SYSTEM_PROMPT },
     ...history,
@@ -157,6 +159,7 @@ async function runAgent({
 
   let rounds = 0;
   const messages = [...baseMessages];
+  let lastOrder: PlaceOrderOk | undefined;
 
   while (true) {
     const choice = response.choices[0];
@@ -171,7 +174,7 @@ async function runAgent({
 
     if (toolCalls.length === 0 || rounds >= 3) {
       const content = message.content?.trim() || 'I did not catch that—could you repeat?';
-      return content;
+      return { replyText: content, order: lastOrder };
     }
 
     rounds += 1;
@@ -191,7 +194,11 @@ async function runAgent({
             suggestion: null,
           };
         } else if (name === 'place_order') {
-          result = placeOrder(Array.isArray(args.items) ? (args.items as OrderItemInput[]) : []);
+          const placed = placeOrder(Array.isArray(args.items) ? (args.items as OrderItemInput[]) : []);
+          result = placed;
+          if ((placed as PlaceOrderOk).ok) {
+            lastOrder = placed as PlaceOrderOk;
+          }
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Tool error';
@@ -234,6 +241,8 @@ export async function POST(req: Request) {
     const form = await req.formData();
     const audio = form.get('audio');
     const historyInput = parseJSON(form.get('history') as string);
+    const localeRaw = (form.get('locale') as string | null) || undefined;
+    const language = localeRaw?.match(/^[a-zA-Z]{2,5}/)?.[0]?.toLowerCase();
 
     if (!(audio instanceof File)) {
       return NextResponse.json(
@@ -257,6 +266,7 @@ export async function POST(req: Request) {
     const transcript = await client.audio.transcriptions.create({
       model: 'gpt-4o-mini-transcribe',
       file: audio,
+      ...(language ? { language } : {}),
     });
 
     const userText = transcript.text?.trim();
@@ -268,7 +278,7 @@ export async function POST(req: Request) {
     }
 
     const history = sanitizeHistory(historyInput);
-    const replyText = await runAgent({ text: userText, history, client });
+    const { replyText, order } = await runAgent({ text: userText, history, client });
 
     // Text-to-speech
     const speech = await client.audio.speech.create({
@@ -284,6 +294,7 @@ export async function POST(req: Request) {
       transcript: userText,
       replyText,
       audio: audioBase64,
+      ...(order ? { order } : {}),
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unexpected error';
