@@ -14,6 +14,7 @@ import {
   RotateCcw,
   Square,
   Volume2,
+  RefreshCw,
 } from 'lucide-react';
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
@@ -22,6 +23,8 @@ type Status = 'idle' | 'recording' | 'processing';
 
 export default function VoiceOrderingSection() {
   const HISTORY_LIMIT = 8;
+  const DISPLAY_HISTORY = 4;
+  const MAX_DURATION_MS = 10000;
   const t = useTranslations('voice');
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -30,10 +33,17 @@ export default function VoiceOrderingSection() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [history, setHistory] = useState<ChatMessage[]>([]);
   const [hasMicSupport, setHasMicSupport] = useState(true);
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const [volume, setVolume] = useState(0);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const lastBlobRef = useRef<Blob | null>(null);
 
   useEffect(() => {
     const supported =
@@ -47,6 +57,9 @@ export default function VoiceOrderingSection() {
     return () => {
       if (audioUrl) URL.revokeObjectURL(audioUrl);
       streamRef.current?.getTracks().forEach((track) => track.stop());
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      analyserRef.current?.disconnect();
+      audioCtxRef.current?.close().catch(() => {});
     };
   }, [audioUrl]);
 
@@ -57,13 +70,45 @@ export default function VoiceOrderingSection() {
     return t('status_ready');
   }, [status, hasMicSupport, t]);
 
+  const startMeters = () => {
+    const analyser = analyserRef.current;
+    if (!analyser) return;
+    const dataArray = new Uint8Array(analyser.fftSize);
+    const tick = () => {
+      analyser.getByteTimeDomainData(dataArray);
+      // Rough volume approximation
+      const norm = dataArray.reduce((sum, v) => sum + Math.abs(v - 128), 0) / dataArray.length;
+      setVolume(Math.min(1, norm / 50));
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    tick();
+  };
+
   const startRecording = async () => {
     if (!hasMicSupport || status !== 'idle') return;
     setError(null);
     try {
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm')
+        ? 'audio/webm'
+        : MediaRecorder.isTypeSupported('audio/mp4')
+          ? 'audio/mp4'
+          : '';
+      if (!mimeType) {
+        setError(t('error_no_format'));
+        return;
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
-      const recorder = new MediaRecorder(stream);
+      const audioCtx = new AudioContext();
+      const source = audioCtx.createMediaStreamSource(stream);
+      const analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      source.connect(analyser);
+      analyserRef.current = analyser;
+      audioCtxRef.current = audioCtx;
+
+      const recorder = new MediaRecorder(stream, { mimeType });
       chunksRef.current = [];
 
       recorder.ondataavailable = (event) => {
@@ -76,16 +121,43 @@ export default function VoiceOrderingSection() {
         const blob = new Blob(chunksRef.current, { type: recorder.mimeType });
         stream.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        analyserRef.current?.disconnect();
+        audioCtxRef.current?.close().catch(() => {});
+        analyserRef.current = null;
+        audioCtxRef.current = null;
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+        }
+        lastBlobRef.current = blob;
+        setElapsedMs(0);
+        setVolume(0);
         void sendToApi(blob);
       };
 
       mediaRecorderRef.current = recorder;
       recorder.start();
       setStatus('recording');
+      setElapsedMs(0);
+      startMeters();
+      timerRef.current = setInterval(() => {
+        setElapsedMs((ms) => {
+          const next = ms + 200;
+          if (next >= MAX_DURATION_MS) {
+            stopRecording();
+          }
+          return next;
+        });
+      }, 200);
     } catch (err) {
       const message =
         err instanceof Error ? err.message : t('error_generic');
-      setError(message || t('error_generic'));
+      if (message.toLowerCase().includes('denied') || message.toLowerCase().includes('permission')) {
+        setError(t('error_permission'));
+      } else {
+        setError(message || t('error_generic'));
+      }
       setStatus('idle');
     }
   };
@@ -111,6 +183,9 @@ export default function VoiceOrderingSection() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
+        if (res.status === 413) {
+          throw new Error(t('error_too_large'));
+        }
         throw new Error(data?.error || `Request failed (${res.status})`);
       }
 
@@ -139,6 +214,16 @@ export default function VoiceOrderingSection() {
     }
   };
 
+  const retryLast = () => {
+    if (status !== 'idle') return;
+    const blob = lastBlobRef.current;
+    if (!blob) {
+      setError(t('error_no_previous'));
+      return;
+    }
+    sendToApi(blob);
+  };
+
   const playAudio = () => {
     if (!audioUrl) return;
     const audio = new Audio(audioUrl);
@@ -151,6 +236,8 @@ export default function VoiceOrderingSection() {
     setHistory([]);
     setTranscript('');
     setReply('');
+    setElapsedMs(0);
+    setVolume(0);
     if (audioUrl) URL.revokeObjectURL(audioUrl);
     setAudioUrl(null);
     setError(null);
@@ -232,6 +319,27 @@ export default function VoiceOrderingSection() {
               <RotateCcw className="mr-2 size-4" />
               {t('reset')}
             </Button>
+            <Button
+              variant="ghost"
+              onClick={retryLast}
+              disabled={status !== 'idle'}
+            >
+              <RefreshCw className="mr-2 size-4" />
+              {t('retry')}
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <div className="relative h-2 w-20 rounded-full bg-muted">
+                <div
+                  className="absolute left-0 top-0 h-2 rounded-full bg-primary transition-all"
+                  style={{ width: `${Math.min(100, Math.max(5, volume * 100))}%` }}
+                />
+              </div>
+              <span>{Math.floor(elapsedMs / 1000)}s</span>
+            </div>
+            <span className="text-xs">{t('hint_timeout')}</span>
           </div>
 
           {!hasMicSupport && (
@@ -278,6 +386,34 @@ export default function VoiceOrderingSection() {
                 />
               )}
             </div>
+          </div>
+
+          <div className="rounded-lg border bg-white/70 p-4 shadow-sm">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <Mic className="size-4 text-primary" />
+              {t('history_label')}
+            </div>
+            {history.length > 0 ? (
+              <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
+                {history.slice(-DISPLAY_HISTORY).map((msg, idx) => (
+                  <li key={`${msg.role}-${idx}`} className="flex gap-2">
+                    <span className="font-semibold text-primary">
+                      {msg.role === 'user' ? t('history_user') : t('history_agent')}:
+                    </span>
+                    <span className="line-clamp-2">{msg.content}</span>
+                  </li>
+                ))}
+                {history.length > DISPLAY_HISTORY && (
+                  <li className="text-xs text-muted-foreground">
+                    {t('history_truncated')}
+                  </li>
+                )}
+              </ul>
+            ) : (
+              <p className="mt-2 text-sm text-muted-foreground">
+                {t('history_empty')}
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>
