@@ -111,6 +111,28 @@ const parseJSON = (value: string | null | undefined) => {
   }
 };
 
+const sanitizeHistory = (
+  input: unknown,
+  limit = 10
+): ChatCompletionMessageParam[] => {
+  if (!Array.isArray(input)) return [];
+  const cleaned = input
+    .map((item) => {
+      if (!item || typeof item !== 'object') return null;
+      const role = (item as { role?: unknown }).role;
+      const content = (item as { content?: unknown }).content;
+      if (
+        (role === 'user' || role === 'assistant') &&
+        typeof content === 'string'
+      ) {
+        return { role, content };
+      }
+      return null;
+    })
+    .filter(Boolean) as ChatCompletionMessageParam[];
+  return cleaned.slice(-limit);
+};
+
 async function runAgent({
   text,
   history,
@@ -245,7 +267,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const history = Array.isArray(historyInput) ? (historyInput as HistoryMessage[]) : [];
+    const history = sanitizeHistory(historyInput);
     const replyText = await runAgent({ text: userText, history, client });
 
     // Text-to-speech

@@ -21,6 +21,7 @@ type ChatMessage = { role: 'user' | 'assistant'; content: string };
 type Status = 'idle' | 'recording' | 'processing';
 
 export default function VoiceOrderingSection() {
+  const HISTORY_LIMIT = 8;
   const t = useTranslations('voice');
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -99,8 +100,9 @@ export default function VoiceOrderingSection() {
     setStatus('processing');
     try {
       const form = new FormData();
+      const safeHistory = history.slice(-HISTORY_LIMIT);
       form.append('audio', blob, 'voice.webm');
-      form.append('history', JSON.stringify(history));
+      form.append('history', JSON.stringify(safeHistory));
 
       const res = await fetch('/api/voice', {
         method: 'POST',
@@ -124,7 +126,7 @@ export default function VoiceOrderingSection() {
         setAudioUrl(null);
       }
       setHistory((prev) => [
-        ...prev,
+        ...prev.slice(-(HISTORY_LIMIT - 2)),
         { role: 'user', content: heard || '' },
         { role: 'assistant', content: replyText || '' },
       ]);
