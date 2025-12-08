@@ -36,6 +36,11 @@ type QuizResult = {
   };
 };
 
+type ErrorResponse = {
+  error: string;
+  retryAfter?: number;
+};
+
 export default function PersonalityQuizPage() {
   const questions = useMemo(() => QUIZ_QUESTIONS, []);
   const [started, setStarted] = useState(false);
@@ -112,18 +117,19 @@ export default function PersonalityQuizPage() {
         },
         body: JSON.stringify(payload),
       });
-      const data: QuizResult = await res.json();
+      
       if (!res.ok) {
+        const errorData = await res.json().catch(() => ({})) as ErrorResponse;
         if (res.status === 429) {
-          const retryMinutes = Math.ceil((data.retryAfter || 3600) / 60);
+          const retryMinutes = Math.ceil((errorData.retryAfter || 3600) / 60);
           throw new Error(
             `You've reached the maximum number of quiz attempts. Please try again in ${retryMinutes} minutes.`
           );
         }
-        throw new Error(
-          'error' in data ? String(data.error) : 'Request failed'
-        );
+        throw new Error(errorData.error || 'Request failed');
       }
+      
+      const data: QuizResult = await res.json();
       setResult(data);
 
       // Generate server-side image
