@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createCanvas, loadImage, registerFont } from 'canvas';
 import type { CanvasRenderingContext2D as NodeCanvasContext } from 'canvas';
 import path from 'path';
+import {
+  checkRateLimit,
+  getSessionId,
+  createRateLimitResponse,
+  addRateLimitHeaders,
+  RATE_LIMITS,
+} from '@/lib/rateLimit';
 
 // Register fonts at module initialization (runs once when module is loaded)
 registerFont(path.join(process.cwd(), 'public/fonts/Roboto-Regular.ttf'), { family: 'Roboto', weight: 'normal' });
@@ -129,6 +136,14 @@ function getDrinkGradient(drinkName: string): { colors: string[], hasBoba: boole
 
 export async function POST(req: NextRequest) {
   try {
+    // Check rate limit
+    const sessionId = getSessionId(req);
+    const rateLimitResult = checkRateLimit(sessionId, RATE_LIMITS.QUIZ_IMAGE);
+    
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult);
+    }
+
     const body = await req.json();
     const { drinkName, personalityAnalysis, drinkMatch, vibes } = body;
 
@@ -514,13 +529,16 @@ export async function POST(req: NextRequest) {
     // Convert to buffer
     const buffer = canvas.toBuffer('image/png');
 
-    return new NextResponse(new Uint8Array(buffer), {
+    const response = new NextResponse(new Uint8Array(buffer), {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
         'Cache-Control': 'public, max-age=31536000, immutable',
       },
     });
+
+    // Add rate limit headers to successful response
+    return addRateLimitHeaders(response, rateLimitResult);
   } catch (error) {
     console.error('Image generation error:', error);
     return NextResponse.json(
