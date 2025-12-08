@@ -71,6 +71,11 @@ export default function VoiceOrderingSection() {
       typeof MediaRecorder !== 'undefined' &&
       !!navigator.mediaDevices?.getUserMedia;
     setHasMicSupport(supported);
+
+    // Generate session ID for rate limiting
+    if (typeof window !== 'undefined' && !localStorage.getItem('ai-feature-session-id')) {
+      localStorage.setItem('ai-feature-session-id', crypto.randomUUID());
+    }
   }, []);
 
   useEffect(() => {
@@ -200,12 +205,21 @@ export default function VoiceOrderingSection() {
       const res = await fetch('/api/voice', {
         method: 'POST',
         body: form,
+        headers: {
+          'x-session-id': localStorage.getItem('ai-feature-session-id') || '',
+        },
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         if (res.status === 413) {
           throw new Error(t('error_too_large'));
+        }
+        if (res.status === 429) {
+          const retryMinutes = Math.ceil((data?.retryAfter || 3600) / 60);
+          throw new Error(
+            `You've reached the maximum number of voice requests. Please try again in ${retryMinutes} minutes.`
+          );
         }
         throw new Error(data?.error || `Request failed (${res.status})`);
       }

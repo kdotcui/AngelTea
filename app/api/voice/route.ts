@@ -12,6 +12,13 @@ import {
   placeOrder,
   type OrderItemInput,
 } from '@/lib/voice/menu';
+import {
+  checkRateLimit,
+  getSessionId,
+  createRateLimitResponse,
+  addRateLimitHeaders,
+  RATE_LIMITS,
+} from '@/lib/rateLimit';
 
 export const runtime = 'nodejs';
 
@@ -222,6 +229,14 @@ async function runAgent({
 
 export async function POST(req: Request) {
   try {
+    // Check rate limit
+    const sessionId = getSessionId(req);
+    const rateLimitResult = checkRateLimit(sessionId, RATE_LIMITS.VOICE);
+    
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult);
+    }
+
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
@@ -290,12 +305,15 @@ export async function POST(req: Request) {
     const audioBuffer = Buffer.from(await speech.arrayBuffer());
     const audioBase64 = audioBuffer.toString('base64');
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       transcript: userText,
       replyText,
       audio: audioBase64,
       ...(order ? { order } : {}),
     });
+
+    // Add rate limit headers to successful response
+    return addRateLimitHeaders(response, rateLimitResult);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unexpected error';
     return NextResponse.json({ error: message }, { status: 500 });

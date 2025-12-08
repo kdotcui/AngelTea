@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 import drinksData from '@/app/api/drinks.json';
+import {
+  checkRateLimit,
+  getSessionId,
+  createRateLimitResponse,
+  addRateLimitHeaders,
+  RATE_LIMITS,
+} from '@/lib/rateLimit';
 
 type QuizAnswer = {
   situation: string;
@@ -53,6 +60,14 @@ type MenuItem = {
 
 export async function POST(req: Request) {
   try {
+    // Check rate limit
+    const sessionId = getSessionId(req);
+    const rateLimitResult = checkRateLimit(sessionId, RATE_LIMITS.PERSONALITY_QUIZ_AI);
+    
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult);
+    }
+
     const body = await req.json();
     const answers: QuizAnswer[] = Array.isArray(body?.answers)
       ? body.answers
@@ -184,11 +199,14 @@ TASK:
       parsed = { raw: content };
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       drinkPersonality: parsed?.drinkPersonality ?? null,
       recommendations: parsed?.recommendations ?? [],
       usage: completion.usage,
     });
+
+    // Add rate limit headers to successful response
+    return addRateLimitHeaders(response, rateLimitResult);
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : 'Bad Request';
     return NextResponse.json({ error: errorMessage }, { status: 400 });

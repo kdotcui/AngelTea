@@ -91,6 +91,11 @@ export default function PersonalityQuizPage() {
     setLoading(true);
     setError(null);
     try {
+      // Ensure session ID exists
+      if (typeof window !== 'undefined' && !localStorage.getItem('ai-feature-session-id')) {
+        localStorage.setItem('ai-feature-session-id', crypto.randomUUID());
+      }
+
       const payload = {
         answers: questions.map((q, i) => ({
           situation: q.situation,
@@ -101,14 +106,24 @@ export default function PersonalityQuizPage() {
       };
       const res = await fetch('/api/personality-quiz/ai', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-session-id': localStorage.getItem('ai-feature-session-id') || '',
+        },
         body: JSON.stringify(payload),
       });
       const data: QuizResult = await res.json();
-      if (!res.ok)
+      if (!res.ok) {
+        if (res.status === 429) {
+          const retryMinutes = Math.ceil((data.retryAfter || 3600) / 60);
+          throw new Error(
+            `You've reached the maximum number of quiz attempts. Please try again in ${retryMinutes} minutes.`
+          );
+        }
         throw new Error(
           'error' in data ? String(data.error) : 'Request failed'
         );
+      }
       setResult(data);
 
       // Generate server-side image
@@ -117,7 +132,10 @@ export default function PersonalityQuizPage() {
         try {
           const imageRes = await fetch('/api/personality-quiz/generate-image', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-session-id': localStorage.getItem('ai-feature-session-id') || '',
+            },
             body: JSON.stringify({
               drinkName: data.drinkPersonality.drinkName,
               personalityAnalysis: data.drinkPersonality.personalityAnalysis,
@@ -130,6 +148,9 @@ export default function PersonalityQuizPage() {
             const blob = await imageRes.blob();
             const url = URL.createObjectURL(blob);
             setGeneratedImageUrl(url);
+          } else if (imageRes.status === 429) {
+            console.warn('Image generation rate limit reached');
+            // Image generation failed due to rate limit, but quiz results still work
           }
         } finally {
           setImageLoading(false);

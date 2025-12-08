@@ -1,8 +1,22 @@
 import OpenAI from 'openai';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
+import {
+  checkRateLimit,
+  getSessionId,
+  createRateLimitResponse,
+  addRateLimitHeaders,
+  RATE_LIMITS,
+} from '@/lib/rateLimit';
 
 export async function POST(request: Request) {
   try {
+    // Check rate limit
+    const sessionId = getSessionId(request);
+    const rateLimitResult = checkRateLimit(sessionId, RATE_LIMITS.CHAT);
+    
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult);
+    }
     const body = await request.json().catch(() => ({}));
     const {
       messages,
@@ -45,7 +59,7 @@ export async function POST(request: Request) {
     });
 
     const choice = completion.choices?.[0]?.message;
-    return Response.json(
+    const response = Response.json(
       {
         message: choice,
         usage: completion.usage,
@@ -55,6 +69,9 @@ export async function POST(request: Request) {
       },
       { status: 200 }
     );
+
+    // Add rate limit headers to successful response
+    return addRateLimitHeaders(response, rateLimitResult);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unexpected error';
     return Response.json({ error: message }, { status: 500 });
