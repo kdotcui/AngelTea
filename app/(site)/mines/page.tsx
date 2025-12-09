@@ -14,6 +14,7 @@ import { authenticateUser, getSession, saveSession } from '@/services/auth';
 import { GameSession } from '@/types/auth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { trackPageView } from '@/lib/analytics';
 
 export default function MinesPage() {
   const minesCount = 5; // Fixed at 5 mines
@@ -31,6 +32,7 @@ export default function MinesPage() {
     } else {
       setIsLoading(false);
     }
+    trackPageView('/mines', 'Mines Game');
   }, []);
 
   // Load game state from Firestore

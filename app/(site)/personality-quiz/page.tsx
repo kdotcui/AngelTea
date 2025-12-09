@@ -3,6 +3,7 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { QUIZ_QUESTIONS } from '@/lib/quiz/questions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { trackPageView, trackEvent } from '@/lib/analytics';
 
 type DrinkPersonality = {
   drinkName: string;
@@ -59,11 +60,17 @@ export default function PersonalityQuizPage() {
     null
   );
   const [imageLoading, setImageLoading] = useState(false);
+  const quizStartTimeRef = useRef<number | null>(null);
 
   const totalSteps = questions.length + 1; // questions + preferences
   const isPreferencesStep = currentStep === questions.length;
   const canGoNext = isPreferencesStep || answers[currentStep] !== -1;
   const canGoPrev = currentStep > 0 && !loading;
+
+  // Track page view on mount
+  useEffect(() => {
+    trackPageView('/personality-quiz', 'Personality Quiz');
+  }, []);
 
   // Scroll to top when results are shown
   useEffect(() => {
@@ -74,6 +81,13 @@ export default function PersonalityQuizPage() {
 
   const handleAnswer = (value: number) => {
     setAnswers((prev) => prev.map((v, i) => (i === currentStep ? value : v)));
+    
+    // Track answer selection
+    trackEvent('quiz_answer', {
+      question_index: currentStep,
+      answer_index: value,
+      total_questions: questions.length,
+    });
   };
 
   const handleNext = () => {
@@ -132,6 +146,16 @@ export default function PersonalityQuizPage() {
       const data: QuizResult = await res.json();
       setResult(data);
 
+      // Track quiz completion
+      const completionTime = quizStartTimeRef.current 
+        ? Math.round((Date.now() - quizStartTimeRef.current) / 1000) 
+        : 0;
+      trackEvent('quiz_complete', {
+        drink_match: data.drinkPersonality?.drinkName || '',
+        completion_time_seconds: completionTime,
+        total_questions: questions.length,
+      });
+
       // Generate server-side image
       if (data.drinkPersonality) {
         setImageLoading(true);
@@ -154,6 +178,11 @@ export default function PersonalityQuizPage() {
             const blob = await imageRes.blob();
             const url = URL.createObjectURL(blob);
             setGeneratedImageUrl(url);
+            
+            // Track image generation
+            trackEvent('quiz_image_generated', {
+              drink_match: data.drinkPersonality?.drinkName || '',
+            });
           } else if (imageRes.status === 429) {
             console.warn('Image generation rate limit reached');
             // Image generation failed due to rate limit, but quiz results still work
@@ -173,6 +202,11 @@ export default function PersonalityQuizPage() {
     if (!generatedImageUrl || !result) return;
 
     try {
+      // Track download
+      trackEvent('quiz_download', {
+        drink_match: result.drinkPersonality.drinkName,
+      });
+
       const link = document.createElement('a');
       link.download = `angel-tea-${result.drinkPersonality.drinkName
         .replace(/\s+/g, '-')
@@ -191,6 +225,12 @@ export default function PersonalityQuizPage() {
     if (!result || !generatedImageUrl) return;
 
     try {
+      // Track share attempt
+      trackEvent('quiz_share', {
+        drink_match: result.drinkPersonality.drinkName,
+        share_method: 'web_share_api',
+      });
+
       // Fetch the blob from the generated image URL
       const response = await fetch(generatedImageUrl);
       const blob = await response.blob();
@@ -275,7 +315,13 @@ export default function PersonalityQuizPage() {
             </div>
 
             <Button
-              onClick={() => setStarted(true)}
+              onClick={() => {
+                setStarted(true);
+                quizStartTimeRef.current = Date.now();
+                trackEvent('quiz_start', {
+                  total_questions: questions.length,
+                });
+              }}
               size="lg"
               className="w-full h-14 text-lg font-semibold"
             >
@@ -829,6 +875,7 @@ export default function PersonalityQuizPage() {
                 setStarted(false);
                 setCurrentStep(0);
                 setAnswers(Array.from({ length: questions.length }, () => -1));
+                quizStartTimeRef.current = null;
               }}
               variant="ghost"
               className="w-full h-12 font-semibold"

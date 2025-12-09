@@ -6,6 +6,7 @@ import ItemPreviewCard from './ItemPreviewCard';
 import ItemPreviewModal from './ItemPreviewModal';
 import Image from 'next/image';
 import CartHeader from '@/components/CartHeader';
+import { trackPageView } from '@/lib/analytics';
 
 export default function ShopPage() {
   const [items, setItems] = useState<ShopItem[]>([]);
@@ -25,6 +26,7 @@ export default function ShopPage() {
     }
 
     fetchShopItems();
+    trackPageView('/shop', 'Shop');
   }, []);
 
   if (loading) {

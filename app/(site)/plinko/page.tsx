@@ -16,6 +16,7 @@ import { GameSession, UserPrizeEntry } from '@/types/auth';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { trackPageView } from '@/lib/analytics';
 
 export default function PlinkoPage() {
   const t = useTranslations('plinko');
@@ -57,6 +58,7 @@ export default function PlinkoPage() {
     } else {
       setIsLoading(false);
     }
+    trackPageView('/plinko', 'Plinko Game');
   }, [loadGameState]);
 
   // Handle authentication

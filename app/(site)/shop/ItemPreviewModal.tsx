@@ -13,8 +13,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Label } from '@/components/ui/label';
+import { trackEvent } from '@/lib/analytics';
 
 interface ItemPreviewModalProps {
   item: ShopItem;
@@ -65,6 +66,17 @@ export default function ItemPreviewModal({ item, onClose, open }: ItemPreviewMod
   // Check if user needs to select variant options
   const needsVariantSelection = item.variants && item.variants.length > 0;
   const hasValidSelectedVariant = !needsVariantSelection || !!selectedVariant;
+
+  // Track item view when modal opens
+  useEffect(() => {
+    if (open) {
+      trackEvent('shop_item_view', {
+        item_id: item.id,
+        item_name: item.name,
+        item_price: currentPrice,
+      });
+    }
+  }, [open, item.id, item.name, currentPrice]);
 
   const handleAddToCart = () => {
     if (needsVariantSelection && !hasValidSelectedVariant) return;
