@@ -5,6 +5,7 @@ import { PlinkoPhysics } from '@/lib/plinko/physics';
 import { PRIZES } from '@/lib/plinko/prizes';
 import { Prize } from '@/types/plinko';
 import { soundManager } from '@/lib/plinko/sounds';
+import { trackEvent } from '@/lib/analytics';
 
 interface PlinkoGameProps {
   onPrizeWon: (prize: Prize) => void;
@@ -206,6 +207,14 @@ export function PlinkoGame({ onPrizeWon, canPlay }: PlinkoGameProps) {
       const bucketIndex = engine.getBucketIndex(PRIZES.length);
       const prize = PRIZES[Math.min(Math.max(0, bucketIndex), PRIZES.length - 1)];
       
+      // Track prize won
+      trackEvent('prize_won', {
+        prize_type: prize.type,
+        prize_label: prize.label,
+        bucket_index: bucketIndex,
+        is_win: prize.type !== 'better_luck',
+      });
+      
       setTimeout(() => {
         setIsDropping(false);
         engine.reset();
@@ -229,6 +238,11 @@ export function PlinkoGame({ onPrizeWon, canPlay }: PlinkoGameProps) {
 
     // Drop ball from center
     const centerX = canvas.width / 2;
+
+    // Track ball drop
+    trackEvent('ball_drop', {
+      bucket_count: PRIZES.length,
+    });
 
     // Play drop sound
     soundManager.playDrop();

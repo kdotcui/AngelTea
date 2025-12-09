@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Tile, MinesGameState, MinesPrize, TileState } from '@/types/mines';
 import { calculateMultiplier, getPrizeForMultiplier } from '@/lib/mines/prizes';
 import { Button } from '@/components/ui/button';
+import { trackEvent } from '@/lib/analytics';
 
 interface MinesGameProps {
   minesCount: number;
@@ -50,6 +51,12 @@ export function MinesGame({ minesCount, onGameEnd, canPlay }: MinesGameProps) {
       currentMultiplier: 1.0,
       prize: null,
     });
+
+    // Track game start
+    trackEvent('game_start', {
+      mines_count: minesCount,
+      total_tiles: totalTiles,
+    });
   };
 
   // Handle tile click
@@ -79,6 +86,22 @@ export function MinesGame({ minesCount, onGameEnd, canPlay }: MinesGameProps) {
         gameStatus: 'lost',
       });
 
+      // Track tile reveal (mine hit)
+      trackEvent('tile_reveal', {
+        tile_position: tileId,
+        is_mine: true,
+        multiplier: gameState.currentMultiplier,
+        revealed_count: gameState.revealedCount,
+      });
+
+      // Track game end (loss)
+      trackEvent('game_end', {
+        won: false,
+        final_multiplier: gameState.currentMultiplier,
+        revealed_count: gameState.revealedCount,
+        mines_count: minesCount,
+      });
+
       onGameEnd(false, null, gameState.currentMultiplier);
     } else {
       // Safe tile
@@ -94,10 +117,29 @@ export function MinesGame({ minesCount, onGameEnd, canPlay }: MinesGameProps) {
         prize: newPrize,
       });
 
+      // Track tile reveal (safe)
+      trackEvent('tile_reveal', {
+        tile_position: tileId,
+        is_mine: false,
+        multiplier: newMultiplier,
+        revealed_count: newRevealedCount,
+      });
+
       // Check if won (all safe tiles revealed)
       const safeTilesCount = 25 - minesCount;
       if (newRevealedCount === safeTilesCount) {
         setGameState(prev => ({ ...prev, gameStatus: 'won' }));
+        
+        // Track game end (win)
+        trackEvent('game_end', {
+          won: true,
+          final_multiplier: newMultiplier,
+          revealed_count: newRevealedCount,
+          mines_count: minesCount,
+          prize_id: newPrize?.id || '',
+          prize_label: newPrize?.label || '',
+        });
+
         onGameEnd(true, newPrize, newMultiplier);
       }
     }
@@ -106,6 +148,25 @@ export function MinesGame({ minesCount, onGameEnd, canPlay }: MinesGameProps) {
   // Cash out
   const handleCashOut = () => {
     if (gameState.gameStatus !== 'playing' || gameState.revealedCount === 0) return;
+
+    // Track cash out
+    trackEvent('cash_out', {
+      multiplier: gameState.currentMultiplier,
+      revealed_count: gameState.revealedCount,
+      prize_id: gameState.prize?.id || '',
+      prize_label: gameState.prize?.label || '',
+    });
+
+    // Track game end (win via cash out)
+    trackEvent('game_end', {
+      won: true,
+      final_multiplier: gameState.currentMultiplier,
+      revealed_count: gameState.revealedCount,
+      mines_count: minesCount,
+      prize_id: gameState.prize?.id || '',
+      prize_label: gameState.prize?.label || '',
+      cashed_out: true,
+    });
 
     setGameState({
       ...gameState,

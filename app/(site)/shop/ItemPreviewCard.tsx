@@ -1,5 +1,6 @@
 import { ShopItem } from '@/types/shop';
 import Image from 'next/image';
+import { trackEvent } from '@/lib/analytics';
 
 interface ItemPreviewProps {
   product: ShopItem;
@@ -11,10 +12,22 @@ export default function ItemPreviewCard({ product, onClick }: ItemPreviewProps) 
     ? (product.review_score / product.total_reviews).toFixed(1) 
     : '0.0';
   
+  const handleClick = () => {
+    // Track item click
+    trackEvent('shop_item_click', {
+      item_id: product.id,
+      item_name: product.name,
+    });
+    
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={handleClick}
       className="text-left bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-green-600"
     >
       <div className="h-48 overflow-hidden">
