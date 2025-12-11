@@ -163,52 +163,58 @@ def _calc_total(items: list):
 TOOLS = [
     {
         "type": "function",
-        "name": "get_menu",
-        "description": "Return menu items; optionally filter by a query (name/category). Topsellers first.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "query": {"type":"string", "description":"Filter by keyword (optional)."}
-            }
-        }
-    },
-    {
-        "type": "function",
-        "name": "get_price",
-        "description": "Return price for a specific drink and optional size.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "name": {"type":"string", "description":"Drink name (e.g., Brown Sugar Milk Tea)."},
-                "size": {"type":"string", "description":"small|medium|large (optional)"}
-            },
-            "required": ["name"]
-        }
-    },
-    {
-        "type": "function",
-        "name": "place_order",
-        "description": "Place a simple order. Returns normalized items, unit prices, line totals, and grand total.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "type":"object",
-                        "properties": {
-                            "name":{"type":"string"},
-                            "size":{"type":"string", "description":"small|medium|large"},
-                            "qty":{"type":"integer"},
-                            "sugar":{"type":"string", "description":"0%|25%|50%|75%|100%"},
-                            "ice":{"type":"string", "description":"no/less/regular/extra ice"}
-                        },
-                        "required": ["name"]
-                    }
+        "function": {
+            "name": "get_menu",
+            "description": "Return menu items; optionally filter by a query (name/category). Topsellers first.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "Filter by keyword (optional)."}
                 }
             },
-            "required": ["items"]
-        }
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_price",
+            "description": "Return price for a specific drink and optional size.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "description": "Drink name (e.g., Brown Sugar Milk Tea)."},
+                    "size": {"type": "string", "description": "small|medium|large (optional)"}
+                },
+                "required": ["name"]
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "place_order",
+            "description": "Place a simple order. Returns normalized items, unit prices, line totals, and grand total.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {"type": "string"},
+                                "size": {"type": "string", "description": "small|medium|large"},
+                                "qty": {"type": "integer"},
+                                "sugar": {"type": "string", "description": "0%|25%|50%|75%|100%"},
+                                "ice": {"type": "string", "description": "no/less/regular/extra ice"}
+                            },
+                            "required": ["name"]
+                        }
+                    }
+                },
+                "required": ["items"]
+            },
+        },
     }
 ]
 
@@ -252,70 +258,73 @@ def transcribe():
 
 def agent_reply(user_text: str) -> str:
     """
-    One-shot agent pass with function calling. Supports a small chain:
-    - model may request multiple tool calls; we execute then feed back.
-    - we cap at 3 tool rounds for safety.
+    Agent with function calling using chat.completions (more stable than responses).
+    Supports up to 3 tool rounds.
     """
     messages = [
-        {"role":"system","content": SYSTEM_PROMPT},
-        {"role":"user","content": user_text}
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": user_text},
     ]
-
-    # First request (allow tools)
-    resp = client.responses.create(
-        model="gpt-4.1-mini",
-        input=messages,
-        tools=TOOLS
-    )
-
-    # Process up to 3 tool rounds
     tool_rounds = 0
+
     while True:
-        tool_calls = []
-        final_text_chunks = []
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages,
+            tools=TOOLS,
+            tool_choice="auto",
+        )
+        msg = resp.choices[0].message
+        tool_calls = msg.tool_calls or []
 
-        for out in resp.output:
-            if out.type == "tool_call":
-                tool_calls.append(out)
-            elif out.type == "message":
-                for c in out.content:
-                    if c.type == "output_text":
-                        final_text_chunks.append(c.text)
-
-        if tool_calls and tool_rounds < 3:
-            # Execute tools and feed back tool_result blocks
-            tool_results_blocks = []
-            for tc in tool_calls:
-                name = tc.name
-                args = dict(tc.parameters or {})
-                result = {"error": f"unknown tool: {name}"}
-                try:
-                    if name == "get_menu":
-                        result = tool_get_menu(**args)
-                    elif name == "get_price":
-                        result = tool_get_price(**args)
-                    elif name == "place_order":
-                        result = tool_place_order(**args)
-                except Exception as e:
-                    result = {"error": str(e)}
-
-                tool_results_blocks.append({
-                    "type": "tool_result",
-                    "tool_call_id": tc.id,
-                    "content": [{"type":"output_text","text": json.dumps(result)}]
-                })
-
-            # Next pass: include original messages + tool results
-            resp = client.responses.create(
-                model="gpt-4.1-mini",
-                input=[*messages, *tool_results_blocks]
-            )
+        if tool_calls:
             tool_rounds += 1
-            # continue loop to see if model wants more tools
+            if tool_rounds > 3:
+                return "I didn't catch that—could you please repeat your question?"
+
+            # Record assistant tool calls
+            messages.append({
+                "role": "assistant",
+                "content": msg.content or "",
+                "tool_calls": [
+                    {
+                        "id": tc.id,
+                        "type": tc.type,
+                        "function": {
+                            "name": tc.function.name,
+                            "arguments": tc.function.arguments,
+                        },
+                    }
+                    for tc in tool_calls
+                ],
+            })
+
+            # Execute tools and feed results back
+            for tc in tool_calls:
+                try:
+                    args = json.loads(tc.function.arguments or "{}")
+                except json.JSONDecodeError:
+                    result = {"error": "invalid arguments"}
+                else:
+                    result = {"error": f"unknown tool: {tc.function.name}"}
+                    try:
+                        if tc.function.name == "get_menu":
+                            result = tool_get_menu(**args)
+                        elif tc.function.name == "get_price":
+                            result = tool_get_price(**args)
+                        elif tc.function.name == "place_order":
+                            result = tool_place_order(**args)
+                    except Exception as e:
+                        result = {"error": str(e)}
+
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc.id,
+                    "content": json.dumps(result),
+                })
             continue
 
-        # No tool calls: return final text (fallback if empty)
-        final_text = "".join(final_text_chunks).strip() if final_text_chunks else ""
+        final_text = (msg.content or "").strip()
         if not final_text:
             final_text = "I didn't catch that—could you please repeat your question?"
         return final_text
